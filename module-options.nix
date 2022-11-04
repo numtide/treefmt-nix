@@ -95,17 +95,21 @@ in
     configFile = configFormat.generate "treefmt.toml" config.settings;
 
     wrapper = pkgs.writeShellScriptBin "treefmt" ''
-      find_up() (
+      find_up() {
         ancestors=()
-        while [[ ! -f "$1" ]]; do
+        while true; do
+          if [[ -f $1 ]]; then
+            echo "$PWD/$1"
+            exit 0
+          fi
           ancestors+=("$PWD")
-          if [[ $PWD == / ]]; then
+          if [[ $PWD == / ]] || [[ $PWD == // ]]; then
             echo "ERROR: Unable to locate the projectRootFile ($1) in any of: ''${ancestors[*]@Q}" >&2
             exit 1
           fi
           cd ..
         done
-      )
+      }
       tree_root=$(find_up "${config.projectRootFile}")
       exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
     '';

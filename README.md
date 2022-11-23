@@ -42,6 +42,7 @@ treefmt-nix.mkWrapper nixpkgs {
 * rustfmt
 * shellcheck
 * shfmt
+* stylua
 * terraform
 <!-- END mdsh -->
 

@@ -31,20 +31,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1669535121,
-        "narHash": "sha256-koZLM7oWVGrjyHnYDo7/w5qlmUn9UZUKSFNfmIjueE8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b45ec953794bb07922f0468152ad1ebaf8a084b3",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -53,12 +39,9 @@
       }
     },
     "treefmt-nix": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2"
-      },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-bHDqmlQbLfyNAMsqyBC5Wk9/FlbsO9U8wD2kRA6WuKk=",
+        "narHash": "sha256-Ua6PvhcPMl4u4xCm57tYKmRzktLxgwLA9aoLJm7Z2Dw=",
         "path": "..",
         "type": "path"
       },

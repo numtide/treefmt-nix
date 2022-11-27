@@ -2,60 +2,46 @@
   "nodes": {
     "flake-utils": {
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
         "type": "github"
       },
       "original": {
-        "id": "flake-utils",
-        "type": "indirect"
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1663879234,
-        "narHash": "sha256-zCe2EVY+Jt3I7gBgMSkuGesZ57vyt/WwIUwshiwDErk=",
+        "lastModified": 1669535121,
+        "narHash": "sha256-koZLM7oWVGrjyHnYDo7/w5qlmUn9UZUKSFNfmIjueE8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a8a557e233c30b60225fa5af41cc56f8409e4afb",
+        "rev": "b45ec953794bb07922f0468152ad1ebaf8a084b3",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1663879234,
-        "narHash": "sha256-zCe2EVY+Jt3I7gBgMSkuGesZ57vyt/WwIUwshiwDErk=",
         "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
-        "rev": "a8a557e233c30b60225fa5af41cc56f8409e4afb",
         "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
       }
     },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "treefmt-config": "treefmt-config"
+        "treefmt-nix": "treefmt-nix"
       }
     },
-    "treefmt-config": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2"
-      },
+    "treefmt-nix": {
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-N9Gj1JvjQ5w9j3mSbsnsyCw/hhbyVaiF4xUi62voDXE=",
+        "narHash": "sha256-Ua6PvhcPMl4u4xCm57tYKmRzktLxgwLA9aoLJm7Z2Dw=",
         "path": "..",
         "type": "path"
       },

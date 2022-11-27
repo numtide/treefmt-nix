@@ -3,6 +3,8 @@
 
   inputs = {
     treefmt-nix.url = "path:..";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, flake-utils, treefmt-nix }@inputs:

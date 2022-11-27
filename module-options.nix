@@ -99,7 +99,7 @@ in
         ancestors=()
         while true; do
           if [[ -f $1 ]]; then
-            echo "$PWD/$1"
+            echo "$PWD"
             exit 0
           fi
           ancestors+=("$PWD")

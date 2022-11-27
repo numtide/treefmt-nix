@@ -13,7 +13,7 @@ files:
 
 ```nix
 { nixpkgs, treefmt-nix, ... }:
-treefmt-nix.mkWrapper nixpkgs {
+treefmt-nix.lib.mkWrapper nixpkgs {
   # Used to find the project root
   projectRootFile = ".git/config";
   # Enable the terraform formatter

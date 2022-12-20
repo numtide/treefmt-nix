@@ -12,7 +12,7 @@ in
         Rust edition to target when formatting
       '';
     };
-    package = lib.mkPackageOption pkgs "rustc" { };
+    package = lib.mkPackageOption pkgs "rustfmt" { };
   };
 
   config = lib.mkIf cfg.enable {

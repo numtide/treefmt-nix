@@ -1,4 +1,3 @@
-{ treefmtLib }:
 { self, lib, flake-parts-lib, ... }:
 let
   inherit (flake-parts-lib)
@@ -8,7 +7,6 @@ let
     types;
 in
 {
-  _file = __curPos.file;
   options = {
     perSystem = mkPerSystemOption
       ({ config, self', inputs', pkgs, system, ... }: {
@@ -26,7 +24,7 @@ in
                 type = types.raw; # TODO: module type?
                 description = "Evaluated module of treefmt-nix";
                 default =
-                  treefmtLib.evalModule pkgs config.treefmt.config;
+                  (import ./.).evalModule pkgs config.treefmt.config;
               };
               programs = mkOption {
                 type = types.attrsOf types.package;

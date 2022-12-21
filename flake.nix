@@ -1,8 +1,8 @@
 {
   description = "treefmt nix configuration modules";
 
-  outputs = { self }: rec {
+  outputs = { self }: {
     lib = import ./.;
-    flakeModule = import ./flake-module.nix { treefmtLib = lib; };
+    flakeModule = ./flake-module.nix;
   };
 }

@@ -52,19 +52,14 @@ in
             }
             ''
               set -e
-              # treefmt uses a cache at $HOME. But we can use --no-cache
-              # to make treefmt not use a cache. We still seem to need
-              # to export a writable $HOME though.
-              # TODO: https://github.com/numtide/treefmt/pull/174 fixes this issue
-              # but we need to wait until a release is made and that release gets
-              # into the nixpkgs we use.
-              export HOME="$TMP"
+              treefmt --version
               # `treefmt --fail-on-change` is broken for purs-tidy; So we must rely
               # on git to detect changes. An unintended advantage of this approach
               # is that when the check fails, it will print a helpful diff at the end.
-              cp -r ${self} $HOME/project
-              chmod -R a+w $HOME/project
-              cd $HOME/project
+              PRJ=$TMP/project
+              cp -r ${self} $PRJ
+              chmod -R a+w $PRJ
+              cd $PRJ
               git init
               git config user.email "nix@localhost"
               git config user.name Nix

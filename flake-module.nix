@@ -53,7 +53,7 @@ in
     perSystem = { config, self', inputs', pkgs, ... }: {
       checks.treefmt = pkgs.runCommandLocal "treefmt-check"
         {
-          buildInputs = [ pkgs.git config.treefmt.wrapper ] ++ config.treefmt.programs;
+          buildInputs = [ pkgs.git config.treefmt.wrapper ] ++ lib.attrValues config.treefmt.programs;
         }
         ''
           set -e

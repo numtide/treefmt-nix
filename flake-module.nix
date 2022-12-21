@@ -18,7 +18,9 @@ in
             options = {
               config = mkOption {
                 description = "treefmt-nix configuration";
-                type = types.raw; # TODO: Should use module-options.nix
+                type = types.submoduleWith {
+                  modules = (import ./.).all-modules pkgs;
+                };
               };
               module = mkOption {
                 type = types.raw; # TODO: module type?

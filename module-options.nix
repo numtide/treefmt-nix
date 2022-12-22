@@ -115,7 +115,7 @@ in
         type = types.functionTo types.package;
         default = self: pkgs.runCommandLocal "treefmt-check"
           {
-            buildInputs = [ pkgs.git config.treefmt.wrapper ] ++ lib.attrValues config.treefmt.programs;
+            buildInputs = [ pkgs.git config.build.wrapper ];
           }
           ''
             set -e

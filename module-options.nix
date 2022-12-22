@@ -107,6 +107,37 @@ in
             exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
           '';
       };
+      check = mkOption {
+        description = ''
+          Create a flake check to test that the given project tree is already
+          formatted
+        '';
+        type = types.functionTo types.package;
+        default = self: pkgs.runCommandLocal "treefmt-check"
+          {
+            buildInputs = [ pkgs.git config.treefmt.wrapper ] ++ lib.attrValues config.treefmt.programs;
+          }
+          ''
+            set -e
+            treefmt --version
+            # `treefmt --fail-on-change` is broken for purs-tidy; So we must rely
+            # on git to detect changes. An unintended advantage of this approach
+            # is that when the check fails, it will print a helpful diff at the end.
+            PRJ=$TMP/project
+            cp -r ${self} $PRJ
+            chmod -R a+w $PRJ
+            cd $PRJ
+            git init
+            git config user.email "nix@localhost"
+            git config user.name Nix
+            git add .
+            git commit -m init
+            treefmt --no-cache
+            git status
+            git --no-pager diff --exit-code
+            touch $out
+          '';
+      };
     };
   };
 

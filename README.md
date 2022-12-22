@@ -38,6 +38,7 @@ treefmt-nix.lib.mkWrapper nixpkgs {
 * nixpkgs-fmt
 * ormolu
 * prettier
+* purs-tidy
 * rufo
 * rustfmt
 * shellcheck

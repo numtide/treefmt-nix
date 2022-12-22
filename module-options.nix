@@ -86,6 +86,7 @@ in
           The treefmt package, wrapped with the config file.
         '';
         type = types.package;
+        defaultText = lib.literalMD "wrapped `treefmt` command";
         default =
           pkgs.writeShellScriptBin "treefmt" ''
             find_up() {
@@ -115,6 +116,7 @@ in
           The key of the attrset is the formatter name, with the value being the
           package used to do the formatting.
         '';
+        defaultText = lib.literalMD "Programs used in configuration";
         default =
           pkgs.lib.concatMapAttrs
             (k: v:
@@ -131,6 +133,7 @@ in
           Input argument is the path to the project tree (usually 'self').
         '';
         type = types.functionTo types.package;
+        defaultText = lib.literalMD "Default check implementation";
         default = self: pkgs.runCommandLocal "treefmt-check"
           {
             buildInputs = [ pkgs.git config.build.wrapper ];

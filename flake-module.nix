@@ -11,7 +11,9 @@ in
     perSystem = mkPerSystemOption
       ({ config, self', inputs', pkgs, system, ... }: {
         options.treefmt = mkOption {
-          description = "treefmt-nix configuration";
+          description = ''
+            Project-level treefmt configuration
+          '';
           type = types.submoduleWith {
             modules = (import ./.).all-modules pkgs;
           };

@@ -110,10 +110,10 @@ in
       programs = mkOption {
         type = types.attrsOf types.package;
         description = ''
-          Attrset of formatter programs enabled in treefmt configuration
+          Attrset of formatter programs enabled in treefmt configuration.
 
           The key of the attrset is the formatter name, with the value being the
-          packaged used to do the formatting.
+          package used to do the formatting.
         '';
         default =
           pkgs.lib.concatMapAttrs
@@ -126,7 +126,9 @@ in
       check = mkOption {
         description = ''
           Create a flake check to test that the given project tree is already
-          formatted
+          formatted.
+
+          Input argument is the path to the project tree (usually 'self').
         '';
         type = types.functionTo types.package;
         default = self: pkgs.runCommandLocal "treefmt-check"

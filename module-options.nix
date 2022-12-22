@@ -107,6 +107,22 @@ in
             exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
           '';
       };
+      programs = mkOption {
+        type = types.attrsOf types.package;
+        description = ''
+          Attrset of formatter programs enabled in treefmt configuration
+
+          The key of the attrset is the formatter name, with the value being the
+          packaged used to do the formatting.
+        '';
+        default =
+          pkgs.lib.concatMapAttrs
+            (k: v:
+              if v.enable
+              then { "${k}" = v.package; }
+              else { })
+            config.programs;
+      };
       check = mkOption {
         description = ''
           Create a flake check to test that the given project tree is already

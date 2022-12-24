@@ -3,5 +3,6 @@
 
   outputs = { self }: {
     lib = import ./.;
+    flakeModule = ./flake-module.nix;
   };
 }

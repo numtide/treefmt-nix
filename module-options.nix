@@ -86,6 +86,78 @@ in
           The treefmt package, wrapped with the config file.
         '';
         type = types.package;
+        defaultText = lib.literalMD "wrapped `treefmt` command";
+        default =
+          pkgs.writeShellScriptBin "treefmt" ''
+            find_up() {
+              ancestors=()
+              while true; do
+                if [[ -f $1 ]]; then
+                  echo "$PWD"
+                  exit 0
+                fi
+                ancestors+=("$PWD")
+                if [[ $PWD == / ]] || [[ $PWD == // ]]; then
+                  echo "ERROR: Unable to locate the projectRootFile ($1) in any of: ''${ancestors[*]@Q}" >&2
+                  exit 1
+                fi
+                cd ..
+              done
+            }
+            tree_root=$(find_up "${config.projectRootFile}")
+            exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
+          '';
+      };
+      programs = mkOption {
+        type = types.attrsOf types.package;
+        description = ''
+          Attrset of formatter programs enabled in treefmt configuration.
+
+          The key of the attrset is the formatter name, with the value being the
+          package used to do the formatting.
+        '';
+        defaultText = lib.literalMD "Programs used in configuration";
+        default =
+          pkgs.lib.concatMapAttrs
+            (k: v:
+              if v.enable
+              then { "${k}" = v.package; }
+              else { })
+            config.programs;
+      };
+      check = mkOption {
+        description = ''
+          Create a flake check to test that the given project tree is already
+          formatted.
+
+          Input argument is the path to the project tree (usually 'self').
+        '';
+        type = types.functionTo types.package;
+        defaultText = lib.literalMD "Default check implementation";
+        default = self: pkgs.runCommandLocal "treefmt-check"
+          {
+            buildInputs = [ pkgs.git config.build.wrapper ];
+          }
+          ''
+            set -e
+            treefmt --version
+            # `treefmt --fail-on-change` is broken for purs-tidy; So we must rely
+            # on git to detect changes. An unintended advantage of this approach
+            # is that when the check fails, it will print a helpful diff at the end.
+            PRJ=$TMP/project
+            cp -r ${self} $PRJ
+            chmod -R a+w $PRJ
+            cd $PRJ
+            git init
+            git config user.email "nix@localhost"
+            git config user.name Nix
+            git add .
+            git commit -m init
+            treefmt --no-cache
+            git status
+            git --no-pager diff --exit-code
+            touch $out
+          '';
       };
     };
   };
@@ -93,25 +165,5 @@ in
   # Config
   config.build = {
     configFile = configFormat.generate "treefmt.toml" config.settings;
-
-    wrapper = pkgs.writeShellScriptBin "treefmt" ''
-      find_up() {
-        ancestors=()
-        while true; do
-          if [[ -f $1 ]]; then
-            echo "$PWD"
-            exit 0
-          fi
-          ancestors+=("$PWD")
-          if [[ $PWD == / ]] || [[ $PWD == // ]]; then
-            echo "ERROR: Unable to locate the projectRootFile ($1) in any of: ''${ancestors[*]@Q}" >&2
-            exit 1
-          fi
-          cd ..
-        done
-      }
-      tree_root=$(find_up "${config.projectRootFile}")
-      exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
-    '';
   };
 }

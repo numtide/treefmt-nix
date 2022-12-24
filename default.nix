@@ -7,23 +7,24 @@ let
   # Program to formatter mapping
   programs = import ./programs;
 
+  all-modules = nixpkgs: [
+    {
+      _module.args = {
+        pkgs = nixpkgs;
+        lib = nixpkgs.lib;
+      };
+    }
+    module-options
+  ]
+  ++ programs.modules;
+
   # Use the Nix module system to validate the treefmt config file format.
   #
   # nixpkgs is an instance of <nixpkgs> that contains treefmt.
   # configuration is an attrset used to configure the nix module
   evalModule = nixpkgs: configuration:
     nixpkgs.lib.evalModules {
-      modules = [
-        {
-          _module.args = {
-            pkgs = nixpkgs;
-            lib = nixpkgs.lib;
-          };
-        }
-        module-options
-      ]
-      ++ programs.modules
-      ++ [ configuration ];
+      modules = all-modules nixpkgs ++ [ configuration ];
     };
 
   # Returns a treefmt.toml generated from the passed configuration.
@@ -50,6 +51,7 @@ in
   inherit
     module-options
     programs
+    all-modules
     evalModule
     mkConfigFile
     mkWrapper

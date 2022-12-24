@@ -25,6 +25,17 @@ treefmt-nix.lib.mkWrapper nixpkgs {
 }
 ```
 
+### `flake-parts`
+
+This flake exposes a [flake-parts](https://flake.parts/) module as well. To use it:
+
+1. Add `inputs.treefmt-nix.flakeModule` to the "imports" list of your `flake-parts` call.
+1. Add `treefmt = { .. }` (containing the configuration above) to your "perSystem" section.
+1. Add `config.treefmt.build.wrapper` to the `nativeBuildInputs` of your devShell. This will make the `treefmt` command available in the shell using the specified configuration.
+    - You can also use `config.treefmt.build.programs` to get access to the individual programs, which could be useful to provide them to your IDE or editor.
+
+For an example, see [haskell-template](https://github.com/srid/haskell-template)'s `flake.nix`.
+
 ## Supported programs
 
 <!-- `> ls programs/*.nix | grep -v default.nix | cut -d '.' -f 1 | cut -d / -f 2 | sort | sed -e 's/^/* /'` -->

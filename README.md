@@ -68,7 +68,7 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 
 ## Supported programs
 
-<!-- `> ls programs/*.nix | grep -v default.nix | cut -d '.' -f 1 | cut -d / -f 2 | sort | sed -e 's/^/* /'` -->
+<!-- `> ls programs/*.nix | grep -v default.nix | cut -d '.' -f 1 | cut -d / -f 2 | LC_ALL=C sort | sed -e 's/^/* /'` -->
 <!-- BEGIN mdsh -->
 * alejandra
 * black
@@ -82,10 +82,11 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 * purs-tidy
 * rufo
 * rustfmt
+* scalafmt
 * shellcheck
 * shfmt
-* stylua
 * stylish-haskell
+* stylua
 * terraform
 <!-- END mdsh -->
 

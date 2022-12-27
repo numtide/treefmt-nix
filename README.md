@@ -82,10 +82,11 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 * purs-tidy
 * rufo
 * rustfmt
+* scalafmt
 * shellcheck
 * shfmt
-* stylua
 * stylish-haskell
+* stylua
 * terraform
 <!-- END mdsh -->
 

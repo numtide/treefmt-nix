@@ -49,6 +49,7 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 * nixpkgs-fmt
 * ormolu
 * prettier
+* purs-tidy
 * rufo
 * rustfmt
 * shellcheck

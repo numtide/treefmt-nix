@@ -58,6 +58,16 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 * terraform
 <!-- END mdsh -->
 
+## Adding new formatters
+
+To add a new formatter, look in the programs/ folder to see how those are
+structured.
+
+We happily accept new PR as long as they adhere to the [formatter
+spec](https://numtide.github.io/treefmt/formatters-spec.html). In terms of
+defaults, we don't try to be edgy. Please pick defaults that are standard in
+your community.
+
 ## License
 
 MIT

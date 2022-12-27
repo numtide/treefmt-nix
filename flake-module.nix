@@ -20,6 +20,7 @@ in
         };
         config = {
           checks.treefmt = config.treefmt.build.check self;
+          packages.treefmt = config.treefmt.build.wrapper;
         };
       });
   };

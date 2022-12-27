@@ -12,7 +12,7 @@ let
     builtins.substring 0 (builtins.stringLength filename - 4) filename;
 in
 {
-  # The list of program names. Should map 1:1 with the filename.
+  # The list of formatter names. Should map 1:1 with the filename.
   names = map
     removeNixExt
     files;

@@ -5,7 +5,7 @@ let
   module-options = ./module-options.nix;
 
   # Program to formatter mapping
-  programs = import ./programs;
+  formatter = import ./formatter;
 
   all-modules = nixpkgs: [
     {
@@ -16,7 +16,7 @@ let
     }
     module-options
   ]
-  ++ programs.modules;
+  ++ formatter.modules;
 
   # Use the Nix module system to validate the treefmt config file format.
   #
@@ -50,7 +50,7 @@ in
 {
   inherit
     module-options
-    programs
+    formatter
     all-modules
     evalModule
     mkConfigFile

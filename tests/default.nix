@@ -6,13 +6,13 @@ in
   testConfigGeneration = treefmt-nix.mkConfigFile
     nixpkgs
     {
-      programs = lib.listToAttrs
+      formatter = lib.listToAttrs
         (map
           (name: {
             name = name;
             value = { enable = true; };
           })
-          treefmt-nix.programs.names
+          treefmt-nix.formatter.names
         );
     };
 }

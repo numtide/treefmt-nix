@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (lib) mkOption mkPackageOption types;
+  inherit (lib) mkOption mkEnableOption mkPackageOption types;
 
   # A new kind of option type that calls lib.getExe on derivations
   exeType = lib.mkOptionType {
@@ -27,6 +27,9 @@ let
     formatter = mkOption {
       type = types.attrsOf (types.submodule [{
         options = {
+          # Not part of the schema
+          enable = mkEnableOption "enable the formatter";
+
           command = mkOption {
             description = "Executable obeying the treefmt formatter spec";
             type = exeType;
@@ -59,12 +62,10 @@ let
 in
 {
   # Schema
-  options = {
-    # Represents the treefmt.toml config
-    settings = configSchema;
-
+  options = configSchema // {
     package = mkPackageOption pkgs "treefmt" { };
 
+    # TODO: move this to the config as well
     projectRootFile = mkOption {
       description = ''
         File to look for to determine the root of the project in the
@@ -108,6 +109,7 @@ in
             exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
           '';
       };
+      # FIXME: not sure this is working as intended
       programs = mkOption {
         type = types.attrsOf types.package;
         description = ''
@@ -121,9 +123,9 @@ in
           pkgs.lib.concatMapAttrs
             (k: v:
               if v.enable
-              then { "${k}" = v.package; }
+              then { "${k}" = v.command; }
               else { })
-            config.programs;
+            config.formatter;
       };
       check = mkOption {
         description = ''
@@ -164,6 +166,18 @@ in
 
   # Config
   config.build = {
-    configFile = configFormat.generate "treefmt.toml" config.settings;
+    configFile =
+      let
+        settingsKeys = builtins.attrNames configSchema;
+        otherKeys = builtins.attrNames config;
+        settings = pkgs.lib.genAttrs settingsKeys (key:
+          if key == "formatter" then
+          # Only keep enabled formatters
+            pkgs.lib.filterAttrs (_: f: f.enable) config.${key}
+          else
+            config.${key}
+        );
+      in
+      configFormat.generate "treefmt.toml" settings;
   };
 }

@@ -54,6 +54,7 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 * shellcheck
 * shfmt
 * stylua
+* stylish-haskell
 * terraform
 <!-- END mdsh -->
 

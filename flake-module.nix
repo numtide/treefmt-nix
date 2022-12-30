@@ -19,6 +19,10 @@ in
           };
         };
         config = {
+          apps.treefmt = {
+            type = "app";
+            program = "${self'.packages.treefmt}/bin/treefmt";
+          };
           checks.treefmt = config.treefmt.build.check self;
           packages.treefmt = config.treefmt.build.wrapper;
         };

@@ -88,25 +88,28 @@ in
         type = types.package;
         defaultText = lib.literalMD "wrapped `treefmt` command";
         default =
-          pkgs.writeShellScriptBin "treefmt" ''
-            find_up() {
-              ancestors=()
-              while true; do
-                if [[ -f $1 ]]; then
-                  echo "$PWD"
-                  exit 0
-                fi
-                ancestors+=("$PWD")
-                if [[ $PWD == / ]] || [[ $PWD == // ]]; then
-                  echo "ERROR: Unable to locate the projectRootFile ($1) in any of: ''${ancestors[*]@Q}" >&2
-                  exit 1
-                fi
-                cd ..
-              done
-            }
-            tree_root=$(find_up "${config.projectRootFile}")
-            exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
-          '';
+          let
+            x = pkgs.writeShellScriptBin config.package.name ''
+              find_up() {
+                ancestors=()
+                while true; do
+                  if [[ -f $1 ]]; then
+                    echo "$PWD"
+                    exit 0
+                  fi
+                  ancestors+=("$PWD")
+                  if [[ $PWD == / ]] || [[ $PWD == // ]]; then
+                    echo "ERROR: Unable to locate the projectRootFile ($1) in any of: ''${ancestors[*]@Q}" >&2
+                    exit 1
+                  fi
+                  cd ..
+                done
+              }
+              tree_root=$(find_up "${config.projectRootFile}")
+              exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
+            '';
+          in
+          (x // { meta = config.package.meta // x.meta; });
       };
       programs = mkOption {
         type = types.attrsOf types.package;

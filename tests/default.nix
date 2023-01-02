@@ -15,4 +15,10 @@ in
           treefmt-nix.programs.names
         );
     };
+
+  testEmptyConfig = treefmt-nix.mkConfigFile nixpkgs { };
+
+  testWrapper = treefmt-nix.mkWrapper nixpkgs {
+    projectRootFile = "flake.nix";
+  };
 }

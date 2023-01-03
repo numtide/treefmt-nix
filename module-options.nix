@@ -89,7 +89,7 @@ in
         defaultText = lib.literalMD "wrapped `treefmt` command";
         default =
           let
-            x = pkgs.writeShellScriptBin config.package.name ''
+            x = pkgs.writeShellScriptBin "treefmt" ''
               find_up() {
                 ancestors=()
                 while true; do

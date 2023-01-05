@@ -161,7 +161,7 @@ in
             EOF
             git init
             git add .
-            git commit -m init
+            git commit -m init --quiet
             treefmt --no-cache
             git status
             git --no-pager diff --exit-code

@@ -151,9 +151,15 @@ in
             cp -r ${self} $PRJ
             chmod -R a+w $PRJ
             cd $PRJ
+            export HOME=$TMPDIR
+            cat > $HOME/.gitconfig <<EOF
+            [user]
+              name = Nix
+              email = nix@localhost
+            [init]
+              defaultBranch = main
+            EOF
             git init
-            git config user.email "nix@localhost"
-            git config user.name Nix
             git add .
             git commit -m init
             treefmt --no-cache

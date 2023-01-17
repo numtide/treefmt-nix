@@ -13,6 +13,9 @@ in
         options.treefmt = mkOption {
           description = ''
             Project-level treefmt configuration
+
+            To access the final treefmt package that uses this configuration,
+            evaluate `config.treefmt.build.wrapper`.
           '';
           type = types.submoduleWith {
             modules = (import ./.).all-modules pkgs;
@@ -20,7 +23,6 @@ in
         };
         config = {
           checks.treefmt = config.treefmt.build.check self;
-          packages.treefmt = config.treefmt.build.wrapper;
         };
       });
   };

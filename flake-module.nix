@@ -13,6 +13,18 @@ in
         options.treefmt = mkOption {
           description = ''
             Project-level treefmt configuration
+
+            Use `config.treefmt.build.wrapper` to get access to the resulting treefmt
+            package based on this configuration.
+            
+            The following sets treefmt up as the default formatter 
+            used by the `nix fmt` command: 
+            
+            ```
+            perSystem = { config, ... }: {
+              formatter = config.treefmt.build.wrapper;
+            };
+            ```
           '';
           type = types.submoduleWith {
             modules = (import ./.).all-modules pkgs;
@@ -20,7 +32,6 @@ in
         };
         config = {
           checks.treefmt = config.treefmt.build.check self;
-          packages.treefmt = config.treefmt.build.wrapper;
         };
       });
   };

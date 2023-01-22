@@ -17,7 +17,7 @@ in
             Use `config.treefmt.build.wrapper` to get access to the resulting treefmt
             package based on this configuration.
 
-            By default treefmt-nix will set the formatter.<system> attribute of the flake,
+            By default treefmt-nix will set the `formatter.<system>` attribute of the flake,
             used by the `nix fmt` command.
           '';
           type = types.submoduleWith {
@@ -25,7 +25,7 @@ in
               options.flakeFormatter = lib.mkOption {
                 type = types.bool;
                 default = true;
-                description = lib.mdDoc ''
+                description = ''
                   Enables `treefmt` the default formatter used by the `nix fmt` command
                 '';
               };

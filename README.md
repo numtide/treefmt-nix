@@ -76,6 +76,7 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 * elm-format
 * gofmt
 * gofumpt
+* hlint
 * nixpkgs-fmt
 * ormolu
 * prettier

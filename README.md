@@ -72,6 +72,7 @@ For an example, see [haskell-template](https://github.com/srid/haskell-template)
 <!-- BEGIN mdsh -->
 * alejandra
 * black
+* buildifier
 * cabal-fmt
 * elm-format
 * gofmt

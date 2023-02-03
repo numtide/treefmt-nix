@@ -144,6 +144,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 <!-- BEGIN mdsh -->
 * alejandra
 * black
+* buildifier
 * cabal-fmt
 * elm-format
 * gofmt

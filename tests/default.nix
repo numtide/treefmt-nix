@@ -1,10 +1,10 @@
-{ nixpkgs, treefmt-nix, ... }:
+{ pkgs, treefmt-nix, ... }:
 let
-  inherit (nixpkgs) lib;
+  inherit (pkgs) lib;
 in
 {
   testConfigGeneration = treefmt-nix.mkConfigFile
-    nixpkgs
+    pkgs
     {
       programs = lib.listToAttrs
         (map
@@ -16,9 +16,9 @@ in
         );
     };
 
-  testEmptyConfig = treefmt-nix.mkConfigFile nixpkgs { };
+  testEmptyConfig = treefmt-nix.mkConfigFile pkgs { };
 
-  testWrapper = treefmt-nix.mkWrapper nixpkgs {
+  testWrapper = treefmt-nix.mkWrapper pkgs {
     projectRootFile = "flake.nix";
   };
 }

@@ -30,11 +30,10 @@ in
         types.package
         (types.submodule {
           options = {
+            path = lib.mkOption { type = types.path; };
             pkgs = lib.mkOption {
               type = types.lazyAttrsOf types.raw;
-              default = pkgs;
             };
-            path = lib.mkOption { type = types.path; };
           };
         })
       ];
@@ -47,7 +46,7 @@ in
       command =
         if lib.isDerivation cfg.package
         then cfg.package
-        else detectVersion cfg.package.path cfg.package.pkgs;
+        else detectVersion (cfg.package.path or cfg.package) (cfg.package.pkgs or pkgs);
       options = [ "-i" ];
       includes = [ "*.ml" "*.mli" ];
     };

@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 let
   inherit (lib) mkOption mkPackageOption types;
 
@@ -6,50 +10,55 @@ let
   exeType = lib.mkOptionType {
     name = "exe";
     description = "Path to executable";
-    check = (x: lib.isString x || builtins.isPath x || lib.isDerivation x);
+    check = x: lib.isString x || builtins.isPath x || lib.isDerivation x;
     merge = loc: defs:
-      let res = lib.mergeOneOption loc defs; in
-      if lib.isString res || builtins.isPath res then
-        "${res}"
-      else
-        lib.getExe res;
+      let
+        res = lib.mergeOneOption loc defs;
+      in
+      if lib.isString res || builtins.isPath res
+      then "${res}"
+      else lib.getExe res;
   };
 
   # The schema of the treefmt.toml data structure.
   configSchema = {
-    excludes = mkOption {
-      description = "A global list of paths to exclude. Supports glob.";
-      type = types.listOf types.str;
-      default = [ ];
-      example = [ "./node_modules/**" ];
+    global = {
+      excludes = mkOption {
+        description = "A global list of paths to exclude. Supports glob.";
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "./node_modules/**" ];
+      };
     };
 
     formatter = mkOption {
-      type = types.attrsOf (types.submodule [{
-        options = {
-          command = mkOption {
-            description = "Executable obeying the treefmt formatter spec";
-            type = exeType;
-          };
+      type = types.attrsOf (types.submodule [
+        {
+          options = {
+            command = mkOption {
+              description = "Executable obeying the treefmt formatter spec";
+              type = exeType;
+            };
 
-          options = mkOption {
-            description = "List of arguments to pass to the command";
-            type = types.listOf types.str;
-            default = [ ];
-          };
+            options = mkOption {
+              description = "List of arguments to pass to the command";
+              type = types.listOf types.str;
+              default = [ ];
+            };
 
-          includes = mkOption {
-            description = "List of files to include for formatting. Supports globbing.";
-            type = types.listOf types.str;
-          };
+            includes = mkOption {
+              description = "List of files to include for formatting. Supports globbing.";
+              type = types.listOf types.str;
+            };
 
-          excludes = mkOption {
-            description = "List of files to exclude for formatting. Supports globbing. Takes precedence over the includes.";
-            type = types.listOf types.str;
-            default = [ ];
+            excludes = mkOption {
+              description = "List of files to exclude for formatting. Supports globbing. Takes precedence over the includes.";
+              type = types.listOf types.str;
+              default = [ ];
+            };
           };
-        };
-      }]);
+        }
+      ]);
       default = { };
       description = "Set of formatters to use";
     };
@@ -137,36 +146,37 @@ in
         '';
         type = types.functionTo types.package;
         defaultText = lib.literalMD "Default check implementation";
-        default = self: pkgs.runCommandLocal "treefmt-check"
-          {
-            buildInputs = [ pkgs.git config.build.wrapper ];
-          }
-          ''
-            set -e
-            treefmt --version
-            # `treefmt --fail-on-change` is broken for purs-tidy; So we must rely
-            # on git to detect changes. An unintended advantage of this approach
-            # is that when the check fails, it will print a helpful diff at the end.
-            PRJ=$TMP/project
-            cp -r ${self} $PRJ
-            chmod -R a+w $PRJ
-            cd $PRJ
-            export HOME=$TMPDIR
-            cat > $HOME/.gitconfig <<EOF
-            [user]
-              name = Nix
-              email = nix@localhost
-            [init]
-              defaultBranch = main
-            EOF
-            git init
-            git add .
-            git commit -m init --quiet
-            treefmt --no-cache
-            git status
-            git --no-pager diff --exit-code
-            touch $out
-          '';
+        default = self:
+          pkgs.runCommandLocal "treefmt-check"
+            {
+              buildInputs = [ pkgs.git config.build.wrapper ];
+            }
+            ''
+              set -e
+              treefmt --version
+              # `treefmt --fail-on-change` is broken for purs-tidy; So we must rely
+              # on git to detect changes. An unintended advantage of this approach
+              # is that when the check fails, it will print a helpful diff at the end.
+              PRJ=$TMP/project
+              cp -r ${self} $PRJ
+              chmod -R a+w $PRJ
+              cd $PRJ
+              export HOME=$TMPDIR
+              cat > $HOME/.gitconfig <<EOF
+              [user]
+                name = Nix
+                email = nix@localhost
+              [init]
+                defaultBranch = main
+              EOF
+              git init
+              git add .
+              git commit -m init --quiet
+              treefmt --no-cache
+              git status
+              git --no-pager diff --exit-code
+              touch $out
+            '';
       };
     };
   };

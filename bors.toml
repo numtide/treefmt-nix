@@ -1,4 +1,8 @@
 cut_body_after = "" # don't include text from the PR body in the merge commit message
 status = [
-  "Evaluate flake.nix"
+  "Evaluate flake.nix",
+  "check formatting [x86_64-linux]",
+  "check testConfigGeneration [x86_64-linux]",
+  "check testEmptyConfig [x86_64-linux]",
+  "check testWrapper [x86_64-linux]"
 ]

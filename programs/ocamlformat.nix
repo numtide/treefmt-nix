@@ -4,49 +4,46 @@
 , ...
 }:
 let
-  inherit (lib) types;
-
+  l = lib // builtins;
   cfg = config.programs.ocamlformat;
 
   detectVersion = configFile: pkgSet:
     let
       optionValue = list:
-        assert lib.assertMsg (list != [ ]) "treefmt-nix: Unable to detect ocamlformat version from file";
-        lib.elemAt list (lib.length list - 1);
+        assert l.assertMsg (list != [ ]) "treefmt-nix: Unable to detect ocamlformat version from file";
+        l.elemAt list (l.length list - 1);
     in
-    builtins.getAttr "ocamlformat_${
-      builtins.replaceStrings ["."] ["_"]
-      (optionValue (lib.findFirst (option: builtins.head option == "version") []
-          (builtins.map (n: lib.splitString "=" n) (lib.splitString "\n" (builtins.readFile configFile)))))
+    l.getAttr "ocamlformat_${
+      l.replaceStrings ["."] ["_"]
+      (optionValue (l.findFirst (option: l.head option == "version") []
+          (l.map (n: l.splitString "=" n) (l.splitString "\n" (l.readFile configFile)))))
     }"
       pkgSet;
 in
 {
   options.programs.ocamlformat = {
-    enable = lib.mkEnableOption "ocamlformat";
-    package = lib.mkOption {
-      type = types.oneOf [
-        types.path
-        types.package
-        (types.submodule {
-          options = {
-            path = lib.mkOption { type = types.path; };
-            pkgs = lib.mkOption {
-              type = types.lazyAttrsOf types.raw;
-            };
-          };
-        })
-      ];
-      default = pkgs.ocamlformat;
+    enable = l.mkEnableOption "ocamlformat";
+    package = l.mkPackageOption pkgs "ocamlformat" { };
+
+    pkgs = l.mkOption {
+      type = l.types.lazyAttrsOf l.types.raw;
+      description = "The package set used to get the ocamlformat package at a specific version. defaults to nixpkgs.";
+      default = pkgs;
+    };
+
+    configFile = l.mkOption {
+      type = l.types.nullOr l.types.path;
+      description = "Path to the .ocamlformat file. Used to pick the right version of ocamlformat if passed.";
+      default = null;
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = l.mkIf cfg.enable {
     settings.formatter.ocamlformat = {
       command =
-        if lib.isDerivation cfg.package
+        if l.isNull cfg.configFile
         then cfg.package
-        else detectVersion (cfg.package.path or cfg.package) (cfg.package.pkgs or pkgs);
+        else detectVersion cfg.configFile cfg.pkgs;
       options = [ "-i" ];
       includes = [ "*.ml" "*.mli" ];
     };

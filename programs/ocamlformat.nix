@@ -12,11 +12,12 @@ let
       optionValue = list:
         assert l.assertMsg (list != [ ]) "treefmt-nix: Unable to detect ocamlformat version from file";
         l.elemAt list (l.length list - 1);
+      trim = l.replaceStrings [ " " ] [ "" ];
     in
     l.getAttr "ocamlformat_${
       l.replaceStrings ["."] ["_"]
       (optionValue (l.findFirst (option: l.head option == "version") []
-          (l.map (n: l.splitString "=" n) (l.splitString "\n" (l.readFile configFile)))))
+          (l.map (n: l.splitString "=" (trim n)) (l.splitString "\n" (l.readFile configFile)))))
     }"
       pkgSet;
 in

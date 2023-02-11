@@ -28,8 +28,9 @@ in
 
     pkgs = l.mkOption {
       type = l.types.lazyAttrsOf l.types.raw;
-      description = "The package set used to get the ocamlformat package at a specific version. defaults to nixpkgs.";
+      description = "The package set used to get the ocamlformat package at a specific version.";
       default = pkgs;
+      defaultText = lib.literalMD "Nixpkgs from context";
     };
 
     configFile = l.mkOption {

@@ -149,6 +149,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * elm-format
 * gofmt
 * gofumpt
+* hclfmt
 * hlint
 * mdsh
 * nixpkgs-fmt

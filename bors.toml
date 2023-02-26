@@ -27,5 +27,6 @@ status = [
   "check terraform [x86_64-linux]",
   "check testBorsToml [x86_64-linux]",
   "check testEmptyConfig [x86_64-linux]",
+  "check testExamples [x86_64-linux]",
   "check testWrapper [x86_64-linux]",
 ]

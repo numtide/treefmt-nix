@@ -8,7 +8,8 @@ cd "$(dirname "$0")"
 system=$(nix eval --raw --impure --expr 'builtins.currentSystem')
 
 # Generate the bors.toml from the config
-nix build ".#checks.$system.testBorsToml.passthru.borsToml"
+nix build ".#checks.$system.testExamples.passthru.examples"
 
 # Copy
-cp --no-preserve=mode ./result bors.toml
+rm -f ./examples/* || true
+cp --no-preserve=mode ./result/* ./examples

@@ -167,6 +167,10 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * terraform
 <!-- END mdsh -->
 
+For non-Nix users, you can also find the generated examples in the
+[./examples](./examples)
+folder.
+
 ### Adding new formatters
 
 To add a new formatter, look in the `programs` folder to see how the files there are structured.

@@ -3,4 +3,4 @@
 command = "hclfmt"
 excludes = []
 includes = ["*.hcl", "*.tf"]
-options = []
+options = ["-w"]

@@ -12,6 +12,9 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.hclfmt = {
       command = cfg.package;
+      options = [
+        "-w" # write in place
+      ];
       includes = [
         "*.hcl"
         "*.tf"

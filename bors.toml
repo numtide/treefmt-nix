@@ -12,6 +12,7 @@ status = [
   "check hclfmt [x86_64-linux]",
   "check hlint [x86_64-linux]",
   "check mdsh [x86_64-linux]",
+  "check nixfmt [x86_64-linux]",
   "check nixpkgs-fmt [x86_64-linux]",
   "check ocamlformat [x86_64-linux]",
   "check ormolu [x86_64-linux]",

@@ -152,6 +152,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * hclfmt
 * hlint
 * mdsh
+* nixfmt
 * nixpkgs-fmt
 * ocamlformat
 * ormolu

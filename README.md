@@ -102,6 +102,8 @@ This flake exposes a [flake-parts](https://flake.parts/) module as well. To use 
     You can also use `config.treefmt.build.programs` to get access to the individual programs, which could be useful to provide them to your IDE or editor.
 
     For an example, see [haskell-template](https://github.com/srid/haskell-template)'s `flake.nix`.
+    
+See [this page](https://haskell.flake.page/treefmt) for details.
 
 ## Configuration
 While dealing with `treefmt` outside of `nix`, the formatter configuration is specified in a `toml` format. On the contrary, with `nix`, you write in with a nix syntax like this:

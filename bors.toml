@@ -6,6 +6,7 @@ status = [
   "check black [x86_64-linux]",
   "check buildifier [x86_64-linux]",
   "check cabal-fmt [x86_64-linux]",
+  "check dhall [x86_64-linux]",
   "check elm-format [x86_64-linux]",
   "check gofmt [x86_64-linux]",
   "check gofumpt [x86_64-linux]",

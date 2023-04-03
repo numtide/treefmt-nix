@@ -99,6 +99,7 @@ in
         default =
           let
             x = pkgs.writeShellScriptBin "treefmt" ''
+              set -euo pipefail
               find_up() {
                 ancestors=()
                 while true; do
@@ -153,7 +154,6 @@ in
             }
             ''
               set -e
-              treefmt --version
               # `treefmt --fail-on-change` is broken for purs-tidy; So we must rely
               # on git to detect changes. An unintended advantage of this approach
               # is that when the check fails, it will print a helpful diff at the end.
@@ -174,6 +174,7 @@ in
               git commit -m init --quiet
               export LANG=C.UTF-8
               export LC_ALL=C.UTF-8
+              treefmt --version
               treefmt --no-cache
               git status
               git --no-pager diff --exit-code

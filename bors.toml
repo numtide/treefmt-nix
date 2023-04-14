@@ -33,4 +33,5 @@ status = [
   "check testEmptyConfig [x86_64-linux]",
   "check testExamples [x86_64-linux]",
   "check testWrapper [x86_64-linux]",
+  "check zprint [x86_64-linux]",
 ]

@@ -171,6 +171,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * stylish-haskell
 * stylua
 * terraform
+* zprint
 <!-- END mdsh -->
 
 For non-Nix users, you can also find the generated examples in the

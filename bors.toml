@@ -29,6 +29,7 @@ status = [
   "check stylish-haskell [x86_64-linux]",
   "check stylua [x86_64-linux]",
   "check terraform [x86_64-linux]",
+  "check zprint [x86_64-linux]",
   "check testBorsToml [x86_64-linux]",
   "check testEmptyConfig [x86_64-linux]",
   "check testExamples [x86_64-linux]",

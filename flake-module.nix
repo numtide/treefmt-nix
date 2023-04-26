@@ -29,11 +29,18 @@ in
                   Enables `treefmt` the default formatter used by the `nix fmt` command
                 '';
               };
+              options.flakeCheck = lib.mkOption {
+                type = types.bool;
+                default = true;
+                description = ''
+                  Add a flake check to run `treefmt`
+                '';
+              };
             }];
           };
         };
         config = {
-          checks.treefmt = config.treefmt.build.check self;
+          checks = lib.mkIf config.treefmt.flakeCheck { treefmt = config.treefmt.build.check self; };
           formatter = lib.mkIf config.treefmt.flakeFormatter (lib.mkDefault config.treefmt.build.wrapper);
         };
       });

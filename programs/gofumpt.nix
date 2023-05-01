@@ -9,7 +9,7 @@ in
     extra = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mkDoc ''
+      description = lib.mdDoc ''
         Whether to enable extra rules.
       '';
     };

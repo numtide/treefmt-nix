@@ -5,35 +5,27 @@
 
   outputs = { self, nixpkgs }:
     let
-      lib = nixpkgs.lib;
-      forAllSystems = lib.genAttrs [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "x86_64-linux"
-      ];
-
-      treefmtEval = forAllSystems (system:
-        self.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
-      );
+      inherit (nixpkgs) lib;
+      eachSystem = lib.genAttrs
+        [
+          "aarch64-darwin"
+          "aarch64-linux"
+          "x86_64-darwin"
+          "x86_64-linux"
+        ];
     in
     {
       lib = import ./.;
 
       flakeModule = ./flake-module.nix;
 
-      formatter = forAllSystems (system:
-        treefmtEval.${system}.config.build.wrapper
+      formatter = eachSystem (system:
+        self.checks.${system}.wrapper
       );
 
-      checks = forAllSystems
-        (system:
-          (import ./tests {
-            pkgs = nixpkgs.legacyPackages.${system};
-            treefmt-nix = self.lib;
-          }) // {
-            formatting = treefmtEval.${system}.config.build.check self;
-          }
-        );
+      checks = eachSystem (system: (import ./checks {
+        pkgs = nixpkgs.legacyPackages.${system};
+        treefmt-nix = self.lib;
+      }));
     };
 }

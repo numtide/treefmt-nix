@@ -10,7 +10,7 @@ let
     };
 
   programConfigs = lib.listToAttrs (map
-    (name: { name = name; value = toConfig name; })
+    (name: { name = "formatter-${name}"; value = toConfig name; })
     treefmt-nix.programs.names
   );
 
@@ -46,15 +46,17 @@ let
       ${join "\n" (lib.attrValues configs)}
     '';
 
-  self = {
-    testEmptyConfig = treefmt-nix.mkConfigFile pkgs { };
+  treefmtEval = treefmt-nix.evalModule pkgs ../treefmt.nix;
 
-    testWrapper = treefmt-nix.mkWrapper pkgs {
+  self = {
+    empty-config = treefmt-nix.mkConfigFile pkgs { };
+
+    simple-wrapper = treefmt-nix.mkWrapper pkgs {
       projectRootFile = "flake.nix";
     };
 
     # Check if the bors.toml needs to be updated
-    testBorsToml = pkgs.runCommand
+    bors-toml = pkgs.runCommand
       "test-bors-toml"
       {
         passthru.borsToml = borsToml;
@@ -69,7 +71,7 @@ let
       '';
 
     # Check if the examples folder needs to be updated
-    testExamples = pkgs.runCommand
+    examples = pkgs.runCommand
       "test-examples"
       {
         passthru.examples = examples;
@@ -82,6 +84,15 @@ let
         fi
         touch $out
       '';
+
+    # Check that the repo is formatted
+    self-formatting = treefmtEval.config.build.check ../.;
+
+    # Expose the current wrapper
+    self-wrapper = treefmtEval.config.build.wrapper;
+
+    # Check that the docs render properly
+    module-docs = (pkgs.nixosOptionsDoc { options = treefmtEval.options; }).optionsCommonMark;
   } // programConfigs;
 in
 self

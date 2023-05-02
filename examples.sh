@@ -8,7 +8,7 @@ cd "$(dirname "$0")"
 system=$(nix eval --raw --impure --expr 'builtins.currentSystem')
 
 # Generate the bors.toml from the config
-nix build ".#checks.$system.testExamples.passthru.examples"
+nix build ".#checks.$system.examples.passthru.examples"
 
 # Copy
 rm -f ./examples/* || true

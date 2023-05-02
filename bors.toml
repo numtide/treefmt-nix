@@ -6,6 +6,7 @@ status = [
   "check empty-config [x86_64-linux]",
   "check examples [x86_64-linux]",
   "check formatter-alejandra [x86_64-linux]",
+  "check formatter-beautysh [x86_64-linux]",
   "check formatter-black [x86_64-linux]",
   "check formatter-buildifier [x86_64-linux]",
   "check formatter-cabal-fmt [x86_64-linux]",

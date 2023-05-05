@@ -25,6 +25,7 @@ status = [
   "check formatter-ormolu [x86_64-linux]",
   "check formatter-prettier [x86_64-linux]",
   "check formatter-purs-tidy [x86_64-linux]",
+  "check formatter-ruff [x86_64-linux]",
   "check formatter-rufo [x86_64-linux]",
   "check formatter-rustfmt [x86_64-linux]",
   "check formatter-scalafmt [x86_64-linux]",

@@ -16,6 +16,7 @@ status = [
   "check formatter-elm-format [x86_64-linux]",
   "check formatter-gofmt [x86_64-linux]",
   "check formatter-gofumpt [x86_64-linux]",
+  "check formatter-google-java-format [x86_64-linux]",
   "check formatter-hclfmt [x86_64-linux]",
   "check formatter-hlint [x86_64-linux]",
   "check formatter-mdsh [x86_64-linux]",

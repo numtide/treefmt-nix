@@ -155,6 +155,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * elm-format
 * gofmt
 * gofumpt
+* google-java-format
 * hclfmt
 * hlint
 * mdsh

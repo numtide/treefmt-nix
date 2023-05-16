@@ -20,7 +20,7 @@
       flakeModule = ./flake-module.nix;
 
       formatter = eachSystem (system:
-        self.checks.${system}.wrapper
+        self.checks.${system}.self-wrapper
       );
 
       checks = eachSystem (system: (import ./checks {

@@ -152,6 +152,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * clang-format
 * deadnix
 * dhall
+* dprint
 * elm-format
 * gofmt
 * gofumpt

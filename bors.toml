@@ -13,6 +13,7 @@ status = [
   "check formatter-clang-format [x86_64-linux]",
   "check formatter-deadnix [x86_64-linux]",
   "check formatter-dhall [x86_64-linux]",
+  "check formatter-dprint [x86_64-linux]",
   "check formatter-elm-format [x86_64-linux]",
   "check formatter-gofmt [x86_64-linux]",
   "check formatter-gofumpt [x86_64-linux]",

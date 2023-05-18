@@ -29,6 +29,7 @@ in
         "*.mdx"
         "*.scss"
         "*.ts"
+        "*.tsx"
         "*.yaml"
         "*.yml"
       ];

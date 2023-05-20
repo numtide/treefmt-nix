@@ -93,7 +93,7 @@ in
           configFile = mkConfigFile { config = cfg.config; };
           x = pkgs.writeShellScriptBin "dprint" ''
             set -euo pipefail
-            exec dprint --config=${configFile} "$@"
+            exec ${lib.getExe cfg.package} --config=${configFile} "$@"
           '';
         in
         (x // { meta = config.package.meta // x.meta; });

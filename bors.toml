@@ -11,6 +11,7 @@ status = [
   "check formatter-buildifier [x86_64-linux]",
   "check formatter-cabal-fmt [x86_64-linux]",
   "check formatter-clang-format [x86_64-linux]",
+  "check formatter-cspell [x86_64-linux]",
   "check formatter-deadnix [x86_64-linux]",
   "check formatter-dhall [x86_64-linux]",
   "check formatter-dprint [x86_64-linux]",

@@ -32,6 +32,7 @@ status = [
   "check formatter-shfmt [x86_64-linux]",
   "check formatter-stylish-haskell [x86_64-linux]",
   "check formatter-stylua [x86_64-linux]",
+  "check formatter-taplo [x86_64-linux]",
   "check formatter-terraform [x86_64-linux]",
   "check formatter-zprint [x86_64-linux]",
   "check module-docs [x86_64-linux]",

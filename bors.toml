@@ -34,6 +34,7 @@ status = [
   "check formatter-stylua [x86_64-linux]",
   "check formatter-taplo [x86_64-linux]",
   "check formatter-terraform [x86_64-linux]",
+  "check formatter-yamlfmt [x86_64-linux]",
   "check formatter-zprint [x86_64-linux]",
   "check module-docs [x86_64-linux]",
   "check self-formatting [x86_64-linux]",

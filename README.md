@@ -152,9 +152,11 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * clang-format
 * deadnix
 * dhall
+* dprint
 * elm-format
 * gofmt
 * gofumpt
+* google-java-format
 * hclfmt
 * hlint
 * mdsh
@@ -164,6 +166,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * ormolu
 * prettier
 * purs-tidy
+* ruff
 * rufo
 * rustfmt
 * scalafmt

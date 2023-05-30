@@ -174,7 +174,9 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * shfmt
 * stylish-haskell
 * stylua
+* taplo
 * terraform
+* yamlfmt
 * zprint
 <!-- END mdsh -->
 

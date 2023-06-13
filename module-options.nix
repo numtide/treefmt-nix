@@ -87,7 +87,7 @@ in
       devShell = mkOption {
         description = "The development shell with treefmt and its underlying programs";
         type = types.package;
-        default = pkgs.mkShell {buildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);};
+        default = pkgs.mkShell { buildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs); };
       };
       configFile = mkOption {
         description = ''

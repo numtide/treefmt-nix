@@ -84,6 +84,14 @@ in
 
     # Outputs
     build = {
+      devShell = mkOption {
+        description = "The development shell with treefmt and its underlying programs";
+        type = types.package;
+        readOnly = true;
+        default = pkgs.mkShell {
+          nativeBuildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);
+        };
+      };
       configFile = mkOption {
         description = ''
           Contains the generated config file derived from the settings.

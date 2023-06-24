@@ -88,9 +88,6 @@ in
         description = "The development shell with treefmt and its underlying programs";
         type = types.package;
         readOnly = true;
-        default = pkgs.mkShell {
-          nativeBuildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);
-        };
       };
       configFile = mkOption {
         description = ''
@@ -195,5 +192,8 @@ in
   # Config
   config.build = {
     configFile = configFormat.generate "treefmt.toml" config.settings;
+    devShell = pkgs.mkShell {
+      nativeBuildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);
+    };
   };
 }

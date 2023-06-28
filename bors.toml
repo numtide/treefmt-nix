@@ -21,6 +21,7 @@ status = [
   "check formatter-google-java-format [x86_64-linux]",
   "check formatter-hclfmt [x86_64-linux]",
   "check formatter-hlint [x86_64-linux]",
+  "check formatter-isort [x86_64-linux]",
   "check formatter-mdformat [x86_64-linux]",
   "check formatter-mdsh [x86_64-linux]",
   "check formatter-nixfmt [x86_64-linux]",

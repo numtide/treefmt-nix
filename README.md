@@ -160,6 +160,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * google-java-format
 * hclfmt
 * hlint
+* isort
 * mdformat
 * mdsh
 * nixfmt

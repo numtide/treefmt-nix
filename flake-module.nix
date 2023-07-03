@@ -36,11 +36,19 @@ in
                   Add a flake check to run `treefmt`
                 '';
               };
+              options.projectRoot = lib.mkOption {
+                type = types.path;
+                default = self;
+                description = ''
+                  Path to the root of the project on which treefmt operates
+                '';
+              };
+              
             }];
           };
         };
         config = {
-          checks = lib.mkIf config.treefmt.flakeCheck { treefmt = config.treefmt.build.check self; };
+          checks = lib.mkIf config.treefmt.flakeCheck { treefmt = config.treefmt.build.check config.treefmt.projectRoot; };
           formatter = lib.mkIf config.treefmt.flakeFormatter (lib.mkDefault config.treefmt.build.wrapper);
         };
       });

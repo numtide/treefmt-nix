@@ -72,7 +72,7 @@ Running treefmt-nix with flakes isn't hard. The library is exposed as the `lib` 
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
 
       # Eval the treefmt modules from ./treefmt.nix
-      treefmtEval = eachSystem (pkgs: treefmt-nix.evalModule pkgs ./treefmt.nix);
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
       # for `nix fmt`

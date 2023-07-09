@@ -48,6 +48,16 @@ let
 
   treefmtEval = treefmt-nix.evalModule pkgs ../treefmt.nix;
 
+  treefmtDocEval = treefmt-nix.evalModule stubPkgs ../treefmt.nix;
+
+  stubPkgs =
+    lib.mapAttrs
+      (k: _: throw "The module documentation must not depend on pkgs attributes such as ${lib.strings.escapeNixIdentifier k}")
+      pkgs
+    // {
+      inherit lib;
+    };
+
   self = {
     empty-config = treefmt-nix.mkConfigFile pkgs { };
 
@@ -92,7 +102,7 @@ let
     self-wrapper = treefmtEval.config.build.wrapper;
 
     # Check that the docs render properly
-    module-docs = (pkgs.nixosOptionsDoc { options = treefmtEval.options; }).optionsCommonMark;
+    module-docs = (pkgs.nixosOptionsDoc { options = treefmtDocEval.options; }).optionsCommonMark;
   } // programConfigs;
 in
 self

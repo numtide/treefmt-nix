@@ -39,6 +39,7 @@ in
               options.projectRoot = lib.mkOption {
                 type = types.path;
                 default = self;
+                defaultText = lib.literalExpression "self";
                 description = ''
                   Path to the root of the project on which treefmt operates
                 '';

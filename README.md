@@ -187,6 +187,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * isort
 * mdformat
 * mdsh
+* mix-format
 * nixfmt
 * nixpkgs-fmt
 * ocamlformat

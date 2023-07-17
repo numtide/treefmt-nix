@@ -26,6 +26,7 @@ status = [
   "check formatter-isort [x86_64-linux]",
   "check formatter-mdformat [x86_64-linux]",
   "check formatter-mdsh [x86_64-linux]",
+  "check formatter-mix-format [x86_64-linux]",
   "check formatter-nixfmt [x86_64-linux]",
   "check formatter-nixpkgs-fmt [x86_64-linux]",
   "check formatter-ocamlformat [x86_64-linux]",

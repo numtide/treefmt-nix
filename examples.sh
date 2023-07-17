@@ -12,4 +12,4 @@ nix build ".#checks.$system.examples.passthru.examples"
 
 # Copy
 rm -f ./examples/* || true
-cp --no-preserve=mode ./result/* ./examples
+cp ./result/* ./examples

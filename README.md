@@ -214,10 +214,22 @@ folder.
 
 ### Adding new formatters
 
-To add a new formatter, look in the `programs` folder to see how the files there are structured.
+PRs to add new formatters are welcome!
 
-We happily accept new PRs as long as they adhere to the [formatter
-specifications](https://numtide.github.io/treefmt/formatters-spec.html). In terms of default configurations, we don't try to be edgy. Please pick defaults that are standard in your community -- for instance, python is usually indented with 4 spaces, so don't add a python formatter with 2 spaces as the default.
+* The formatter should conform to the [formatter specifications](https://numtide.github.io/treefmt/formatters-spec.html).
+* This is not the place to debate formatting preferences. Please pick defaults that are standard in your community -- for instance, python is usually indented with 4 spaces, so don't add a python formatter with 2 spaces as the default.
+
+In order to add a new formatter do the following things:
+
+1. Create a new entry in the ./programs/ folder.
+2. Run ./bors.toml.sh to update the bors.toml file.
+3. Run ./examples.sh to update the ./examples folder.
+4. To test the program:
+    1. Extend the project's `./treefmt.nix` file (temporarilt)
+    2. Add a bunch of sources in this repo
+    3. Run `nix develop -c treefmt`
+    4. Once this is good, revert those changes.
+5. Submit the PR!
 
 ## License
 

@@ -3,4 +3,4 @@
 command = "shfmt"
 excludes = []
 includes = ["*.sh"]
-options = ["-i", "2", "-s", "-w"]
+options = ["-s", "-w"]

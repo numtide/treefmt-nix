@@ -20,6 +20,7 @@ let
           (l.map (n: l.splitString "=" (trim n)) (l.splitString "\n" (l.readFile configFile)))))
     }"
       pkgSet;
+
 in
 {
   options.programs.ocamlformat = {
@@ -44,7 +45,7 @@ in
     settings.formatter.ocamlformat = {
       command =
         if l.isNull cfg.configFile
-        then cfg.package
+        then "${lib.getBin cfg.package}/bin/ocamlformat"
         else detectVersion cfg.configFile cfg.pkgs;
       options = [ "-i" ];
       includes = [ "*.ml" "*.mli" ];

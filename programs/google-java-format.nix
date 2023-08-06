@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.google-java-format = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/google-java-format";
       options = [ "--replace" ];
       includes = [ "*.java" ];
     };

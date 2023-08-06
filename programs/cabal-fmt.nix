@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.cabal-fmt = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/cabal-fmt";
       options = [ "--inplace" ];
       includes = [ "*.cabal" ];
     };

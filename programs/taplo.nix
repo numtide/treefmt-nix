@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.taplo = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/taplo";
       options = [ "format" ];
       includes = [ "*.toml" ];
     };

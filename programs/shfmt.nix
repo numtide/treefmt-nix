@@ -20,7 +20,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.shfmt = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/shfmt";
       options =
         (lib.optionals (!isNull cfg.indent_size)
           [ "-i" (toString cfg.indent_size) ])

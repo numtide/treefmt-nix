@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.fnlfmt = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/fnlfmt";
       options = [ "--fix" ];
       includes = [ "*.fnl" ];
     };

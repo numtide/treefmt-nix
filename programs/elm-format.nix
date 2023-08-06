@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.elm-format = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/elm-format";
       options = [ " - -yes " ];
       includes = [ " * .elm " ];
     };

@@ -13,7 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.deadnix = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/deadnix";
       options =
         [ "--edit" ]
         ++ (lib.optional cfg.no-lambda-arg "--no-lambda-arg")

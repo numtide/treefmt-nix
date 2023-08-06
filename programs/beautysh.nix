@@ -18,7 +18,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.beautysh = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/beautysh";
       options = [ "-i" (toString cfg.indent_size) ];
       includes = [ "*.sh" ];
     };

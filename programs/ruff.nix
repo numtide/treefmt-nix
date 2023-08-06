@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.ruff = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/ruff";
       includes = [ "*.py" ];
     };
   };

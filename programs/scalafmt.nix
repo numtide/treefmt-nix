@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.scalafmt = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/scalafmt";
       includes = [ "*.sbt" "*.scala" ];
     };
   };

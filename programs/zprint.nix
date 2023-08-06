@@ -25,7 +25,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.zprint = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/zprint";
       # zprint options must be first
       options = (lib.optional (cfg.zprintOpts != null) cfg.zprintOpts) ++ [ "--write" ];
       includes = [

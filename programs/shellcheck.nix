@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.shellcheck = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/shellcheck";
       includes = [ "*.sh" ];
     };
   };

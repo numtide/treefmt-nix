@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.black = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/black";
       includes = [ "*.py" ];
     };
   };

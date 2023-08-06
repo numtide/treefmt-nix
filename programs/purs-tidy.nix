@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.purs-tidy = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/purs-tidy";
       options = [ "format-in-place" ];
       includes = [
         "src/**/*.purs"

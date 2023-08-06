@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.isort = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/isort";
       options = if cfg.profile != "" then [ "--profile" cfg.profile ] else [ ];
       includes = [ "*.py" ];
     };

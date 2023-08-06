@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.nixpkgs-fmt = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/nixpkgs-fmt";
       includes = [ "*.nix" ];
     };
   };

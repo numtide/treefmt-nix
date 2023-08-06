@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.mdformat = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/mdformat";
       includes = [ "*.md" ];
     };
   };

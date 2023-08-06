@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.mdsh = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/mdsh";
       options = [ "--inputs" ];
       includes = [ "README.md" ];
     };

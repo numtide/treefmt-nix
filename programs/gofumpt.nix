@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.gofumpt = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/gofumpt";
       options = [ "-w" ] ++ lib.optional cfg.extra "-extra";
       includes = [ "*.go" ];
     };

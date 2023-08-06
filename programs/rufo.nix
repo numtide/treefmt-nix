@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.rufo = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/rufo";
       options = [ "-x" ];
       includes = [ "*.rb" ];
     };

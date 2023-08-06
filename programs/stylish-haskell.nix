@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.stylish-haskell = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/stylish-haskell";
       options = [ "-i" "-r" ];
       includes = [ "*.hs" ];
     };

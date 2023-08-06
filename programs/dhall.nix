@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.dhall = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/dhall";
       options = [ "format" ];
       includes = [ "*.dhall" ];
     };

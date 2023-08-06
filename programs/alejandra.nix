@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.alejandra = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/alejandra";
       includes = [ "*.nix" ];
     };
   };

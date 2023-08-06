@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.ormolu = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/ormolu";
       options = [
         "--mode"
         "inplace"

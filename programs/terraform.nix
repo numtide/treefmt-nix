@@ -10,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.terraform = {
-      command = cfg.package;
+      command = "${lib.getBin cfg.package}/bin/terraform";
       options = [ "fmt" ];
       includes = [ "*.tf" ];
     };

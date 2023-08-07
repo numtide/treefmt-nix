@@ -116,7 +116,7 @@ in
     settings.formatter.dprint = {
       command = cfg.wrapper;
       options = [ "fmt" ];
-      includes = cfg.config.includes;
+      includes = cfg.settings.includes;
     };
   };
 }

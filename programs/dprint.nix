@@ -9,7 +9,7 @@ let
   # Configuration schema for dprint, which we generate dprint.json with.
   # Definition taken from:
   # https://raw.githubusercontent.com/dprint/dprint/5168db9ff0a9b5d42774f95edd58681fc67c9009/website/src/assets/schemas/v0.json
-  configSchema = {
+  settingsSchema = {
     incremental = mkOption {
       description = "Whether to format files only when they change.";
       type = types.nullOr types.bool;
@@ -23,7 +23,10 @@ let
       default = null;
     };
     lineWidth = mkOption {
-      description = "The width of a line the printer will try to stay under. Note that the printer may exceed this width in certain cases.";
+      description = ''
+        The width of a line the printer will try to stay under. Note that the
+        printer may exceed this width in certain cases.
+      '';
       type = types.nullOr types.int;
       example = 80;
       default = null;
@@ -35,13 +38,17 @@ let
       default = null;
     };
     useTabs = mkOption {
-      description = "Whether to use tabs (true) or spaces (false) for indentation.";
+      description = ''
+        Whether to use tabs (true) or spaces (false) for indentation.
+      '';
       type = types.nullOr types.bool;
       example = true;
       default = null;
     };
     newLineKind = mkOption {
-      description = "The kind of newline to use (one of: auto, crlf, lf, system).";
+      description = ''
+        The kind of newline to use (one of: auto, crlf, lf, system).
+      '';
       type = types.nullOr types.str;
       example = "auto";
       default = null;
@@ -53,7 +60,9 @@ let
       default = [ ".*" ];
     };
     excludes = mkOption {
-      description = "Array of patterns (globs) to exclude files or directories to format.";
+      description = ''
+        Array of patterns (globs) to exclude files or directories to format.
+      '';
       type = types.nullOr (types.listOf types.string);
       example = [ "**/node_modules" "**/*-lock.json" ];
       default = null;
@@ -72,8 +81,8 @@ let
 
   # We filter out null values in dprint configuration since dprint errors when
   # they're present
-  mkConfigFile = { filename ? "dprint.json", config ? { } }:
-    configFormat.generate filename (filterAttrsRecursive (n: v: v != null) config);
+  mkSettingsFile = { settings ? { } }:
+    configFormat.generate "dprint.json" (filterAttrsRecursive (n: v: v != null) settings);
 in
 {
   options.programs.dprint = {
@@ -81,20 +90,23 @@ in
     package = mkPackageOption pkgs "dprint" { };
 
     # Represents the dprint.json config schema
-    config = configSchema;
+    settings = settingsSchema;
 
     # Wrapped dprint invocation passing a generated dprint.json configuration
     wrapper = mkOption {
       description = "The dprint package, wrapped with the config file.";
+      internal = true;
       type = types.package;
       defaultText = literalMD "wrapped `dprint` command";
       default =
         let
-          configFile = mkConfigFile { config = cfg.config; };
-          x = pkgs.writeShellScriptBin "dprint" ''
-            set -euo pipefail
-            exec ${lib.getExe cfg.package} --config=${configFile} "$@"
-          '';
+          settingsFile = mkSettingsFile { settings = cfg.settings; };
+          x =
+            if settingsFile != { } then
+              pkgs.writeShellScriptBin "dprint" ''
+                set -euo pipefail
+                exec ${lib.getExe cfg.package} --config=${settingsFile} "$@"
+              '' else cfg.package.meta.mainProgram;
         in
         (x // { meta = config.package.meta // x.meta; });
     };

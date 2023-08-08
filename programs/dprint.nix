@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }:
 let
   inherit (lib)
-    filterAttrsRecursive literalMD mkEnableOption mkIf mkOption mkPackageOption types;
+    filterAttrsRecursive mkEnableOption mkIf mkOption mkPackageOption optionals types;
 
   cfg = config.programs.dprint;
   configFormat = pkgs.formats.json { };
@@ -57,13 +57,13 @@ let
       description = "Array of patterns (globs) to use to find files to format.";
       type = types.nullOr (types.listOf types.str);
       example = [ "**/*.{ts,tsx,js,jsx,mjs,json,md}" ];
-      default = [ ".*" ];
+      default = null;
     };
     excludes = mkOption {
       description = ''
         Array of patterns (globs) to exclude files or directories to format.
       '';
-      type = types.nullOr (types.listOf types.string);
+      type = types.nullOr (types.listOf types.str);
       example = [ "**/node_modules" "**/*-lock.json" ];
       default = null;
     };
@@ -79,10 +79,15 @@ let
     };
   };
 
-  # We filter out null values in dprint configuration since dprint errors when
-  # they're present
-  mkSettingsFile = { settings ? { } }:
-    configFormat.generate "dprint.json" (filterAttrsRecursive (n: v: v != null) settings);
+  settingsFile =
+    let
+      # remove all null values
+      settings = filterAttrsRecursive (n: v: v != null) cfg.settings;
+    in
+    if settings != { } then
+      configFormat.generate "dprint.json" settings
+    else
+      null;
 in
 {
   options.programs.dprint = {
@@ -91,32 +96,17 @@ in
 
     # Represents the dprint.json config schema
     settings = settingsSchema;
-
-    # Wrapped dprint invocation passing a generated dprint.json configuration
-    wrapper = mkOption {
-      description = "The dprint package, wrapped with the config file.";
-      internal = true;
-      type = types.package;
-      defaultText = literalMD "wrapped `dprint` command";
-      default =
-        let
-          settingsFile = mkSettingsFile { settings = cfg.settings; };
-          x =
-            if settingsFile != { } then
-              pkgs.writeShellScriptBin "dprint" ''
-                set -euo pipefail
-                exec ${lib.getExe cfg.package} --config=${settingsFile} "$@"
-              '' else cfg.package.meta.mainProgram;
-        in
-        (x // { meta = config.package.meta // x.meta; });
-    };
   };
 
   config = mkIf cfg.enable {
     settings.formatter.dprint = {
-      command = cfg.wrapper;
-      options = [ "fmt" ];
-      includes = cfg.settings.includes;
+      command = cfg.package;
+      options = [ "fmt" ] ++ (optionals (settingsFile != null) [
+        "--config"
+        (toString settingsFile)
+      ]);
+      includes =
+        if cfg.settings.includes != null then cfg.settings.includes else [ ".*" ];
     };
   };
 }

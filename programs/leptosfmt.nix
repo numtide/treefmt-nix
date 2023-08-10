@@ -10,7 +10,15 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.leptosfmt = {
-      command = "${cfg.package}/bin/leptosfmt";
+      command = pkgs.writeShellApplication {
+        name = "leptosfmt-forall";
+        runtimeInputs = [ cfg.package ];
+        text = ''
+          for file in "$@"; do
+            leptosfmt "$file"
+          done
+        '';
+      };
       includes = [ "*.rs" ];
     };
   };

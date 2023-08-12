@@ -20,6 +20,12 @@
                 example = lib.literalMD ''[ pkgs.python3.pkgs.requests ]'';
                 description = "Extra packages to add to PYTHONPATH";
               };
+              options = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [ ];
+                example = [ "--ignore-missing-imports" ];
+                description = "Options to pass to mypy";
+              };
               modules = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 default = [ "." ];
@@ -51,7 +57,7 @@
             ''
               cd "${cfg.directory}"
               export PYTHONPATH="${pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages}"
-              ${lib.getExe pkgs.mypy} ${lib.escapeShellArgs cfg.modules}
+              ${lib.getExe pkgs.mypy} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules}
             ''
           ];
           includes = builtins.map (module: "${cfg.directory}/${module}/**/*.py") cfg.modules;

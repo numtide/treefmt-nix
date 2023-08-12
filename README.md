@@ -188,6 +188,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * mdformat
 * mdsh
 * mix-format
+* mypy
 * nixfmt
 * nixpkgs-fmt
 * ocamlformat

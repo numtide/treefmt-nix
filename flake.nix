@@ -1,7 +1,7 @@
 {
   description = "treefmt nix configuration modules";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }:
     let

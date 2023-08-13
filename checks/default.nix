@@ -25,7 +25,8 @@ let
             } > "$out/${name}.toml"
           ''
         )
-        programConfigs;
+        # mypy example contains store paths
+        (lib.filterAttrs (n: _: n != "formatter-mypy") programConfigs);
     in
     pkgs.runCommand "examples" { } ''
       mkdir $out

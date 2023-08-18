@@ -1,16 +1,20 @@
-# treefmt-nix — treefmt configuration for nix users
+# treefmt-nix — Fast and convenient multi-file formatting with Nix
 
-This repo is for developers that use both [nix](https://github.com/NixOS/nix) and
-[treefmt](https://numtide.github.io/treefmt). `Treefmt` is a tool that helps you format all your project with one command, and `nix` is a package manager that allows you to specify build configurations in a functional manner.
+[treefmt](https://numtide.github.io/treefmt) combines file formatters for multiple programming languages so that you
+can format all your project files with a single command. With `treefmt-nix` you can specify `treefmt` build options,
+dependencies and config in one place, conveniently managed by [Nix](https://nixos.org/).
 
-Things work differently with `nix` than with other package managers. This is why it's handy to have a tool that helps you specify `treefmt` build options,  dependencies and config in one place.
+`treefmt-nix` automatically installs and configures the desired formatters as well as `treefmt` for you and integrates
+nicely into your Nix development environments.
+It comes with sane, pre-crafted [formatter-configs](https://github.com/numtide/treefmt-nix/tree/main/programs)
+maintained by the community; each config corresponds to a section that you would normally add to the `treefmt`
+config file `treefmt.toml`. 
 
-With `treefmt-nix`, you don't have to install neither the formatters nor treefmt manually. `treefmt-nix` installs and configures the needed formatters for you. It maps formatting programs to `treefmt.toml`  entries -- pre-crafted formatter-configs maintained by the community. 
-
-Basically, these configs are the most valuable part of this repository. They are located in the [`programs`](https://github.com/numtide/treefmt-nix/tree/master/programs) folder of this project.
+Take a look at the already [supported formatters](#supported-programs) for Python, Rust, Go, Haskell and more.
  
-## Usage
-### Nix classic
+## Integration into Nix
+
+### Nix classic without flakes
 
 To run `treefmt-nix` with nix-classic, import the repo using [`niv`](https://github.com/nmattia/niv):
 ```

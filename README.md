@@ -189,6 +189,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * hclfmt
 * hlint
 * isort
+* ktlint
 * mdformat
 * mdsh
 * mix-format

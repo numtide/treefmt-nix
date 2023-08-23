@@ -238,6 +238,13 @@ In order to add a new formatter do the following things:
     4. Once this is good, revert those changes.
 5. Submit the PR!
 
+## Commercial support
+
+Looking for help or customization?
+
+Get in touch with Numtide to get a quote. We make it easy for companies to
+work with Open Source projects: <https://numtide.com/contact>
+
 ## License
 
 All the code and documentation is licensed with the MIT license. 

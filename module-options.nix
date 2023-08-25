@@ -156,6 +156,7 @@ in
           pkgs.runCommandLocal "treefmt-check"
             {
               buildInputs = [ pkgs.git config.build.wrapper ];
+              meta.description = "Check that the project tree is formatted";
             }
             ''
               set -e

@@ -201,6 +201,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * ormolu
 * php-cs-fixer
 * prettier
+* protolint
 * purs-tidy
 * ruff
 * rufo

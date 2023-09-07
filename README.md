@@ -211,6 +211,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * scalafmt
 * shellcheck
 * shfmt
+* statix
 * stylish-haskell
 * stylua
 * taplo

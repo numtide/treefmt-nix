@@ -24,7 +24,12 @@
       );
 
       checks = eachSystem (system: (import ./checks {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        };
         treefmt-nix = self.lib;
       }));
     };

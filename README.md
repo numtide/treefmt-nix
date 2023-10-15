@@ -181,6 +181,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * deno
 * dhall
 * dprint
+* dioxus-cli
 * elm-format
 * erlfmt
 * fnlfmt

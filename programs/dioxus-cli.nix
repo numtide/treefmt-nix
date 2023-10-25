@@ -1,11 +1,11 @@
 { lib, pkgs, config, ... }:
 let
-  cfg = config.programs.dioxusfmt;
+  cfg = config.programs.dioxus-cli;
 in
   {
     options.programs.dioxus-cli = {
       enable = lib.mkEnableOption "dioxus-cli";
-      package = lib.mkPackageOptions pkgs "dioxus-cli" {};
+      package = lib.mkPackageOption pkgs "dioxus-cli" {};
     };
 
     config = lib.mkIf cfg.enable {

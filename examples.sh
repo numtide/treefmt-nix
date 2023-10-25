@@ -8,7 +8,7 @@ cd "$(dirname "$0")"
 system=$(nix eval --raw --impure --expr 'builtins.currentSystem')
 
 # Generate the examples from the config
-nix build ".#checks.$system.examples.passthru.examples"
+nix build ".#checks.$system.examples.passthru.examples" --impure
 
 # Copy
 rm -f ./examples/* || true

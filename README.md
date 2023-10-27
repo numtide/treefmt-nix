@@ -198,6 +198,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * mix-format
 * muon
 * mypy
+* nickel
 * nixfmt
 * nixpkgs-fmt
 * ocamlformat

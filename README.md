@@ -154,7 +154,7 @@ programs.gofmt.enable = true;
 * The option `programs.terraform.package` allows you to use a particular build/version of the specified formatter.
 * By setting`settings.formatter.terraform.excludes` you can mark the files which should be excluded from formatting. You can also specify other formatter options or includes this way. 
 
-For detailed description of the options, refer to the `treefmt` [documentation](https://numtide.github.io/treefmt/treefmt-configuration.html). 
+For detailed description of the options, refer to the `treefmt` [documentation](https://numtide.github.io/treefmt/treefmt-configuration). 
 
 ## Project structure
 
@@ -230,7 +230,7 @@ folder.
 
 PRs to add new formatters are welcome!
 
-* The formatter should conform to the [formatter specifications](https://numtide.github.io/treefmt/formatters-spec.html).
+* The formatter should conform to the [formatter specifications](https://numtide.github.io/treefmt/formatters-spec).
 * This is not the place to debate formatting preferences. Please pick defaults that are standard in your community -- for instance, python is usually indented with 4 spaces, so don't add a python formatter with 2 spaces as the default.
 
 In order to add a new formatter do the following things:

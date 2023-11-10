@@ -40,7 +40,7 @@ let
     };
     editorconfig = mkOption {
       description = ''
-        Whether parse the .editorconfig file in your project and convert its 
+        Whether parse the .editorconfig file in your project and convert its
         properties to the corresponding Prettier configuration. This
         configuration will be overridden by .prettierrc, etc.
       '';
@@ -270,22 +270,26 @@ in
       description = "Path / file patterns to include for Prettier";
       type = types.listOf types.str;
       default = [
+        "*.cjs"
         "*.css"
         "*.html"
         "*.js"
         "*.json"
+        "*.json5"
         "*.jsx"
         "*.md"
         "*.mdx"
+        "*.mjs"
         "*.scss"
         "*.ts"
         "*.tsx"
+        "*.vue"
         "*.yaml"
         "*.yml"
       ];
     };
 
-    # Prettier-specific includes override
+    # Prettier-specific excludes override
     excludes = mkOption {
       description = "Path / file patterns to exclude for Prettier";
       type = types.listOf types.str;

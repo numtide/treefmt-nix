@@ -11,7 +11,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.black = {
       command = cfg.package;
-      includes = [ "*.py" ];
+      includes = [
+        "*.py"
+        "*.pyi"
+      ];
     };
   };
 }

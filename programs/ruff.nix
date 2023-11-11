@@ -18,7 +18,10 @@ in
     settings.formatter.ruff = {
       command = cfg.package;
       options = lib.optional cfg.format "format";
-      includes = [ "*.py" ];
+      includes = [
+        "*.py"
+        "*.pyi"
+      ];
     };
   };
 }

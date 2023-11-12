@@ -2,5 +2,5 @@
 [formatter.isort]
 command = "isort"
 excludes = []
-includes = ["*.py"]
+includes = ["*.py", "*.pyi"]
 options = []

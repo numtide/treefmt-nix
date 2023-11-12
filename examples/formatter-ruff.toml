@@ -2,5 +2,5 @@
 [formatter.ruff]
 command = "ruff"
 excludes = []
-includes = ["*.py"]
+includes = ["*.py", "*.pyi"]
 options = []

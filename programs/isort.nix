@@ -19,7 +19,10 @@ in
     settings.formatter.isort = {
       command = cfg.package;
       options = if cfg.profile != "" then [ "--profile" cfg.profile ] else [ ];
-      includes = [ "*.py" ];
+      includes = [
+        "*.py"
+        "*.pyi"
+      ];
     };
   };
 }

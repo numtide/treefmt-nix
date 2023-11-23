@@ -6,7 +6,7 @@ let
     set -euo pipefail
 
     for file in "$@"; do
-      ${cfg.package}/bin/nickel format --in-place --file "$file"
+      ${cfg.package}/bin/nickel format "$file"
     done
   '';
 in

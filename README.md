@@ -129,7 +129,7 @@ This flake exposes a [flake-parts](https://flake.parts/) module as well. To use 
 
     For an example, see [haskell-template](https://github.com/srid/haskell-template)'s `flake.nix`.
     
-See [this page](https://zero-to-flakes.com/treefmt-nix) for a detailed walkthrough.
+See [this page](https://haskell.flake.page/treefmt) for details.
 
 ## Configuration
 While dealing with `treefmt` outside of `nix`, the formatter configuration is specified in a `toml` format. On the contrary, with `nix`, you write in with a nix syntax like this:
@@ -180,8 +180,8 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * deadnix
 * deno
 * dhall
+* dioxus
 * dprint
-* dioxus-cli
 * elm-format
 * erlfmt
 * fnlfmt

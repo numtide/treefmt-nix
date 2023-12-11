@@ -221,6 +221,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * taplo
 * terraform
 * yamlfmt
+* zig
 * zprint
 <!-- END mdsh -->
 

@@ -11,7 +11,7 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.yamlfmt = {
       command = cfg.package;
-      includes = [ "*.yaml" ];
+      includes = [ "*.yaml" "*.yml" ];
     };
   };
 }

@@ -184,6 +184,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * elm-format
 * erlfmt
 * fnlfmt
+* fprettify
 * gofmt
 * gofumpt
 * google-java-format

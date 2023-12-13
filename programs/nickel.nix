@@ -1,14 +1,6 @@
 { lib, pkgs, config, ... }:
 let
   cfg = config.programs.nickel;
-
-  wrapper = pkgs.writeShellScriptBin "nickelfmt" ''
-    set -euo pipefail
-
-    for file in "$@"; do
-      ${cfg.package}/bin/nickel format --in-place --file "$file"
-    done
-  '';
 in
 {
   options.programs.nickel = {
@@ -18,7 +10,8 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.nickel = {
-      command = wrapper // { meta = config.package.meta // wrapper.meta; };
+      command = cfg.package;
+      options = [ "format" ];
       includes = [ "*.ncl" "*.nickel" ];
     };
   };

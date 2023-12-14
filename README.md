@@ -195,6 +195,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * isort
 * jsonnet-lint
 * jsonnetfmt
+* just
 * ktfmt
 * ktlint
 * leptosfmt

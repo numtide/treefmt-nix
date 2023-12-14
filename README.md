@@ -244,12 +244,11 @@ PRs to add new formatters are welcome!
 In order to add a new formatter do the following things:
 
 1. Create a new entry in the ./programs/ folder.
-2. Run ./bors.toml.sh to update the bors.toml file.
-3. Run ./examples.sh to update the ./examples folder.
+3. Run `./examples.sh` to update the ./examples folder.
 4. To test the program:
     1. Extend the project's `./treefmt.nix` file (temporarilt)
     2. Add a bunch of sources in this repo
-    3. Run `nix develop -c treefmt`
+    3. Run `nix fmt`
     4. Once this is good, revert those changes.
 5. Submit the PR!
 

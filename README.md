@@ -219,6 +219,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * statix
 * stylish-haskell
 * stylua
+* swift-format
 * taplo
 * terraform
 * yamlfmt

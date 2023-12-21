@@ -222,6 +222,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * swift-format
 * taplo
 * terraform
+* typstfmt
 * yamlfmt
 * zig
 * zprint

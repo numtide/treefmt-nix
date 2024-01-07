@@ -173,6 +173,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * alejandra
 * asmfmt
 * beautysh
+* biome
 * black
 * buildifier
 * cabal-fmt

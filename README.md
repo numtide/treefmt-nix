@@ -8,10 +8,10 @@ dependencies and config in one place, conveniently managed by [Nix](https://nixo
 nicely into your Nix development environments.
 It comes with sane, pre-crafted [formatter-configs](https://github.com/numtide/treefmt-nix/tree/main/programs)
 maintained by the community; each config corresponds to a section that you would normally add to the `treefmt`
-config file `treefmt.toml`. 
+config file `treefmt.toml`.
 
 Take a look at the already [supported formatters](#supported-programs) for Python, Rust, Go, Haskell and more.
- 
+
 ## Integration into Nix
 
 ### Nix classic without flakes
@@ -56,7 +56,7 @@ Next, execute this command:
 $ nix-build myfile.nix
 ```
 
-This command returns a derivation that contains a `treefmt` binary at `./result/bin/treefmt` in your current directory. The file is actually a symlink to the artifact in `/nix/store`. 
+This command returns a derivation that contains a `treefmt` binary at `./result/bin/treefmt` in your current directory. The file is actually a symlink to the artifact in `/nix/store`.
 
 `treefmt.toml` in this case isn't generated: the binary is wrapped with the config.
 
@@ -104,13 +104,13 @@ And also add the `treefmt.nix` file (or put the content inline if you prefer):
   settings.formatter.terraform.excludes = [ "hello.tf" ];
 }
 ```
-This file is also the place to define all the treefmt parameters like includes, excludes and formatter options. 
+This file is also the place to define all the treefmt parameters like includes, excludes and formatter options.
 
 After specifying the flake, run [`nix fmt`](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-fmt.html):
 ```
 $ nix fmt
 ```
-Nix-fmt is a tool to format all nix files in the project, but with the specified flake, it starts treefmt-nix and formats your project. 
+Nix-fmt is a tool to format all nix files in the project, but with the specified flake, it starts treefmt-nix and formats your project.
 
 You can also run `nix flake check` (eg: in CI) to validate that the project's
 code is properly formatted.
@@ -128,7 +128,7 @@ This flake exposes a [flake-parts](https://flake.parts/) module as well. To use 
     You can also use `config.treefmt.build.programs` to get access to the individual programs, which could be useful to provide them to your IDE or editor.
 
     For an example, see [haskell-template](https://github.com/srid/haskell-template)'s `flake.nix`.
-    
+
 See [this page](https://zero-to-flakes.com/treefmt-nix) for a detailed walkthrough.
 
 ## Configuration
@@ -144,21 +144,21 @@ While dealing with `treefmt` outside of `nix`, the formatter configuration is sp
   settings.formatter.terraform.excludes = [ "hello.tf" ];
 ```
 
-**Options:** 
-* `Project root file` is the git file of the project which you plan to format. 
+**Options:**
+* `Project root file` is the git file of the project which you plan to format.
 * The option `programs.terraform.enable` enables the needed formatter. You can specify as many formatter as you want. For instance:
 ```
 programs.terraform.enable = true;
 programs.gofmt.enable = true;
 ```
 * The option `programs.terraform.package` allows you to use a particular build/version of the specified formatter.
-* By setting`settings.formatter.terraform.excludes` you can mark the files which should be excluded from formatting. You can also specify other formatter options or includes this way. 
+* By setting`settings.formatter.terraform.excludes` you can mark the files which should be excluded from formatting. You can also specify other formatter options or includes this way.
 
-For detailed description of the options, refer to the `treefmt` [documentation](https://numtide.github.io/treefmt/treefmt-configuration). 
+For detailed description of the options, refer to the `treefmt` [documentation](https://numtide.github.io/treefmt/treefmt-configuration).
 
 ## Project structure
 
-This repo contains a top-level `default.nix` that returns the library helper functions. 
+This repo contains a top-level `default.nix` that returns the library helper functions.
 
 * `mkWrapper` is the main function which wraps treefmt with the needed configuration.
 * `mkConfigFile`
@@ -196,6 +196,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * jsonnet-lint
 * jsonnetfmt
 * just
+* keep-sorted
 * ktfmt
 * ktlint
 * leptosfmt
@@ -262,4 +263,4 @@ work with Open Source projects: <https://numtide.com/contact>
 
 ## License
 
-All the code and documentation is licensed with the MIT license. 
+All the code and documentation is licensed with the MIT license.

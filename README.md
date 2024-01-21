@@ -236,6 +236,29 @@ For non-Nix users, you can also find the generated examples in the
 [./examples](./examples)
 folder.
 
+### Using a custom formatter
+
+It is also possible to use custom formatters with `treefmt-nix`.
+For example, the following custom formatter formats JSON files using `yq-go`:
+
+```nix
+settings.formatter = {
+  "yq-json" = {
+    command = "${pkgs.bash}/bin/bash";
+    options = [
+      "-euc"
+      ''
+        for file in "$@"; do
+          ${lib.getExe yq-go} -i --output-format=json $file
+        done
+      ''
+      "--" # bash swallows the second argument when using -c
+    ];
+    includes = [ "*.json" ];
+  };
+};
+```
+
 ### Adding new formatters
 
 PRs to add new formatters are welcome!

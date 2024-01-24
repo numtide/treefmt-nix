@@ -178,6 +178,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * buildifier
 * cabal-fmt
 * clang-format
+* cljfmt
 * cue
 * deadnix
 * deno

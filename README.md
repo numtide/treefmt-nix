@@ -179,6 +179,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * cabal-fmt
 * clang-format
 * cljfmt
+* csharpier
 * cue
 * deadnix
 * deno

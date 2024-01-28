@@ -10,7 +10,7 @@ in {
   config = lib.mkIf cfg.enable {
     settings.formatter.csharpier = {
       command = pkgs.writeShellApplication {
-        name = "csharpier-fix";
+        name = "dotnet-csharpier";
         runtimeInputs = with cfg; [ dotnet-sdk package ];
         text = ''
           dotnet-csharpier "$@"

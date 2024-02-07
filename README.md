@@ -275,7 +275,7 @@ In order to add a new formatter do the following things:
 1. Create a new entry in the ./programs/ folder.
 3. Run `./examples.sh` to update the ./examples folder.
 4. To test the program:
-    1. Extend the project's `./treefmt.nix` file (temporarilt)
+    1. Extend the project's `./treefmt.nix` file (temporarily)
     2. Add a bunch of sources in this repo
     3. Run `nix fmt`
     4. Once this is good, revert those changes.

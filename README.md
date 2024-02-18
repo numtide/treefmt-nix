@@ -197,6 +197,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * hclfmt
 * hlint
 * isort
+* jsonfmt
 * jsonnet-lint
 * jsonnetfmt
 * just

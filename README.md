@@ -212,6 +212,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * mypy
 * nickel
 * nixfmt
+* nixfmt-rfc-style
 * nixpkgs-fmt
 * ocamlformat
 * ormolu

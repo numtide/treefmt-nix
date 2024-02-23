@@ -16,7 +16,12 @@ let
         treefmt-nix.programs.names
       );
     in
-    if pkgs.stdenv.isDarwin then builtins.removeAttrs attrs [ "formatter-muon" ]
+    if pkgs.stdenv.isDarwin then
+      builtins.removeAttrs attrs [
+        # Broken on macOS
+        "formatter-fantomas"
+        "formatter-muon"
+      ]
     else attrs;
 
   examples =
@@ -37,7 +42,9 @@ let
             # mypy example contains store paths
             n != "formatter-mypy" &&
             # muon is broken on macOS
-            n != "formatter-muon"
+            n != "formatter-muon" &&
+            # fantomas is broken on macOS
+            n != "formatter-fantomas"
           )
           programConfigs);
     in

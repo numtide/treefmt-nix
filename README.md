@@ -232,6 +232,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * stylua
 * swift-format
 * taplo
+* templ
 * terraform
 * typstfmt
 * yamlfmt

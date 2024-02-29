@@ -216,6 +216,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * nixfmt-rfc-style
 * nixpkgs-fmt
 * ocamlformat
+* opa
 * ormolu
 * php-cs-fixer
 * prettier

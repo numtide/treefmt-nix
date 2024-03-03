@@ -18,8 +18,8 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.elm-format = {
       command = cfg.package;
-      options = [ " - -yes " ];
-      includes = [ " * .elm " ];
+      options = [ "--yes" ];
+      includes = [ "*.elm" ];
     };
   };
 }

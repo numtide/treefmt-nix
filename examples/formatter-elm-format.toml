@@ -2,5 +2,5 @@
 [formatter.elm-format]
 command = "elm-format"
 excludes = []
-includes = [" * .elm "]
-options = [" - -yes "]
+includes = ["*.elm"]
+options = ["--yes"]

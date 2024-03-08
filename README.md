@@ -184,6 +184,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * deadnix
 * deno
 * dhall
+* dos2unix
 * dprint
 * elm-format
 * erlfmt

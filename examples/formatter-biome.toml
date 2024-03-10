@@ -2,5 +2,5 @@
 [formatter.biome]
 command = "biome"
 excludes = []
-includes = ["*.js", "*.ts", "*.mjs", "*.mts", "*.cjs", "*.cts", "*.jsx", "*.tsx", "*.json", "*.jsonc"]
+includes = ["*.js", "*.ts", "*.mjs", "*.mts", "*.cjs", "*.cts", "*.jsx", "*.tsx", "*.d.ts", "*.d.cts", "*.d.mts", "*.json", "*.jsonc"]
 options = ["format", "--write", "--no-errors-on-unmatched"]

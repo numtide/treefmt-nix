@@ -18,6 +18,9 @@ let
     "*.cts"
     "*.jsx"
     "*.tsx"
+    "*.d.ts"
+    "*.d.cts"
+    "*.d.mts"
   ];
 
   ext.json = [

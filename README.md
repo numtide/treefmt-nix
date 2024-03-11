@@ -203,6 +203,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * nixpkgs-fmt
 * ocamlformat
 * ormolu
+* packer
 * php-cs-fixer
 * prettier
 * protolint

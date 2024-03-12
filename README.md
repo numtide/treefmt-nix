@@ -219,6 +219,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * ocamlformat
 * opa
 * ormolu
+* packer
 * php-cs-fixer
 * prettier
 * protolint
@@ -278,14 +279,20 @@ PRs to add new formatters are welcome!
 
 In order to add a new formatter do the following things:
 
-1. Create a new entry in the ./programs/ folder.
-3. Run `./examples.sh` to update the ./examples folder.
-4. To test the program:
-    1. Extend the project's `./treefmt.nix` file (temporarily)
-    2. Add a bunch of sources in this repo
-    3. Run `nix fmt`
+1. Create a new entry in the `./programs/` folder.
+2. Run `./examples.sh` to update the `./examples` folder.
+3. To test the program:
+    1. Extend the project's `./treefmt.nix` file (temporarily) to enable the
+       new formatter and configure it in whatever manner is appropriate.
+    2. Add a bunch of pertinent sources in this repo -- for instance, if the
+       new formatter is meant to format `*.foo` files, add a number of `*.foo`
+       files, some well-formatted (and therefore expected to
+       be exempt from modification by `treefmt`) and some badly-formatted.
+    3. Run `nix fmt`.  Confirm that well-formatted files are unchanged and that
+       badly-formatted files are flagged as such.  Re-run `nix fmt` and confirm
+       that no additional changes were made.
     4. Once this is good, revert those changes.
-5. Submit the PR!
+4. Submit the PR!
 
 ## Commercial support
 

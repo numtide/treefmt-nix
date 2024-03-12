@@ -9,10 +9,20 @@ let
       programs.${name}.enable = true;
     };
 
-  programConfigs = lib.listToAttrs (map
-    (name: { name = "formatter-${name}"; value = toConfig name; })
-    treefmt-nix.programs.names
-  );
+  programConfigs =
+    let
+      attrs = lib.listToAttrs (map
+        (name: { name = "formatter-${name}"; value = toConfig name; })
+        treefmt-nix.programs.names
+      );
+    in
+    if pkgs.stdenv.isDarwin then
+      builtins.removeAttrs attrs [
+        # Broken on macOS
+        "formatter-fantomas"
+        "formatter-muon"
+      ]
+    else attrs;
 
   examples =
     let
@@ -25,8 +35,18 @@ let
             } > "$out/${name}.toml"
           ''
         )
-        # mypy example contains store paths
-        (lib.filterAttrs (n: _: n != "formatter-mypy") programConfigs);
+        (lib.filterAttrs
+          (n: _:
+            # just example contains store paths
+            n != "formatter-just" &&
+            # mypy example contains store paths
+            n != "formatter-mypy" &&
+            # muon is broken on macOS
+            n != "formatter-muon" &&
+            # fantomas is broken on macOS
+            n != "formatter-fantomas"
+          )
+          programConfigs);
     in
     pkgs.runCommand "examples" { } ''
       mkdir $out

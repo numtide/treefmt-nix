@@ -8,10 +8,10 @@ dependencies and config in one place, conveniently managed by [Nix](https://nixo
 nicely into your Nix development environments.
 It comes with sane, pre-crafted [formatter-configs](https://github.com/numtide/treefmt-nix/tree/main/programs)
 maintained by the community; each config corresponds to a section that you would normally add to the `treefmt`
-config file `treefmt.toml`. 
+config file `treefmt.toml`.
 
 Take a look at the already [supported formatters](#supported-programs) for Python, Rust, Go, Haskell and more.
- 
+
 ## Integration into Nix
 
 ### Nix classic without flakes
@@ -56,7 +56,7 @@ Next, execute this command:
 $ nix-build myfile.nix
 ```
 
-This command returns a derivation that contains a `treefmt` binary at `./result/bin/treefmt` in your current directory. The file is actually a symlink to the artifact in `/nix/store`. 
+This command returns a derivation that contains a `treefmt` binary at `./result/bin/treefmt` in your current directory. The file is actually a symlink to the artifact in `/nix/store`.
 
 `treefmt.toml` in this case isn't generated: the binary is wrapped with the config.
 
@@ -104,13 +104,13 @@ And also add the `treefmt.nix` file (or put the content inline if you prefer):
   settings.formatter.terraform.excludes = [ "hello.tf" ];
 }
 ```
-This file is also the place to define all the treefmt parameters like includes, excludes and formatter options. 
+This file is also the place to define all the treefmt parameters like includes, excludes and formatter options.
 
 After specifying the flake, run [`nix fmt`](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-fmt.html):
 ```
 $ nix fmt
 ```
-Nix-fmt is a tool to format all nix files in the project, but with the specified flake, it starts treefmt-nix and formats your project. 
+Nix-fmt is a tool to format all nix files in the project, but with the specified flake, it starts treefmt-nix and formats your project.
 
 You can also run `nix flake check` (eg: in CI) to validate that the project's
 code is properly formatted.
@@ -128,7 +128,7 @@ This flake exposes a [flake-parts](https://flake.parts/) module as well. To use 
     You can also use `config.treefmt.build.programs` to get access to the individual programs, which could be useful to provide them to your IDE or editor.
 
     For an example, see [haskell-template](https://github.com/srid/haskell-template)'s `flake.nix`.
-    
+
 See [this page](https://zero-to-flakes.com/treefmt-nix) for a detailed walkthrough.
 
 ## Configuration
@@ -144,21 +144,21 @@ While dealing with `treefmt` outside of `nix`, the formatter configuration is sp
   settings.formatter.terraform.excludes = [ "hello.tf" ];
 ```
 
-**Options:** 
-* `Project root file` is the git file of the project which you plan to format. 
+**Options:**
+* `Project root file` is the git file of the project which you plan to format.
 * The option `programs.terraform.enable` enables the needed formatter. You can specify as many formatter as you want. For instance:
 ```
 programs.terraform.enable = true;
 programs.gofmt.enable = true;
 ```
 * The option `programs.terraform.package` allows you to use a particular build/version of the specified formatter.
-* By setting`settings.formatter.terraform.excludes` you can mark the files which should be excluded from formatting. You can also specify other formatter options or includes this way. 
+* By setting`settings.formatter.terraform.excludes` you can mark the files which should be excluded from formatting. You can also specify other formatter options or includes this way.
 
-For detailed description of the options, refer to the `treefmt` [documentation](https://numtide.github.io/treefmt/treefmt-configuration.html). 
+For detailed description of the options, refer to the `treefmt` [documentation](https://numtide.github.io/treefmt/treefmt-configuration).
 
 ## Project structure
 
-This repo contains a top-level `default.nix` that returns the library helper functions. 
+This repo contains a top-level `default.nix` that returns the library helper functions.
 
 * `mkWrapper` is the main function which wraps treefmt with the needed configuration.
 * `mkConfigFile`
@@ -171,25 +171,39 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 <!-- `> ls programs/*.nix | grep -v default.nix | cut -d '.' -f 1 | cut -d / -f 2 | LC_ALL=C sort | sed -e 's/^/* /'` -->
 <!-- BEGIN mdsh -->
 * alejandra
+* asmfmt
 * beautysh
+* biome
 * black
 * buildifier
 * cabal-fmt
 * clang-format
+* cljfmt
+* csharpier
 * cue
 * deadnix
 * deno
 * dhall
+* dos2unix
 * dprint
 * elm-format
 * erlfmt
+* fantomas
 * fnlfmt
+* formatjson5
+* fourmolu
+* fprettify
 * gofmt
 * gofumpt
 * google-java-format
 * hclfmt
 * hlint
 * isort
+* jsonfmt
+* jsonnet-lint
+* jsonnetfmt
+* just
+* keep-sorted
 * ktfmt
 * ktlint
 * leptosfmt
@@ -200,8 +214,10 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * mypy
 * nickel
 * nixfmt
+* nixfmt-rfc-style
 * nixpkgs-fmt
 * ocamlformat
+* opa
 * ormolu
 * packer
 * php-cs-fixer
@@ -217,9 +233,13 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * statix
 * stylish-haskell
 * stylua
+* swift-format
 * taplo
+* templ
 * terraform
+* typstfmt
 * yamlfmt
+* zig
 * zprint
 <!-- END mdsh -->
 
@@ -227,11 +247,34 @@ For non-Nix users, you can also find the generated examples in the
 [./examples](./examples)
 folder.
 
+### Using a custom formatter
+
+It is also possible to use custom formatters with `treefmt-nix`.
+For example, the following custom formatter formats JSON files using `yq-go`:
+
+```nix
+settings.formatter = {
+  "yq-json" = {
+    command = "${pkgs.bash}/bin/bash";
+    options = [
+      "-euc"
+      ''
+        for file in "$@"; do
+          ${lib.getExe yq-go} -i --output-format=json $file
+        done
+      ''
+      "--" # bash swallows the second argument when using -c
+    ];
+    includes = [ "*.json" ];
+  };
+};
+```
+
 ### Adding new formatters
 
 PRs to add new formatters are welcome!
 
-* The formatter should conform to the [formatter specifications](https://numtide.github.io/treefmt/formatters-spec.html).
+* The formatter should conform to the [formatter specifications](https://numtide.github.io/treefmt/formatters-spec).
 * This is not the place to debate formatting preferences. Please pick defaults that are standard in your community -- for instance, python is usually indented with 4 spaces, so don't add a python formatter with 2 spaces as the default.
 
 In order to add a new formatter do the following things:
@@ -260,4 +303,4 @@ work with Open Source projects: <https://numtide.com/contact>
 
 ## License
 
-All the code and documentation is licensed with the MIT license. 
+All the code and documentation is licensed with the MIT license.

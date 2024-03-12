@@ -2,5 +2,5 @@
 [formatter.prettier]
 command = "prettier"
 excludes = []
-includes = ["*.css", "*.html", "*.js", "*.json", "*.jsx", "*.md", "*.mdx", "*.scss", "*.ts", "*.tsx", "*.yaml", "*.yml"]
+includes = ["*.cjs", "*.css", "*.html", "*.js", "*.json", "*.json5", "*.jsx", "*.md", "*.mdx", "*.mjs", "*.scss", "*.ts", "*.tsx", "*.vue", "*.yaml", "*.yml"]
 options = ["--write"]

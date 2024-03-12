@@ -2,5 +2,5 @@
 [formatter.yamlfmt]
 command = "yamlfmt"
 excludes = []
-includes = ["*.yaml"]
+includes = ["*.yaml", "*.yml"]
 options = []

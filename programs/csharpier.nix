@@ -1,9 +1,8 @@
 { lib, pkgs, config, ... }:
 let
   cfg = config.programs.csharpier;
-  inherit (lib) mkEnableOption mkOption mkPackageOption types;
-in
-{
+  inherit (lib) mkEnableOption mkOption mkPackageOption mkIf types;
+in {
   options.programs.csharpier = {
     enable = mkEnableOption "csharpier";
     package = mkPackageOption pkgs "csharpier" { };
@@ -15,14 +14,14 @@ in
       default = [ "*.cs" ];
     };
 
-    excludes = lib.mkOption {
+    excludes = mkOption {
       description = "Path / file patterns to exclude for CSharpier";
-      type = lib.types.listOf lib.types.str;
+      type = types.listOf types.str;
       default = [ ];
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     settings.formatter.csharpier = {
       command = pkgs.writeShellApplication {
         name = "dotnet-csharpier";

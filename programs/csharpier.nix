@@ -2,7 +2,8 @@
 let
   cfg = config.programs.csharpier;
   inherit (lib) mkEnableOption mkOption mkPackageOption mkIf types;
-in {
+in
+{
   options.programs.csharpier = {
     enable = mkEnableOption "csharpier";
     package = mkPackageOption pkgs "csharpier" { };

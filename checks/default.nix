@@ -21,6 +21,7 @@ let
         # Broken on macOS
         "formatter-fantomas"
         "formatter-muon"
+        "formatter-gdformat"
       ]
     else attrs;
 

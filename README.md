@@ -213,6 +213,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * muon
 * mypy
 * nickel
+* nimpretty
 * nixfmt
 * nixfmt-rfc-style
 * nixpkgs-fmt

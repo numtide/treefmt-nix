@@ -45,7 +45,9 @@ let
             # muon is broken on macOS
             n != "formatter-muon" &&
             # fantomas is broken on macOS
-            n != "formatter-fantomas"
+            n != "formatter-fantomas" &&
+            # gdformat is bloken on macOS
+            n != "formatter-gdformat"
           )
           programConfigs);
     in

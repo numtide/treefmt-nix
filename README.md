@@ -193,6 +193,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * formatjson5
 * fourmolu
 * fprettify
+* gdformat
 * gofmt
 * gofumpt
 * google-java-format

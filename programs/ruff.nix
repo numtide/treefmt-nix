@@ -3,9 +3,18 @@ let
   cfg = config.programs.ruff;
 in
 {
+  imports = [
+    (lib.mkRenamedOptionModule [ "programs" "ruff" "enable" ] [ "programs" "ruff" "check" ])
+  ];
   options.programs.ruff = {
-    enable = lib.mkEnableOption "ruff";
     package = lib.mkPackageOption pkgs "ruff" { };
+    check = lib.mkEnableOption "ruff linter" // {
+      description = ''
+        Whether to enable the Ruff linter, an extremely fast Python linter
+        designed as a drop-in replacement for Flake8 (plus dozens of plugins),
+        isort, pydocstyle, pyupgrade, autoflake, and more.
+      '';
+    };
     format = lib.mkEnableOption "ruff formatter" // {
       description = ''
         Whether to enable the Ruff formatter, an extremely fast Python code formatter
@@ -16,7 +25,7 @@ in
 
   config = {
     settings.formatter = {
-      ruff-check = lib.mkIf cfg.enable {
+      ruff-check = lib.mkIf cfg.check {
         command = cfg.package;
         options = [ "check" ];
         includes = [

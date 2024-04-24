@@ -14,14 +14,24 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    settings.formatter.ruff = {
-      command = cfg.package;
-      options = lib.optional cfg.format "format";
-      includes = [
-        "*.py"
-        "*.pyi"
-      ];
+  config = {
+    settings.formatter = {
+      ruff-check = lib.mkIf cfg.enable {
+        command = cfg.package;
+        options = [ "check" ];
+        includes = [
+          "*.py"
+          "*.pyi"
+        ];
+      };
+      ruff-format = lib.mkIf cfg.format {
+        command = cfg.package;
+        options = [ "format" ];
+        includes = [
+          "*.py"
+          "*.pyi"
+        ];
+      };
     };
   };
 }

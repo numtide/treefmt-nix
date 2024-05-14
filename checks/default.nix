@@ -66,7 +66,10 @@ let
       (k: _: throw "The module documentation must not depend on pkgs attributes such as ${lib.strings.escapeNixIdentifier k}")
       pkgs
     // {
+      _type = "pkgs";
       inherit lib;
+      # Formats is ok and supported upstream too
+      inherit (pkgs) formats;
     };
 
   self = {

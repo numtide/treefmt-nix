@@ -20,51 +20,61 @@ let
       else lib.getExe res;
   };
 
+  configFormat = pkgs.formats.toml { };
+
   # The schema of the treefmt.toml data structure.
-  configSchema = {
-    global = {
-      excludes = mkOption {
-        description = "A global list of paths to exclude. Supports glob.";
-        type = types.listOf types.str;
-        default = [ ];
-        example = [ "./node_modules/**" ];
+  configSchema = mkOption {
+    default = { };
+    description = "The contents of treefmt.toml";
+    type = types.submodule {
+      freeformType = configFormat.type;
+      options = {
+
+        global = {
+          excludes = mkOption {
+            description = "A global list of paths to exclude. Supports glob.";
+            type = types.listOf types.str;
+            default = [ ];
+            example = [ "./node_modules/**" ];
+          };
+        };
+
+        formatter = mkOption {
+          type = types.attrsOf (types.submodule [
+            {
+              freeformType = configFormat.type;
+              options = {
+                command = mkOption {
+                  description = "Executable obeying the treefmt formatter spec";
+                  type = exeType;
+                };
+
+                options = mkOption {
+                  description = "List of arguments to pass to the command";
+                  type = types.listOf types.str;
+                  default = [ ];
+                };
+
+                includes = mkOption {
+                  description = "List of files to include for formatting. Supports globbing.";
+                  type = types.listOf types.str;
+                };
+
+                excludes = mkOption {
+                  description = "List of files to exclude for formatting. Supports globbing. Takes precedence over the includes.";
+                  type = types.listOf types.str;
+                  default = [ ];
+                };
+              };
+            }
+          ]);
+          default = { };
+          description = "Set of formatters to use";
+        };
       };
     };
 
-    formatter = mkOption {
-      type = types.attrsOf (types.submodule [
-        {
-          options = {
-            command = mkOption {
-              description = "Executable obeying the treefmt formatter spec";
-              type = exeType;
-            };
-
-            options = mkOption {
-              description = "List of arguments to pass to the command";
-              type = types.listOf types.str;
-              default = [ ];
-            };
-
-            includes = mkOption {
-              description = "List of files to include for formatting. Supports globbing.";
-              type = types.listOf types.str;
-            };
-
-            excludes = mkOption {
-              description = "List of files to exclude for formatting. Supports globbing. Takes precedence over the includes.";
-              type = types.listOf types.str;
-              default = [ ];
-            };
-          };
-        }
-      ]);
-      default = { };
-      description = "Set of formatters to use";
-    };
   };
-
-  configFormat = pkgs.formats.toml { };
 in
 {
   # Schema

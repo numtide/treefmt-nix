@@ -27,7 +27,7 @@ in
     settings.formatter = {
       ruff-check = lib.mkIf cfg.check {
         command = cfg.package;
-        options = [ "check" ];
+        options = lib.mkBefore [ "check" ];
         includes = [
           "*.py"
           "*.pyi"
@@ -35,7 +35,7 @@ in
       };
       ruff-format = lib.mkIf cfg.format {
         command = cfg.package;
-        options = [ "format" ];
+        options = lib.mkBefore [ "format" ];
         includes = [
           "*.py"
           "*.pyi"

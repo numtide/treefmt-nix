@@ -17,8 +17,6 @@ in
       ];
       includes = [
         "*.hcl"
-        "*.tf"
-        # TODO: any other file extensions?
       ];
     };
   };

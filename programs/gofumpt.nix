@@ -20,6 +20,7 @@ in
       command = cfg.package;
       options = [ "-w" ] ++ lib.optional cfg.extra "-extra";
       includes = [ "*.go" ];
+      excludes = [ "vendor/*" ];
     };
   };
 }

@@ -13,6 +13,7 @@ in
       command = "${cfg.package}/bin/gofmt";
       options = [ "-w" ];
       includes = [ "*.go" ];
+      excludes = [ "vendor/*" ];
     };
   };
 }

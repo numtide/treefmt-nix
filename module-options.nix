@@ -113,26 +113,37 @@ in
         defaultText = lib.literalMD "wrapped `treefmt` command";
         default =
           let
-            x = pkgs.writeShellScriptBin "treefmt" ''
-              set -euo pipefail
-              find_up() {
-                ancestors=()
-                while true; do
-                  if [[ -f $1 ]]; then
-                    echo "$PWD"
-                    exit 0
-                  fi
-                  ancestors+=("$PWD")
-                  if [[ $PWD == / ]] || [[ $PWD == // ]]; then
-                    echo "ERROR: Unable to locate the projectRootFile ($1) in any of: ''${ancestors[*]@Q}" >&2
-                    exit 1
-                  fi
-                  cd ..
-                done
-              }
-              tree_root=$(find_up "${config.projectRootFile}")
-              exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
-            '';
+            code =
+              if builtins.compareVersions "2.0.0-rc4" config.package.version == 1 then
+                ''
+                  set -euo pipefail
+                  find_up() {
+                    ancestors=()
+                    while true; do
+                      if [[ -f $1 ]]; then
+                        echo "$PWD"
+                        exit 0
+                      fi
+                      ancestors+=("$PWD")
+                      if [[ $PWD == / ]] || [[ $PWD == // ]]; then
+                        echo "ERROR: Unable to locate the projectRootFile ($1) in any of: ''${ancestors[*]@Q}" >&2
+                        exit 1
+                      fi
+                      cd ..
+                    done
+                  }
+                  tree_root=$(find_up "${config.projectRootFile}")
+                  exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
+                ''
+              else # treefmt-2.0.0-rc4 and later support the tree-root-file option
+                ''
+                  set -euo pipefail
+                  exec ${config.package}/bin/treefmt \
+                    --config-file=${config.build.configFile} \
+                    --tree-root-file=${config.projectRootFile} \
+                    "$@"
+                '';
+            x = pkgs.writeShellScriptBin "treefmt" code;
           in
           (x // { meta = config.package.meta // x.meta; });
       };

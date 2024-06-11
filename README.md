@@ -181,6 +181,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * cljfmt
 * csharpier
 * cue
+* d2
 * deadnix
 * deno
 * dhall

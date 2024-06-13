@@ -3,4 +3,4 @@
 command = "ruff"
 excludes = []
 includes = ["*.py", "*.pyi"]
-options = ["check"]
+options = ["check", "--fix"]

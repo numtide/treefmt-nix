@@ -27,7 +27,7 @@ in
     settings.formatter = {
       ruff-check = lib.mkIf cfg.check {
         command = cfg.package;
-        options = lib.mkBefore [ "check" ];
+        options = lib.mkBefore [ "check" "--fix" ];
         includes = [
           "*.py"
           "*.pyi"

@@ -22,17 +22,17 @@ let
   # our own standard option `pkgs`; not externally.
   submodule-modules = [
     ({ config, lib, pkgs, ... }:
-    let
-      inherit (lib)
-        mkOption
-        types;
-    in
+      let
+        inherit (lib)
+          mkOption
+          types;
+      in
       {
         options.pkgs = mkOption {
           type = types.uniq (types.lazyAttrsOf (types.raw or types.unspecified));
           description = ''
             Nixpkgs to use in `treefmt`.
-           '';
+          '';
           default = pkgs;
           defaultText = "`pkgs` (module argument)";
         };

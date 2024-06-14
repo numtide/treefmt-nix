@@ -21,15 +21,7 @@ in
             used by the `nix fmt` command.
           '';
           type = types.submoduleWith {
-            modules = (import ./.).all-modules config.treefmt.pkgs ++ [{
-              options.pkgs = mkOption {
-                type = types.uniq (types.lazyAttrsOf (types.raw or types.unspecified));
-                description = ''
-                  Nixpkgs to use in `treefmt`.
-                '';
-                default = pkgs;
-                defaultText = "`pkgs` (module argument)";
-              };
+            modules = (import ./.).submodule-modules ++ [{
               options.flakeFormatter = lib.mkOption {
                 type = types.bool;
                 default = true;

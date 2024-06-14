@@ -21,7 +21,7 @@ let
   # treefmt-nix can be loaded into a submodule. In this case we get our `pkgs` from
   # our own standard option `pkgs`; not externally.
   submodule-modules = [
-    ({ config, lib, pkgs, ... }:
+    ({ config, lib, ... }:
       let
         inherit (lib)
           mkOption
@@ -33,8 +33,6 @@ let
           description = ''
             Nixpkgs to use in `treefmt`.
           '';
-          default = pkgs;
-          defaultText = "`pkgs` (module argument)";
         };
         config._module.args = {
           pkgs = config.pkgs;

@@ -21,7 +21,11 @@ in
             used by the `nix fmt` command.
           '';
           type = types.submoduleWith {
-            modules = (import ./.).all-modules pkgs ++ [{
+            modules = (import ./.).submodule-modules ++ [{
+              options.pkgs = lib.mkOption {
+                default = pkgs;
+                defaultText = "`pkgs` (module argument of `perSystem`)";
+              };
               options.flakeFormatter = lib.mkOption {
                 type = types.bool;
                 default = true;

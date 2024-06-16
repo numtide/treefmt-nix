@@ -18,6 +18,30 @@ let
   ]
   ++ programs.modules;
 
+  # treefmt-nix can be loaded into a submodule. In this case we get our `pkgs` from
+  # our own standard option `pkgs`; not externally.
+  submodule-modules = [
+    ({ config, lib, ... }:
+      let
+        inherit (lib)
+          mkOption
+          types;
+      in
+      {
+        options.pkgs = mkOption {
+          type = types.uniq (types.lazyAttrsOf (types.raw or types.unspecified));
+          description = ''
+            Nixpkgs to use in `treefmt`.
+          '';
+        };
+        config._module.args = {
+          pkgs = config.pkgs;
+        };
+      })
+    module-options
+  ]
+  ++ programs.modules;
+
   # Use the Nix module system to validate the treefmt config file format.
   #
   # nixpkgs is an instance of <nixpkgs> that contains treefmt.
@@ -52,6 +76,7 @@ in
     module-options
     programs
     all-modules
+    submodule-modules
     evalModule
     mkConfigFile
     mkWrapper

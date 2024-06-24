@@ -277,7 +277,7 @@ settings.formatter = {
 
 PRs to add new formatters are welcome!
 
-* The formatter should conform to the [formatter specifications](https://numtide.github.io/treefmt/formatters-spec).
+* The formatter should conform to the [formatter specifications](https://numtide.github.io/treefmt/formatter-spec).
 * This is not the place to debate formatting preferences. Please pick defaults that are standard in your community -- for instance, python is usually indented with 4 spaces, so don't add a python formatter with 2 spaces as the default.
 
 In order to add a new formatter do the following things:

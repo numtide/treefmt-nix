@@ -154,7 +154,7 @@ programs.gofmt.enable = true;
 * The option `programs.terraform.package` allows you to use a particular build/version of the specified formatter.
 * By setting`settings.formatter.terraform.excludes` you can mark the files which should be excluded from formatting. You can also specify other formatter options or includes this way.
 
-For detailed description of the options, refer to the `treefmt` [documentation](https://numtide.github.io/treefmt/treefmt-configuration).
+For detailed description of the options, refer to the `treefmt` [documentation](https://treefmt.com/configure.html).
 
 ## Project structure
 

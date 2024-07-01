@@ -5,7 +5,8 @@ in
 {
   options.programs.terraform = {
     enable = lib.mkEnableOption "terraform";
-    package = lib.mkPackageOption pkgs "terraform" { };
+    # opentofu is the opensource version of terraform and cached in cache.nixos.org
+    package = lib.mkPackageOption pkgs "opentofu" { };
   };
 
   config = lib.mkIf cfg.enable {

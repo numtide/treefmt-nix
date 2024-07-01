@@ -27,6 +27,7 @@
         pkgs = import nixpkgs {
           inherit system;
           config = {
+            # required for packer
             allowUnfree = true;
           };
         };

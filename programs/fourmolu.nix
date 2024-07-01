@@ -9,7 +9,7 @@ in
       type = lib.types.package;
       default = pkgs.haskellPackages.fourmolu;
       defaultText = lib.literalExpression "pkgs.haskellPackages.fourmolu";
-      description = lib.mdDoc ''
+      description = ''
         fourmolu derivation to use.
       '';
     };

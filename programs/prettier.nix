@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) filterAttrsRecursive literalMD mkEnableOption mkOption types;
+  inherit (lib) filterAttrsRecursive mkEnableOption mkOption types;
 
   cfg = config.programs.prettier;
   configFormat = pkgs.formats.json { };
@@ -257,7 +257,7 @@ in
       type = types.package;
       default = pkgs.nodePackages.prettier;
       defaultText = lib.literalExpression "pkgs.nodePackages.prettier";
-      description = lib.mdDoc ''
+      description = ''
         prettier derivation to use.
       '';
     };

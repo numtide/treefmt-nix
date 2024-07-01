@@ -9,7 +9,7 @@ in
       type = lib.types.package;
       default = pkgs.haskellPackages.cabal-fmt;
       defaultText = lib.literalExpression "pkgs.haskellPackages.cabal-fmt";
-      description = lib.mdDoc ''
+      description = ''
         cabal-fmt derivation to use.
       '';
     };

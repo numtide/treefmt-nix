@@ -10,7 +10,7 @@ in
       type = lib.types.int;
       default = 2;
       example = 4;
-      description = lib.mdDoc ''
+      description = ''
         Sets the number of spaces to be used in indentation.
       '';
     };

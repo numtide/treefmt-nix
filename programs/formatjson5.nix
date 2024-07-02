@@ -9,22 +9,22 @@ in
     noTrailingCommas = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "Suppress trailing commas (otherwise added by default)";
+      description = "Suppress trailing commas (otherwise added by default)";
     };
     oneElementLines = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "Objects or arrays with a single child should collapse to a single line";
+      description = "Objects or arrays with a single child should collapse to a single line";
     };
     sortArrays = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "Sort arrays of primitive values (string, number, boolean, or null) lexicographically";
+      description = "Sort arrays of primitive values (string, number, boolean, or null) lexicographically";
     };
     indent = lib.mkOption {
       type = lib.types.int;
       default = 4;
-      description = lib.mdDoc "Indent by the given number of spaces";
+      description = "Indent by the given number of spaces";
     };
   };
 

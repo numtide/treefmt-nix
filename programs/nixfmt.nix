@@ -5,7 +5,7 @@ in
 {
   options.programs.nixfmt = {
     enable = lib.mkEnableOption "nixfmt";
-    package = lib.mkPackageOption pkgs "nixfmt" { };
+    package = lib.mkPackageOption pkgs "nixfmt-rfc-style" { };
   };
 
   config = lib.mkIf cfg.enable {

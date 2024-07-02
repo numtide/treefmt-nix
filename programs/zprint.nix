@@ -9,7 +9,7 @@ in
       type = lib.types.package;
       default = pkgs.zprint;
       defaultText = lib.literalExpression "pkgs.zprint";
-      description = lib.mdDoc ''
+      description = ''
         zprint derivation to use.
       '';
     };
@@ -17,7 +17,7 @@ in
       type = lib.types.nullOr lib.types.str;
       default = null;
       example = "{:width 90}";
-      description = lib.mdDoc ''
+      description = ''
         Clojure map containing zprint options.
       '';
     };

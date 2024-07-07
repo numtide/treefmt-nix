@@ -11,13 +11,12 @@ let
     name = "exe";
     description = "Path to executable";
     check = x: lib.isString x || builtins.isPath x || lib.isDerivation x;
-    merge = loc: defs:
+    merge =
+      loc: defs:
       let
         res = lib.mergeOneOption loc defs;
       in
-      if lib.isString res || builtins.isPath res
-      then "${res}"
-      else lib.getExe res;
+      if lib.isString res || builtins.isPath res then "${res}" else lib.getExe res;
   };
 
   configFormat = pkgs.formats.toml { };
@@ -158,7 +157,7 @@ in
                   tree_root=$(find_up "${config.projectRootFile}")
                   exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
                 ''
-              else # treefmt-2.0.0-rc4 and later support the tree-root-file option
+              # treefmt-2.0.0-rc4 and later support the tree-root-file option
               else
                 ''
                   set -euo pipefail
@@ -180,13 +179,11 @@ in
           package used to do the formatting.
         '';
         defaultText = lib.literalMD "Programs used in configuration";
-        default =
-          pkgs.lib.concatMapAttrs
-            (k: v:
-              if v.enable
-              then { "${k}" = v.package; }
-              else { })
-            config.programs;
+        default = pkgs.lib.concatMapAttrs
+          (
+            k: v: if v.enable then { "${k}" = v.package; } else { }
+          )
+          config.programs;
       };
       check = mkOption {
         description = ''
@@ -197,10 +194,14 @@ in
         '';
         type = types.functionTo types.package;
         defaultText = lib.literalMD "Default check implementation";
-        default = self:
+        default =
+          self:
           pkgs.runCommandLocal "treefmt-check"
             {
-              buildInputs = [ pkgs.git config.build.wrapper ];
+              buildInputs = [
+                pkgs.git
+                config.build.wrapper
+              ];
               meta.description = "Check that the project tree is formatted";
             }
             ''

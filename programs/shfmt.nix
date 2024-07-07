@@ -25,7 +25,12 @@ in
         (lib.optionals (!isNull cfg.indent_size)
           [ "-i" (toString cfg.indent_size) ])
         ++ [ "-s" "-w" ];
-      includes = [ "*.sh" ];
+      includes = [
+        "*.sh"
+        "*.bash"
+        # direnv
+        "*.envrc"
+      ];
     };
   };
 }

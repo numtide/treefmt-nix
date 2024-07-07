@@ -9,9 +9,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.nixfmt-rfc-style = {
-      command = cfg.package;
-      includes = [ "*.nix" ];
-    };
+    settings.formatter.nixfmt-rfc-style = (lib.warn ''
+       nixfmt-rfc-style is now the default for the 'nixfmt' formatter.
+      'nixfmt-rfc-style' is deprecated and will be removed in the future.
+    ''
+      {
+        command = cfg.package;
+        includes = [ "*.nix" ];
+      });
   };
 }

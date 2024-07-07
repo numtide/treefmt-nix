@@ -10,7 +10,7 @@ in
       type = lib.types.nullOr lib.types.int;
       default = 2;
       example = 4;
-      description = lib.mdDoc ''
+      description = ''
         Sets the number of spaces to be used in indentation. Uses tabs if set to
         zero. If this is null, then [.editorconfig will be used to configure
         shfmt](https://github.com/patrickvane/shfmt#description).

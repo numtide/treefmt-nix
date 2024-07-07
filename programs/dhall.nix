@@ -8,7 +8,7 @@ in
     lint = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "Whether to lint in addition to formatting.";
+      description = "Whether to lint in addition to formatting.";
     };
     package = lib.mkPackageOption pkgs "Dhall" { default = [ "dhall" ]; };
   };

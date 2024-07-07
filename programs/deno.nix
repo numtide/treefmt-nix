@@ -15,7 +15,7 @@ in
       type = types.package;
       default = pkgs.deno;
       defaultText = lib.literalExpression "pkgs.deno";
-      description = lib.mdDoc ''
+      description = ''
         deno derivation to use.
       '';
     };

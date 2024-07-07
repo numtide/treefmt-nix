@@ -10,7 +10,7 @@ in
       type = lib.types.package;
       default = pkgs.elmPackages.elm-format;
       defaultText = lib.literalExpression "pkgs.elmPackages.elm-format";
-      description = lib.mdDoc ''
+      description = ''
         elm-format derivation to use.
       '';
     };

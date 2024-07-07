@@ -9,7 +9,7 @@ in
       type = lib.types.package;
       default = pkgs.nodePackages.purs-tidy;
       defaultText = lib.literalExpression "pkgs.nodePackages.purs-tidy";
-      description = lib.mdDoc ''
+      description = ''
         purs-tidy derivation to use.
       '';
     };

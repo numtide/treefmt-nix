@@ -5,7 +5,7 @@ in
 {
   options.programs.gdformat = {
     enable = lib.mkEnableOption "gdformat";
-    package = lib.mkPackageOption pkgs "gdtoolkit" { };
+    package = lib.mkPackageOption pkgs "gdtoolkit_4" { };
   };
 
   config = lib.mkIf cfg.enable {

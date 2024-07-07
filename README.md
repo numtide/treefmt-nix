@@ -169,6 +169,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 `treefmt-nix` currently supports the following formatters:
 
 <!-- `> ls programs/*.nix | grep -v default.nix | cut -d '.' -f 1 | cut -d / -f 2 | LC_ALL=C sort | sed -e 's/^/* /'` -->
+
 <!-- BEGIN mdsh -->
 * alejandra
 * asmfmt

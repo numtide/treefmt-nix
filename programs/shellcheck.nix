@@ -11,7 +11,12 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.shellcheck = {
       command = cfg.package;
-      includes = [ "*.sh" ];
+      includes = [
+        "*.sh"
+        "*.bash"
+        # direnv
+        "*.envrc"
+      ];
     };
   };
 }

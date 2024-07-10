@@ -2,6 +2,7 @@
 {
   options.programs.mypy = {
     enable = lib.mkEnableOption "mypy";
+    package = lib.mkPackageOption pkgs "mypy" { };
     directories = lib.mkOption {
       description = "Directories to run mypy in";
       type = lib.types.attrsOf
@@ -65,7 +66,7 @@
               shopt -s globstar
               cd "${cfg.directory}"
               export PYTHONPATH="${pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages}"
-              ${lib.getExe pkgs.mypy} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
+              ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
             ''
           ];
           includes = (builtins.map (module: "${cfg.directory}/${module}/**/*.py") cfg.modules) ++ cfg.files;

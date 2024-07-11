@@ -11,7 +11,7 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.actionlint = {
       command = cfg.package;
-      includes = [ ".github/workflows/*.yml" ];
+      includes = [ ".github/workflows/*.yml" ".github/actions/**/*.yml" ];
     };
   };
 }

@@ -2,5 +2,5 @@
 [formatter.actionlint]
 command = "actionlint"
 excludes = []
-includes = [".github/workflows/*.yml"]
+includes = [".github/workflows/*.yml", ".github/actions/**/*.yml"]
 options = []

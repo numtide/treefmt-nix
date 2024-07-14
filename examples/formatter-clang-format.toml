@@ -2,5 +2,5 @@
 [formatter.clang-format]
 command = "clang-format"
 excludes = []
-includes = ["*.c", "*.cpp", "*.h", "*.hpp", "*.cc"]
+includes = ["*.c", "*.cc", "*.cpp", "*.h", "*.hh", "*.hpp"]
 options = ["-i"]

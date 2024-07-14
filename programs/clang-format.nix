@@ -12,7 +12,14 @@ in
     settings.formatter.clang-format = {
       command = "${cfg.package}/bin/clang-format";
       options = [ "-i" ];
-      includes = [ "*.c" "*.cpp" "*.h" "*.hpp" "*.cc" ];
+      includes = [
+        "*.c"
+        "*.cc"
+        "*.cpp"
+        "*.h"
+        "*.hh"
+        "*.hpp"
+      ];
     };
   };
 }

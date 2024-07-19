@@ -13,9 +13,7 @@ in
       command = cfg.package;
       includes = [
         ".github/workflows/*.yml"
-        ".github/actions/**/*.yml"
         ".github/workflows/*.yaml"
-        ".github/actions/**/*.yaml"
       ];
     };
   };

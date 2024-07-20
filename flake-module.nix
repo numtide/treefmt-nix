@@ -51,6 +51,7 @@ in
 
             }];
           };
+          default = { };
         };
         config = {
           checks = lib.mkIf config.treefmt.flakeCheck { treefmt = config.treefmt.build.check config.treefmt.projectRoot; };

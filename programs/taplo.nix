@@ -3,6 +3,8 @@ let
   cfg = config.programs.taplo;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.taplo = {
     enable = lib.mkEnableOption "taplo";
     package = lib.mkPackageOption pkgs "taplo" { };

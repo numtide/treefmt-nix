@@ -96,6 +96,8 @@ let
       null;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.dprint = {
     enable = mkEnableOption "dprint";
     package = mkPackageOption pkgs "dprint" { };

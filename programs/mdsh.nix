@@ -3,6 +3,8 @@ let
   cfg = config.programs.mdsh;
 in
 {
+  meta.maintainers = [ "zimbatm" ];
+
   options.programs.mdsh = {
     enable = lib.mkEnableOption "mdsh";
     package = lib.mkPackageOption pkgs "mdsh" { };

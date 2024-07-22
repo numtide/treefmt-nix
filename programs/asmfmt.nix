@@ -3,6 +3,8 @@ let
   cfg = config.programs.asmfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.asmfmt = {
     enable = lib.mkEnableOption "asmfmt";
     package = lib.mkPackageOption pkgs "asmfmt" { };

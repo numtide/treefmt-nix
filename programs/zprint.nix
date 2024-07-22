@@ -3,6 +3,8 @@ let
   cfg = config.programs.zprint;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.zprint = {
     enable = lib.mkEnableOption "zprint";
     package = lib.mkOption {

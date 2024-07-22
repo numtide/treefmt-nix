@@ -3,6 +3,8 @@ let
   cfg = config.programs.nimpretty;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.nimpretty = {
     enable = lib.mkEnableOption "nimpretty";
     package = lib.mkPackageOption pkgs "nim" { };

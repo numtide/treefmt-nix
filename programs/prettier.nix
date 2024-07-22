@@ -251,6 +251,8 @@ let
       null;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.prettier = {
     enable = mkEnableOption "prettier";
     package = mkOption {

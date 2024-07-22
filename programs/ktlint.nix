@@ -3,6 +3,8 @@ let
   cfg = config.programs.ktlint;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.ktlint = {
     enable = lib.mkEnableOption "ktlint";
     package = lib.mkPackageOption pkgs "ktlint" { };

@@ -3,6 +3,8 @@ let
   cfg = config.programs.jsonnet-lint;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.jsonnet-lint = {
     enable = lib.mkEnableOption "jsonnet";
     package = lib.mkPackageOption pkgs "go-jsonnet" { };

@@ -3,6 +3,8 @@ let
   cfg = config.programs.stylua;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.stylua = {
     enable = lib.mkEnableOption "stylua";
     package = lib.mkPackageOption pkgs "stylua" { };

@@ -22,6 +22,8 @@ let
       pkgSet;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.ocamlformat = {
     enable = l.mkEnableOption "ocamlformat";
     package = l.mkPackageOption pkgs "ocamlformat" { };

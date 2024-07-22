@@ -3,6 +3,8 @@ let
   cfg = config.programs.gofumpt;
 in
 {
+  meta.maintainers = [ "zimbatm" ];
+
   options.programs.gofumpt = {
     enable = lib.mkEnableOption "gofumpt";
     package = lib.mkPackageOption pkgs "gofumpt" { };

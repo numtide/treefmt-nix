@@ -3,6 +3,8 @@ let
   cfg = config.programs.fprettify;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.fprettify = {
     enable = lib.mkEnableOption "fprettify";
     package = lib.mkPackageOption pkgs "fprettify" { };

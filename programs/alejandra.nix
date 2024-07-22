@@ -3,6 +3,8 @@ let
   cfg = config.programs.alejandra;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.alejandra = {
     enable = lib.mkEnableOption "alejandra";
     package = lib.mkPackageOption pkgs "alejandra" { };

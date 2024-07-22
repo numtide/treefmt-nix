@@ -3,6 +3,8 @@ let
   cfg = config.programs.elm-format;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.elm-format = {
     enable = lib.mkEnableOption "elm-format";
 

@@ -4,6 +4,8 @@ let
   cfg = config.programs.hclfmt;
 in
 {
+  meta.maintainers = [ "zimbatm" ];
+
   options.programs.hclfmt = {
     enable = lib.mkEnableOption "hclfmt";
     package = lib.mkPackageOption pkgs "hclfmt" { };

@@ -4,6 +4,8 @@ let
   cfg = config.programs.php-cs-fixer;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.php-cs-fixer = {
     enable = lib.mkEnableOption "php-cs-fixer";
     package = lib.mkPackageOption pkgs.phpPackages "php-cs-fixer" { };

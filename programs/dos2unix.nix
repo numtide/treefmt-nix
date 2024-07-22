@@ -3,6 +3,8 @@ let
   cfg = config.programs.dos2unix;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.dos2unix = {
     enable = lib.mkEnableOption "dos2unix";
     package = lib.mkPackageOption pkgs "dos2unix" { };

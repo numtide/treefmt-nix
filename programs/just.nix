@@ -3,6 +3,8 @@ let
   cfg = config.programs.just;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.just = {
     enable = lib.mkEnableOption "just";
     package = lib.mkPackageOption pkgs "just" { };

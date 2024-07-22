@@ -3,6 +3,8 @@ let
   cfg = config.programs.stylish-haskell;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.stylish-haskell = {
     enable = lib.mkEnableOption "stylish-haskell";
     package = lib.mkPackageOption pkgs "stylish-haskell" { };

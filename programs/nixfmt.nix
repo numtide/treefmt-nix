@@ -3,6 +3,8 @@ let
   cfg = config.programs.nixfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.nixfmt = {
     enable = lib.mkEnableOption "nixfmt";
     package = lib.mkPackageOption pkgs "nixfmt-rfc-style" { };

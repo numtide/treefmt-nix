@@ -3,6 +3,8 @@ let
   cfg = config.programs.swift-format;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.swift-format = {
     enable = lib.mkEnableOption "swift-format";
     package = lib.mkPackageOption pkgs "swift-format" { };

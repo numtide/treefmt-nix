@@ -3,6 +3,8 @@ let
   cfg = config.programs.rufo;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.rufo = {
     enable = lib.mkEnableOption "rufo";
     package = lib.mkPackageOption pkgs "rufo" { };

@@ -3,6 +3,8 @@ let
   cfg = config.programs.beautysh;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.beautysh = {
     enable = lib.mkEnableOption "beautysh";
     package = lib.mkPackageOption pkgs "beautysh" { };

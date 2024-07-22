@@ -3,6 +3,8 @@ let
   cfg = config.programs.fourmolu;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.fourmolu = {
     enable = lib.mkEnableOption "fourmolu";
     package = lib.mkOption {

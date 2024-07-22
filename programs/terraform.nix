@@ -3,6 +3,8 @@ let
   cfg = config.programs.terraform;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.terraform = {
     enable = lib.mkEnableOption "terraform";
     # opentofu is the opensource version of terraform and cached in cache.nixos.org

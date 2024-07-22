@@ -3,6 +3,8 @@ let
   cfg = config.programs.erlfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.erlfmt = {
     enable = lib.mkEnableOption "erlfmt";
     package = lib.mkPackageOption pkgs "erlfmt" { };

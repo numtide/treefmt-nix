@@ -117,6 +117,21 @@ in
       default = true;
     };
 
+    # Meta attributes
+    meta = {
+      maintainers = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        internal = true;
+        default = [ ];
+        example = lib.literalExpression ''[ "zimbatm" ]'';
+        description = ''
+          List of github users responsible for a formatter.
+
+          This option should be defined at most once per module.
+        '';
+      };
+    };
+
     # Outputs
     build = {
       devShell = mkOption {

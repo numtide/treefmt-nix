@@ -3,6 +3,8 @@ let
   cfg = config.programs.opa;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.opa = {
     enable = lib.mkEnableOption "opa";
     package = lib.mkPackageOption pkgs "open-policy-agent" { };

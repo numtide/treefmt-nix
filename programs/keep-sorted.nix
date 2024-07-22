@@ -3,6 +3,8 @@ let
   cfg = config.programs.keep-sorted;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.keep-sorted = {
     enable = lib.mkEnableOption "keep-sorted";
     package = lib.mkPackageOption pkgs "keep-sorted" { };

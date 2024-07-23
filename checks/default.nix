@@ -9,6 +9,19 @@ let
       programs.${name}.enable = true;
     };
 
+  # Add formatters that don't work fully here.
+  broken-formatters = [
+    # See https://github.com/numtide/treefmt-nix/pull/201
+    "swift-format"
+  ]
+  # Broken on macOS
+  ++ (lib.optionals pkgs.stdenv.isDarwin [
+    "fantomas"
+    "gdformat"
+    "muon"
+  ])
+  ;
+
   programConfigs =
     let
       attrs = lib.listToAttrs (map
@@ -16,14 +29,7 @@ let
         treefmt-nix.programs.names
       );
     in
-    if pkgs.stdenv.isDarwin then
-      builtins.removeAttrs attrs [
-        # Broken on macOS
-        "formatter-fantomas"
-        "formatter-muon"
-        "formatter-gdformat"
-      ]
-    else attrs;
+    builtins.removeAttrs attrs (map (f: "formatter-${f}") broken-formatters);
 
   examples =
     let

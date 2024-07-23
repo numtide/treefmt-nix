@@ -3,6 +3,8 @@ let
   cfg = config.programs.mdformat;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.mdformat = {
     enable = lib.mkEnableOption "mdformat";
     package = lib.mkPackageOption pkgs [ "python3Packages" "mdformat" ] { };

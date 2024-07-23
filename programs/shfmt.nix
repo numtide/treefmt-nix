@@ -3,6 +3,8 @@ let
   cfg = config.programs.shfmt;
 in
 {
+  meta.maintainers = [ "zimbatm" ];
+
   options.programs.shfmt = {
     enable = lib.mkEnableOption "shfmt";
     package = lib.mkPackageOption pkgs "shfmt" { };

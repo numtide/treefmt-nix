@@ -6,6 +6,9 @@ in
   imports = [
     (lib.mkRenamedOptionModule [ "programs" "ruff" "enable" ] [ "programs" "ruff" "check" ])
   ];
+
+  meta.maintainers = [ ];
+
   options.programs.ruff = {
     package = lib.mkPackageOption pkgs "ruff" { };
     check = lib.mkEnableOption "ruff linter" // {

@@ -13,6 +13,8 @@ let
     '';
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.statix = {
     enable = lib.mkEnableOption "statix";
     package = lib.mkPackageOption pkgs "statix" { };

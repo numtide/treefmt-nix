@@ -336,8 +336,9 @@ PRs to add new formatters are welcome!
 In order to add a new formatter do the following things:
 
 1. Create a new entry in the `./programs/` folder.
-2. Run `./examples.sh` to update the `./examples` folder.
-3. To test the program:
+2. Consider adding yourself as the `meta.maintainer` (see below).
+3. Run `./examples.sh` to update the `./examples` folder.
+4. To test the program:
    1. Extend the project's `./treefmt.nix` file (temporarily) to enable the new
       formatter and configure it in whatever manner is appropriate.
    2. Add a bunch of pertinent sources in this repo -- for instance, if the new
@@ -348,7 +349,17 @@ In order to add a new formatter do the following things:
       badly-formatted files are flagged as such. Re-run `nix fmt` and confirm
       that no additional changes were made.
    4. Once this is good, revert those changes.
-4. Submit the PR!
+5. Submit the PR!
+
+### Definition of a `meta.maintainer`
+
+You can register your desire to help with a specific formatter by adding your
+GitHub handle to the module's `meta.maintainers` list.
+
+That mostly means, for the given formatter:
+
+- You get precedence if any decisions need to be made.
+- Getting pinged if any issue is being found.
 
 ## Commercial support
 

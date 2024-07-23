@@ -3,6 +3,8 @@ let
   cfg = config.programs.yamlfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.yamlfmt = {
     enable = lib.mkEnableOption "yamlfmt";
     package = lib.mkPackageOption pkgs "yamlfmt" { };

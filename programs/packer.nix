@@ -46,6 +46,8 @@ let
   '';
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.packer = {
     enable = lib.mkEnableOption "packer";
     package = lib.mkPackageOption pkgs "packer" { };

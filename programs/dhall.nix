@@ -3,6 +3,8 @@ let
   cfg = config.programs.dhall;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.dhall = {
     enable = lib.mkEnableOption "Dhall";
     lint = lib.mkOption {

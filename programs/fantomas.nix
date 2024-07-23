@@ -1,6 +1,8 @@
 { lib, pkgs, config, ... }:
 let cfg = config.programs.fantomas;
 in {
+  meta.maintainers = [ ];
+
   options.programs.fantomas = {
     enable = lib.mkEnableOption "fantomas";
     package = lib.mkPackageOption pkgs "fantomas" { };

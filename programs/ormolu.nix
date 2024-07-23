@@ -3,6 +3,8 @@ let
   cfg = config.programs.ormolu;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.ormolu = {
     enable = lib.mkEnableOption "ormolu";
     package = lib.mkPackageOption pkgs "ormolu" { };

@@ -3,6 +3,8 @@ let
   cfg = config.programs.scalafmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.scalafmt = {
     enable = lib.mkEnableOption "scalafmt";
     package = lib.mkPackageOption pkgs "scalafmt" { };

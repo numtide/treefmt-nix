@@ -3,6 +3,8 @@ let
   cfg = config.programs.isort;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.isort = {
     enable = lib.mkEnableOption "isort";
     package = lib.mkPackageOption pkgs "isort" { };

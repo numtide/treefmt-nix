@@ -3,6 +3,8 @@ let
   cfg = config.programs.rustfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.rustfmt = {
     enable = lib.mkEnableOption "rustfmt";
     edition = lib.mkOption {

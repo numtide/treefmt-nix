@@ -3,6 +3,8 @@ let
   cfg = config.programs.hlint;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.hlint = {
     enable = lib.mkEnableOption "hlint";
     package = lib.mkPackageOption pkgs "hlint" { };

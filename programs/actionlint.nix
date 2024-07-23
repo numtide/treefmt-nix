@@ -3,6 +3,8 @@ let
   cfg = config.programs.actionlint;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.actionlint = {
     enable = lib.mkEnableOption "actionlint";
     package = lib.mkPackageOption pkgs "actionlint" { };

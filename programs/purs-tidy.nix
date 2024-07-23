@@ -3,6 +3,8 @@ let
   cfg = config.programs.purs-tidy;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.purs-tidy = {
     enable = lib.mkEnableOption "purs-tidy";
     package = lib.mkOption {

@@ -3,6 +3,8 @@ let
   cfg = config.programs.leptosfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.leptosfmt = {
     enable = lib.mkEnableOption "leptosfmt";
     package = lib.mkPackageOption pkgs "leptosfmt" { };

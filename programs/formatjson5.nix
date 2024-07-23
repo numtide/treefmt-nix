@@ -3,6 +3,8 @@ let
   cfg = config.programs.formatjson5;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.formatjson5 = {
     enable = lib.mkEnableOption "formatjson5";
     package = lib.mkPackageOption pkgs "formatjson5" { };

@@ -1,6 +1,8 @@
 { lib, pkgs, config, ... }:
 let cfg = config.programs.jsonfmt;
 in {
+  meta.maintainers = [ ];
+
   options.programs.jsonfmt = {
     enable = lib.mkEnableOption "jsonfmt";
     package = lib.mkPackageOption pkgs "jsonfmt" { };

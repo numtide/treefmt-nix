@@ -7,6 +7,8 @@ let
   cfg = config.programs.muon;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.muon = {
     enable = lib.mkEnableOption "muon";
     package = lib.mkPackageOption pkgs "muon" { };

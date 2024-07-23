@@ -3,6 +3,8 @@ let
   cfg = config.programs.typstfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.typstfmt = {
     enable = lib.mkEnableOption "typstfmt";
     package = lib.mkPackageOption pkgs "typstfmt" { };

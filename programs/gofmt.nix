@@ -3,6 +3,8 @@ let
   cfg = config.programs.gofmt;
 in
 {
+  meta.maintainers = [ "zimbatm" ];
+
   options.programs.gofmt = {
     enable = lib.mkEnableOption "gofmt";
     package = lib.mkPackageOption pkgs "go" { };

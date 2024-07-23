@@ -3,6 +3,8 @@ let
   cfg = config.programs.templ;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.templ = {
     enable = lib.mkEnableOption "templ";
     package = lib.mkPackageOption pkgs "templ" { };

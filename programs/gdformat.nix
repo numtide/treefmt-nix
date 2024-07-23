@@ -3,6 +3,8 @@ let
   cfg = config.programs.gdformat;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.gdformat = {
     enable = lib.mkEnableOption "gdformat";
     package = lib.mkPackageOption pkgs "gdtoolkit_4" { };

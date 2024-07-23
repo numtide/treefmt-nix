@@ -3,6 +3,8 @@ let
   cfg = config.programs.fnlfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.fnlfmt = {
     enable = lib.mkEnableOption "fnlfmt";
     package = lib.mkPackageOption pkgs "fnlfmt" { };

@@ -3,6 +3,8 @@ let
   cfg = config.programs.mix-format;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.mix-format = {
     enable = lib.mkEnableOption "mix-format";
     package = lib.mkPackageOption pkgs "elixir" { };

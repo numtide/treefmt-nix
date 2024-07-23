@@ -3,6 +3,8 @@ let
   cfg = config.programs.protolint;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.protolint = {
     enable = lib.mkEnableOption "protolint";
     package = lib.mkPackageOption pkgs "protolint" { };

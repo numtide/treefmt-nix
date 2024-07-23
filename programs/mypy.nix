@@ -1,5 +1,7 @@
 { lib, pkgs, config, ... }:
 {
+  meta.maintainers = [ ];
+
   options.programs.mypy = {
     enable = lib.mkEnableOption "mypy";
     package = lib.mkPackageOption pkgs "mypy" { };

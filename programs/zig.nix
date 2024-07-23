@@ -3,6 +3,8 @@ let
   cfg = config.programs.zig;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.zig = {
     enable = lib.mkEnableOption "zig";
     package = lib.mkPackageOption pkgs "zig" { };

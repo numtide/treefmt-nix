@@ -3,6 +3,8 @@ let
   cfg = config.programs.shellcheck;
 in
 {
+  meta.maintainers = [ "zimbatm" ];
+
   options.programs.shellcheck = {
     enable = lib.mkEnableOption "shellcheck";
     package = lib.mkPackageOption pkgs "shellcheck" { };

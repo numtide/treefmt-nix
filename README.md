@@ -245,6 +245,7 @@ functions.
 * fourmolu
 * fprettify
 * gdformat
+* gleam
 * gofmt
 * gofumpt
 * google-java-format

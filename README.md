@@ -240,6 +240,7 @@ functions.
 * elm-format
 * erlfmt
 * fantomas
+* fish_indent
 * fnlfmt
 * formatjson5
 * fourmolu

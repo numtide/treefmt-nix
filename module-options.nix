@@ -227,10 +227,10 @@ in
               # `treefmt --fail-on-change` is broken for purs-tidy; So we must rely
               # on git to detect changes. An unintended advantage of this approach
               # is that when the check fails, it will print a helpful diff at the end.
-              PRJ=$TMP/project
-              cp -r ${self} $PRJ
-              chmod -R a+w $PRJ
-              cd $PRJ
+              export PROJECT_ROOT=$TMP/project
+              cp -r ${self} $PROJECT_ROOT
+              chmod -R a+w $PROJECT_ROOT
+              cd $PROJECT_ROOT
               export HOME=$TMPDIR
               cat > $HOME/.gitconfig <<EOF
               [user]

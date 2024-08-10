@@ -278,7 +278,8 @@ functions.
 * prettier
 * protolint
 * purs-tidy
-* ruff
+* ruff-check
+* ruff-format
 * rufo
 * rustfmt
 * scalafmt

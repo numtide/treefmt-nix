@@ -3,10 +3,6 @@ let
   cfg = config.programs.ruff;
 in
 {
-  imports = [
-    (lib.mkRenamedOptionModule [ "programs" "ruff" "enable" ] [ "programs" "ruff" "check" ])
-  ];
-
   meta.maintainers = [ ];
 
   options.programs.ruff = {

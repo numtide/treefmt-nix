@@ -2,5 +2,5 @@
 [formatter.shfmt]
 command = "shfmt"
 excludes = []
-includes = ["*.sh", "*.bash", "*.envrc"]
+includes = ["*.sh", "*.bash", "*.envrc", "*.envrc.*"]
 options = ["-i", "2", "-s", "-w"]

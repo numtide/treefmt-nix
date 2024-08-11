@@ -180,6 +180,7 @@ in
               else
                 ''
                   set -euo pipefail
+                  unset PRJ_ROOT
                   exec ${config.package}/bin/treefmt \
                     --config-file=${config.build.configFile} \
                     --tree-root-file=${config.projectRootFile} \

@@ -202,7 +202,7 @@ in
           pkgs.lib.concatMapAttrs
             (
               k: v:
-                if options.programs.${k}.enable.visible && v.enable then
+                if (options.programs.${k}.enable.visible or true) && v.enable then
                   { "${k}" = v.package; } else { }
             )
             config.programs;

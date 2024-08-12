@@ -32,6 +32,7 @@ in
         "*.bash"
         # direnv
         "*.envrc"
+        "*.envrc.*"
       ];
     };
   };

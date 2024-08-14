@@ -23,6 +23,15 @@
                 example = lib.literalMD ''[ pkgs.python3.pkgs.requests ]'';
                 description = "Extra packages to add to PYTHONPATH";
               };
+              extraPythonPaths = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [ ];
+                example = [ "./path/to/my/module" ];
+                description = ''
+                  Extra paths to add to PYTHONPATH.
+                  Paths are interpreted relative to the directory options and are added before extraPythonPackages.
+                '';
+              };
               options = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 default = [ ];
@@ -67,7 +76,10 @@
               # to allow recursive globbing
               shopt -s globstar
               cd "${cfg.directory}"
-              export PYTHONPATH="${pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages}"
+              export PYTHONPATH="${
+                lib.concatStringsSep ":"
+                (cfg.extraPythonPaths ++ [(pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages)])
+              }"
               ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
             ''
           ];

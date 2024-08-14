@@ -83,6 +83,11 @@ let
           # NPM
           "package-lock.json"
 
+          # Go
+          # In theory go mod tidy could format this, but it has other side-effects beyond formatting.
+          "go.mod"
+          "go.sum"
+
           # VCS
           ".gitignore"
           ".gitmodules"

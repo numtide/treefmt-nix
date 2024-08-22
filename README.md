@@ -291,6 +291,7 @@ functions.
 * taplo
 * templ
 * terraform
+* toml-sort
 * typstfmt
 * yamlfmt
 * zig

@@ -40,7 +40,7 @@
               };
               modules = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
-                default = [ "." ];
+                default = [ "" ];
                 example = [ "mymodule" "tests" ];
                 description = "Modules to check";
               };
@@ -53,14 +53,12 @@
             };
           }
         ));
-      default = { "." = { }; };
+      default = { "" = { }; };
       example = {
         "." = {
           modules = [ "mymodule" "tests" ];
         };
-        "./subdir" = {
-          modules = [ "." ];
-        };
+        "./subdir" = { };
       };
     };
   };
@@ -78,12 +76,12 @@
               cd "${cfg.directory}"
               export PYTHONPATH="${
                 lib.concatStringsSep ":"
-                (cfg.extraPythonPaths ++ [(pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages)])
+                (cfg.extraPythonPaths ++ lib.optional (cfg.extraPythonPaths != []) (pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages))
               }"
               ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
             ''
           ];
-          includes = (builtins.map (module: "${cfg.directory}/${module}/**/*.py") cfg.modules) ++ cfg.files;
+          includes = (builtins.map (module: "${cfg.directory}/${module}${lib.optionalString (module != "") "/"}**/*.py") cfg.modules) ++ cfg.files;
         })
       config.programs.mypy.directories;
   };

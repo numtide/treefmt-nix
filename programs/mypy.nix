@@ -76,7 +76,7 @@
               cd "${cfg.directory}"
               export PYTHONPATH="${
                 lib.concatStringsSep ":"
-                (cfg.extraPythonPaths ++ lib.optional (cfg.extraPythonPaths != []) (pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages))
+                (cfg.extraPythonPaths ++ lib.optional (cfg.extraPythonPackages != []) (pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages))
               }"
               ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
             ''

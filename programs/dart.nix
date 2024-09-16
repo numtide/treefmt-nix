@@ -3,7 +3,7 @@ let
   cfg = config.programs.dart;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "JakobLichterfeld" ];
 
   options.programs.dart = {
     enable = lib.mkEnableOption "dart";

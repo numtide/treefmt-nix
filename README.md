@@ -232,6 +232,7 @@ functions.
 * csharpier
 * cue
 * d2
+* dart
 * deadnix
 * deno
 * dhall

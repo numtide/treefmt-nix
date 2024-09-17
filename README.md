@@ -232,7 +232,7 @@ functions.
 * csharpier
 * cue
 * d2
-* dart
+* dart-format
 * deadnix
 * deno
 * dhall

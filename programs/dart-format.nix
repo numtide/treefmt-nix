@@ -6,7 +6,7 @@ in
   meta.maintainers = [ "JakobLichterfeld" ];
 
   options.programs.dart = {
-    enable = lib.mkEnableOption "dart";
+    enable = lib.mkEnableOption "dart-format";
     package = lib.mkPackageOption pkgs "dart" { };
   };
 

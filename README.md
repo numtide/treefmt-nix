@@ -264,6 +264,7 @@ functions.
 * leptosfmt
 * mdformat
 * mdsh
+* meson
 * mix-format
 * muon
 * mypy

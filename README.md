@@ -261,6 +261,7 @@ functions.
 * keep-sorted
 * ktfmt
 * ktlint
+* latexindent
 * leptosfmt
 * mdformat
 * mdsh

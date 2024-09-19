@@ -319,7 +319,7 @@ settings.formatter = {
       "-euc"
       ''
         for file in "$@"; do
-          ${lib.getExe yq-go} -i --output-format=json $file
+          ${lib.getExe' yq-go "yq-go"} -i --output-format=json $file
         done
       ''
       "--" # bash swallows the second argument when using -c

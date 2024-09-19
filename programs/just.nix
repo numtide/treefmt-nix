@@ -17,7 +17,7 @@ in
         "-euc"
         ''
           for f in "$@"; do
-            ${lib.getExe cfg.package} --fmt --unstable --justfile "$f"
+            ${lib.getExe' cfg.package "just"} --fmt --unstable --justfile "$f"
           done
         ''
         "--" # bash swallows the second argument when using -c

@@ -34,7 +34,7 @@ in
       command = pkgs.writeShellScriptBin "statix-fix"
         ''
           for file in "''$@"; do
-            ${lib.getExe pkgs.statix} fix --config '${toString settingsDir}/statix.toml' "$file"
+            ${lib.getExe' pkgs.statix "statix"} fix --config '${toString settingsDir}/statix.toml' "$file"
           done
         '';
       options = [ ];

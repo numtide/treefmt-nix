@@ -78,7 +78,7 @@
                 lib.concatStringsSep ":"
                 (cfg.extraPythonPaths ++ lib.optional (cfg.extraPythonPackages != []) (pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages))
               }"
-              ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
+              ${lib.getExe' config.programs.mypy.package "mypy"} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
             ''
           ];
           includes = (builtins.map (module: "${cfg.directory}/${module}${lib.optionalString (module != "") "/"}**/*.py") cfg.modules) ++ cfg.files;

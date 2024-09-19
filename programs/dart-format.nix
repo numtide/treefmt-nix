@@ -12,7 +12,7 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.dart-format = {
-      command = cfg.package;
+      command = lib.getExe' cfg.package "dart";
       options = [ "format" ];
       includes = [ "*.dart" ];
     };

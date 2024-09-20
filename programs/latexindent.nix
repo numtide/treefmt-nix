@@ -13,6 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.latexindent = {
       command = lib.getExe' cfg.package "latexindent";
+      options = [ "-wd" ];
       includes = [
         "*.tex"
         "*.sty"

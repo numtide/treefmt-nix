@@ -3,7 +3,6 @@ let
   cfg = config.programs.typos;
 in
 {
-
   meta.maintainers = [ "adam-gaia" ];
 
   options.programs.typos = {
@@ -12,7 +11,7 @@ in
 
     threads = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
-      default = 0;
+      default = null;
       example = 2;
       description = "The approximate number of threads to use [default: 0]";
     };

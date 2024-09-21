@@ -97,7 +97,7 @@ in
     };
 
     locale = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum ["en" "en-us" "en-gb" "en-ca" "en-au"]);
+      type = lib.types.nullOr (lib.types.enum [ "en" "en-us" "en-gb" "en-ca" "en-au" ]);
       default = null;
       description = "Language locale to suggest corrections for [possible values: en, en-us, en-gb, en-ca, en-au]";
     };
@@ -106,22 +106,22 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.typos = {
       command = cfg.package;
-      options = ["--write-changes"]
-          ++ (lib.optionals (!isNull cfg.threads) ["--threads" (toString cfg.threads)])
-          ++ (lib.optionals (!isNull cfg.locale) ["--locale" (toString cfg.locale)])
-          ++ (lib.optionals (!isNull cfg.configFile) ["--config" cfg.configFile])
-          ++ lib.optional cfg.sort "--sort"
-          ++ lib.optional cfg.isolated "--isolated"
-          ++ lib.optional cfg.hidden "--hidden"
-          ++ lib.optional cfg.noIgnore "--no-ignore"
-          ++ lib.optional cfg.noIgnoreDot "--no-ignore-dot"
-          ++ lib.optional cfg.noIgnoreGlobal "--no-ignore-global"
-          ++ lib.optional cfg.noIgnoreParent "--no-ignore-parent"
-          ++ lib.optional cfg.noIgnoreVCS "--no-ignore-vcs"
-          ++ lib.optional cfg.binary "--binary"
-          ++ lib.optional cfg.noCheckFilenames "--no-check-filenames"
-          ++ lib.optional cfg.noCheckFiles "--no-check-files"
-          ++ lib.optional cfg.noUnicode "--no-unicode";
+      options = [ "--write-changes" ]
+        ++ (lib.optionals (!isNull cfg.threads) [ "--threads" (toString cfg.threads) ])
+        ++ (lib.optionals (!isNull cfg.locale) [ "--locale" (toString cfg.locale) ])
+        ++ (lib.optionals (!isNull cfg.configFile) [ "--config" cfg.configFile ])
+        ++ lib.optional cfg.sort "--sort"
+        ++ lib.optional cfg.isolated "--isolated"
+        ++ lib.optional cfg.hidden "--hidden"
+        ++ lib.optional cfg.noIgnore "--no-ignore"
+        ++ lib.optional cfg.noIgnoreDot "--no-ignore-dot"
+        ++ lib.optional cfg.noIgnoreGlobal "--no-ignore-global"
+        ++ lib.optional cfg.noIgnoreParent "--no-ignore-parent"
+        ++ lib.optional cfg.noIgnoreVCS "--no-ignore-vcs"
+        ++ lib.optional cfg.binary "--binary"
+        ++ lib.optional cfg.noCheckFilenames "--no-check-filenames"
+        ++ lib.optional cfg.noCheckFiles "--no-check-files"
+        ++ lib.optional cfg.noUnicode "--no-unicode";
       includes = [
         "*"
       ];

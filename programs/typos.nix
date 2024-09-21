@@ -97,8 +97,8 @@ in
       description = "Only allow ASCII characters in identifiers";
     };
 
-    locale = lib.mkOption {]
-      type = types.nullOr (lib.types.enum ["en", "en-us", "en-gb", "en-ca", "en-au"]);
+    locale = lib.mkOption {
+      type = lib.types.nullOr (lib.types.enum ["en" "en-us" "en-gb" "en-ca" "en-au"]);
       default = null;
       description = "Language locale to suggest corrections for [possible values: en, en-us, en-gb, en-ca, en-au]";
     };

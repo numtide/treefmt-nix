@@ -20,7 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.rustfmt = {
       command = "${cfg.package}/bin/rustfmt";
-      options = [ "--edition" cfg.edition ];
+      options = [ "--edition" cfg.edition "--skip_children" ];
       includes = [ "*.rs" ];
     };
   };

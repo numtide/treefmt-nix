@@ -297,6 +297,7 @@ functions.
 * templ
 * terraform
 * toml-sort
+* typos
 * typstfmt
 * yamlfmt
 * zig

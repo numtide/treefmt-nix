@@ -7,7 +7,7 @@ let
   cfg = config.programs.meson;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "RossSmyth" ];
 
   options.programs.meson = {
     enable = lib.mkEnableOption "meson";

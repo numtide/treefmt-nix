@@ -3,4 +3,4 @@
 command = "latexindent"
 excludes = []
 includes = ["*.tex", "*.sty", "*.cls", "*.bib", "*.cmh"]
-options = []
+options = ["-wd"]

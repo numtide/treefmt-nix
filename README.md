@@ -272,6 +272,7 @@ functions.
 * nickel
 * nimpretty
 * nixfmt
+* nixfmt-classic
 * nixfmt-rfc-style
 * nixpkgs-fmt
 * ocamlformat

@@ -192,8 +192,16 @@ in
                     "$@"
                 '';
             x = pkgs.writeShellScriptBin "treefmt" code;
+            y = pkgs.writeShellScriptBin "treefmt-nix" code;
           in
-          (x // { meta = config.package.meta // x.meta; });
+          (pkgs.symlinkJoin
+            {
+              name = "treefmt-nix";
+              paths = [
+                x
+                y
+              ];
+            } // { meta = config.package.meta // x.meta; });
       };
       programs = mkOption {
         type = types.attrsOf types.package;

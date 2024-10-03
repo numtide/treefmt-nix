@@ -2,5 +2,5 @@
 [formatter.zig]
 command = "zig"
 excludes = []
-includes = ["*.zig"]
+includes = ["*.zig", "*.zon"]
 options = ["fmt"]

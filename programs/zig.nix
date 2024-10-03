@@ -14,7 +14,10 @@ in
     settings.formatter.zig = {
       command = cfg.package;
       options = [ "fmt" ];
-      includes = [ "*.zig" ];
+      includes = [
+        "*.zig"
+        "*.zon"
+      ];
     };
   };
 }

@@ -10,7 +10,10 @@ in
     includes = mkOption {
       description = "Bazel file patterns to format";
       type = types.listOf types.str;
-      default = [ "BUILD.bazel" "*.bzl" ];
+      default = [
+        "*.bazel"
+        "*.bzl"
+      ];
     };
   };
 

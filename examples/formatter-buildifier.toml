@@ -2,5 +2,5 @@
 [formatter.buildifier]
 command = "buildifier"
 excludes = []
-includes = ["BUILD.bazel", "*.bzl"]
+includes = ["*.bazel", "*.bzl"]
 options = []

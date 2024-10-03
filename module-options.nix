@@ -192,6 +192,7 @@ in
                     "$@"
                 '';
             x = pkgs.writeShellScriptBin "treefmt" code;
+            # used by tooling to detect if treefmt was wrapped or not
             y = pkgs.writeShellScriptBin "treefmt-nix" code;
           in
           (pkgs.symlinkJoin

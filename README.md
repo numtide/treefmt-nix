@@ -229,6 +229,7 @@ functions.
 * cabal-fmt
 * clang-format
 * cljfmt
+* cmake-format
 * csharpier
 * cue
 * d2

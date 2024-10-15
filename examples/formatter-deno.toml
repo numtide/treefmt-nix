@@ -2,5 +2,5 @@
 [formatter.deno]
 command = "deno"
 excludes = []
-includes = ["*.js", "*.json", "*.jsonc", "*.jsx", "*.markdown", "*.md", "*.ts", "*.tsx"]
+includes = ["*.css", "*.html", "*.js", "*.json", "*.jsonc", "*.jsx", "*.less", "*.markdown", "*.md", "*.sass", "*.scss", "*.ts", "*.tsx", "*.yaml", "*.yml"]
 options = ["fmt"]

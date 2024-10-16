@@ -25,14 +25,21 @@ in
       description = "Path / file patterns to include for Deno";
       type = types.listOf types.str;
       default = [
+        "*.css"
+        "*.html"
         "*.js"
         "*.json"
         "*.jsonc"
         "*.jsx"
+        "*.less"
         "*.markdown"
         "*.md"
+        "*.sass"
+        "*.scss"
         "*.ts"
         "*.tsx"
+        "*.yaml"
+        "*.yml"
       ];
     };
 
@@ -47,7 +54,7 @@ in
   config = mkIf cfg.enable {
     settings.formatter.deno = {
       command = cfg.package;
-      options = [ "fmt" ];
+      options = lib.mkBefore [ "fmt" ];
       includes = cfg.includes;
       excludes = cfg.excludes;
     };

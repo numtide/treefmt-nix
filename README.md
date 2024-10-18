@@ -275,6 +275,7 @@ functions.
 * nixfmt-classic
 * nixfmt-rfc-style
 * nixpkgs-fmt
+* nufmt
 * ocamlformat
 * opa
 * ormolu

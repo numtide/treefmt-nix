@@ -284,6 +284,7 @@ functions.
 * prettier
 * protolint
 * purs-tidy
+* rubocop
 * ruff-check
 * ruff-format
 * rufo

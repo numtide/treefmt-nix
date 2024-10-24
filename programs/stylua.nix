@@ -165,7 +165,7 @@ let
       null;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "sebaszv" ];
 
   options.programs.stylua = {
     enable = lib.mkEnableOption "stylua";

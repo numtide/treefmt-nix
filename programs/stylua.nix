@@ -159,10 +159,7 @@ let
 
       settings = filterOutEmptyAttrs (filterOutNull cfg.settings);
     in
-    if settings != { } then
-      configFormat.generate "stylua.toml" settings
-    else
-      null;
+    configFormat.generate "stylua.toml" settings;
 in
 {
   meta.maintainers = [ "sebaszv" ];

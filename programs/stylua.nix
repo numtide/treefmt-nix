@@ -159,7 +159,10 @@ let
 
       settings = filterOutEmptyAttrs (filterOutNull cfg.settings);
     in
-    configFormat.generate "stylua.toml" settings;
+    if settings != { } then
+      configFormat.generate "stylua.toml" settings
+    else
+      null;
 in
 {
   meta.maintainers = [ "sebaszv" ];
@@ -185,7 +188,7 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.stylua = {
       command = cfg.package;
-      options = lib.mkIf (settings != { }) [
+      options = lib.mkIf (settingsFile != null) [
         "--config-path"
         (toString settingsFile)
       ];

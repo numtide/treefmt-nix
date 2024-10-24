@@ -185,7 +185,7 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.stylua = {
       command = cfg.package;
-      options = lib.mkIf (settingsFile != null) [
+      options = lib.mkIf (settings != { }) [
         "--config-path"
         (toString settingsFile)
       ];

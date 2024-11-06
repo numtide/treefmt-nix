@@ -3,7 +3,7 @@ let
   cfg = config.programs.google-java-format;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "sebaszv" ];
 
   options.programs.google-java-format = {
     enable = lib.mkEnableOption "google-java-format";

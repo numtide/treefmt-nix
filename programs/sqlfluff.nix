@@ -46,11 +46,13 @@ in
     };
 
     includes = lib.mkOption {
+      description = "Array of patterns (globs) to use to find files to format";
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
       default = [ "*.sql" ];
     };
 
     excludes = lib.mkOption {
+      description = "Array of patterns (globs) to exclude files or directories to format";
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
       default = [ ];
     };

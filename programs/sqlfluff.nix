@@ -41,13 +41,15 @@ in
     dialect = lib.mkOption {
       description = "The sql dialect to use for formatting";
       type = lib.types.enum dialects;
+      default = "ansi";
       example = "sqlite";
-      default = null;
     };
+
     includes = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
       default = [ "*.sql" ];
     };
+
     excludes = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
       default = [ ];

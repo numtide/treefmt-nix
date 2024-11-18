@@ -237,6 +237,7 @@ functions.
 * deadnix
 * deno
 * dhall
+* dnscontrol
 * dos2unix
 * dprint
 * elm-format

@@ -23,7 +23,8 @@ in
         "--" # bash swallows the second argument when using -c
       ];
       includes = [
-        "\.?[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # 'justfile' or '.justfile', case insensitive
+        "[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # 'justfile', case insensitive
+        ".[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # '.justfile', case insensitive
       ];
     };
   };

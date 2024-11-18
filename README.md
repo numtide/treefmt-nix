@@ -303,6 +303,7 @@ functions.
 * toml-sort
 * typos
 * typstfmt
+* typstyle
 * yamlfmt
 * zig
 * zprint

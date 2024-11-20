@@ -294,6 +294,7 @@ functions.
 * scalafmt
 * shellcheck
 * shfmt
+* sqlfluff
 * statix
 * stylish-haskell
 * stylua

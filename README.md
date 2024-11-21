@@ -1,4 +1,19 @@
-# treefmt-nix — Fast and convenient multi-file formatting with Nix
+<div align="center">
+
+# treefmt-nix
+
+<img src="https://avatars.githubusercontent.com/u/20373834" height="150"/>
+
+**Fast and convenient multi-file formatting with Nix**
+
+_A <a href="https://numtide.com/">numtide</a> project._
+
+<p>
+<img alt="Static Badge" src="https://img.shields.io/badge/Status-stable-green">
+<a href="https://app.element.io/#/room/#home:numtide.com"><img src="https://img.shields.io/badge/Support-%23numtide-blue"/></a>
+</p>
+
+</div>
 
 [treefmt](https://numtide.github.io/treefmt) combines file formatters for
 multiple programming languages so that you can format all your project files

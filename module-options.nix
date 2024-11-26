@@ -112,7 +112,8 @@ in
         File to look for to determine the root of the project in the
         build.wrapper.
       '';
-      example = "flake.nix";
+      default = ".git/config";
+      type = types.str;
     };
 
     enableDefaultExcludes = mkOption {

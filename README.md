@@ -317,6 +317,7 @@ functions.
 * taplo
 * templ
 * terraform
+* texfmt
 * toml-sort
 * typos
 * typstfmt

@@ -165,19 +165,7 @@ it:
 2. Add `treefmt = { .. }` (containing the configuration above) to your
    `perSystem`.
 
-3. Add `config.treefmt.build.wrapper` to the `nativeBuildInputs` of your
-   `devShell`. This will make the `treefmt` command available in the shell using
-   the specified configuration.
-
-   You can also use `config.treefmt.build.programs` to get access to the
-   individual programs, which could be useful to provide them to your IDE or
-   editor.
-
-   For an example, see
-   [haskell-template](https://github.com/srid/haskell-template)'s `flake.nix`.
-
-See [this page](https://zero-to-flakes.com/treefmt-nix) for a detailed
-walkthrough.
+As an example, see <https://github.com/nix-community/buildbot-nix/blob/2695e33353d7bffb2073dc6a1789502dd9e7b9fd/nix/treefmt/flake-module.nix>
 
 ## Configuration
 

@@ -165,7 +165,8 @@ it:
 2. Add `treefmt = { .. }` (containing the configuration above) to your
    `perSystem`.
 
-As an example, see <https://github.com/nix-community/buildbot-nix/blob/2695e33353d7bffb2073dc6a1789502dd9e7b9fd/nix/treefmt/flake-module.nix>
+As an example, see
+<https://github.com/nix-community/buildbot-nix/blob/2695e33353d7bffb2073dc6a1789502dd9e7b9fd/nix/treefmt/flake-module.nix>
 
 ## Configuration
 

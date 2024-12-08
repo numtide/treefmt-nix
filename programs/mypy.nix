@@ -1,4 +1,7 @@
 { lib, pkgs, config, ... }:
+let
+  escapePath = lib.replaceStrings [ "/" "." ] [ "-" "" ];
+in
 {
   meta.maintainers = [ ];
 
@@ -66,7 +69,7 @@
   config = lib.mkIf config.programs.mypy.enable {
     settings.formatter = lib.mapAttrs'
       (name: cfg:
-        lib.nameValuePair "mypy-${name}" {
+        lib.nameValuePair "mypy-${escapePath name}" {
           command = pkgs.bash;
           options = [
             "-eucx"

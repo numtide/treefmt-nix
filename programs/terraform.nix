@@ -15,7 +15,12 @@ in
     settings.formatter.terraform = {
       command = cfg.package;
       options = [ "fmt" ];
-      includes = [ "*.tf" ];
+      # All opentofu-supported files
+      includes = [
+        "*.tf"
+        "*.tfvars"
+        "*.tftest.hcl"
+      ];
     };
   };
 }

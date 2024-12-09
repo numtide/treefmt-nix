@@ -2,5 +2,5 @@
 [formatter.terraform]
 command = "tofu"
 excludes = []
-includes = ["*.tf"]
+includes = ["*.tf", "*.tfvars", "*.tftest.hcl"]
 options = ["fmt"]

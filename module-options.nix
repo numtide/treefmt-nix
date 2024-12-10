@@ -189,7 +189,6 @@ in
                   unset PRJ_ROOT
                   exec ${config.package}/bin/treefmt \
                     --config-file=${config.build.configFile} \
-                    --tree-root-file=${config.projectRootFile} \
                     "$@"
                 '';
             x = pkgs.writeShellScriptBin "treefmt" code;
@@ -276,7 +275,12 @@ in
 
   # Config
   config.build = {
-    configFile = configFormat.generate "treefmt.toml" config.settings;
+    configFile = configFormat.generate "treefmt.toml" (
+      (lib.removeAttrs config.settings [ "global" ])
+      // config.settings.global // {
+        tree-root-file = config.projectRootFile;
+      }
+    );
     devShell = pkgs.mkShell {
       nativeBuildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);
     };

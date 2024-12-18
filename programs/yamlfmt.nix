@@ -18,7 +18,7 @@ in
       type = lib.types.submodule { freeformType = settingsFormat.type; };
       default = { };
       description = ''
-        Configuration for Foo, see
+        Configuration for yamlfmt, see
         <link xlink:href="https://github.com/google/yamlfmt/blob/main/docs/config-file.md"/>
         for supported values.
       '';

@@ -286,6 +286,7 @@ functions.
 * opa
 * ormolu
 * packer
+* perltidy
 * php-cs-fixer
 * prettier
 * protolint

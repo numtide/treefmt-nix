@@ -3,4 +3,4 @@
 command = "perltidy"
 excludes = []
 includes = ["*.pl"]
-options = []
+options = ["-b", "-bext='/'"]

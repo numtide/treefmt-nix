@@ -9,6 +9,19 @@ in
     enable = lib.mkEnableOption "perltidy";
     package = lib.mkPackageOption pkgs.perlPackages "PerlTidy" { };
 
+    options = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "-b"
+        "-bext='/'"
+      ];
+    };
+
+    perltidyrc = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+    };
+
     includes = lib.mkOption {
       description = "Path/file patterns to include for perltidy";
       type = lib.types.listOf lib.types.str;
@@ -24,6 +37,14 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.perltidy = {
       command = cfg.package;
+
+      options =
+        if cfg.perltidyrc == null then
+          cfg.options
+        else
+          [
+            "-pro=${cfg.perltidyrc}"
+          ] ++ cfg.options;
 
       inherit (cfg)
         includes

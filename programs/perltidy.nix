@@ -41,12 +41,8 @@ in
       command = cfg.package;
 
       options =
-        if cfg.perltidyrc == null then
-          cfg.options
-        else
-          [
-            "-pro=${cfg.perltidyrc}"
-          ] ++ cfg.options;
+        lib.optional (cfg.perltidyrc != null) "-pro=${cfg.perltidyrc}"
+        ++ cfg.options;
 
       inherit (cfg)
         includes

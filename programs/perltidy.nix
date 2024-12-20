@@ -10,6 +10,7 @@ in
     package = lib.mkPackageOption pkgs.perlPackages "PerlTidy" { };
 
     options = lib.mkOption {
+      description = "Options for perltidy";
       type = lib.types.listOf lib.types.str;
       default = [
         "-b"
@@ -18,6 +19,7 @@ in
     };
 
     perltidyrc = lib.mkOption {
+      description = "A path for perltidy's configuration file, usually named .perltidyrc";
       type = lib.types.nullOr lib.types.path;
       default = null;
     };

@@ -112,10 +112,10 @@ attribute:
     in
     {
       # for `nix fmt`
-      formatter = eachSystem (pkgs: treefmtEval.config.build.wrapper);
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
       # for `nix flake check`
       checks = eachSystem (pkgs: {
-        formatting = treefmtEval.config.build.check self;
+        formatting = treefmtEval.${pkgs.system}.config.build.check self;
       });
     };
 }

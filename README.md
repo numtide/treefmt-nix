@@ -300,6 +300,7 @@ functions.
 * shellcheck
 * shfmt
 * sqlfluff
+* sqruff
 * statix
 * stylish-haskell
 * stylua

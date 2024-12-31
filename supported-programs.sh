@@ -7,7 +7,7 @@ export LC_ALL=C
 
 cd "$(dirname "$0")"
 
-programs=( programs/*.nix )
+programs=(programs/*.nix)
 
 echo "\`treefmt-nix\` currently supports ${#programs[@]} formatters:"
 echo

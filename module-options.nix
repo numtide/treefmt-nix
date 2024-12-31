@@ -1,8 +1,9 @@
-{ config
-, options
-, lib
-, pkgs
-, ...
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
 }:
 let
   inherit (lib) mkOption mkPackageOption types;
@@ -196,14 +197,18 @@ in
             # used by tooling to detect if treefmt was wrapped or not
             y = pkgs.writeShellScriptBin "treefmt-nix" code;
           in
-          (pkgs.symlinkJoin
-            {
+          (
+            pkgs.symlinkJoin {
               name = "treefmt-nix";
               paths = [
                 x
                 y
               ];
-            } // { meta = config.package.meta // x.meta; });
+            }
+            // {
+              meta = config.package.meta // x.meta;
+            }
+          );
       };
       programs = mkOption {
         type = types.attrsOf types.package;
@@ -214,14 +219,10 @@ in
           package used to do the formatting.
         '';
         defaultText = lib.literalMD "Programs used in configuration";
-        default =
-          pkgs.lib.concatMapAttrs
-            (
-              k: v:
-                if (options.programs.${k}.enable.visible or true) && v.enable then
-                  { "${k}" = v.package; } else { }
-            )
-            config.programs;
+        default = pkgs.lib.concatMapAttrs (
+          k: v:
+          if (options.programs.${k}.enable.visible or true) && v.enable then { "${k}" = v.package; } else { }
+        ) config.programs;
       };
       check = mkOption {
         description = ''

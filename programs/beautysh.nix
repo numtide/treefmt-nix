@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.beautysh;
 in
@@ -21,7 +26,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.beautysh = {
       command = cfg.package;
-      options = [ "-i" (toString cfg.indent_size) ];
+      options = [
+        "-i"
+        (toString cfg.indent_size)
+      ];
       includes = [ "*.sh" ];
     };
   };

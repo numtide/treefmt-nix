@@ -1,7 +1,8 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.programs.meson;
@@ -17,7 +18,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.meson = {
       command = cfg.package;
-      options = [ "fmt" "-i" ];
+      options = [
+        "fmt"
+        "-i"
+      ];
       includes = [
         "meson.build"
         "meson.options"

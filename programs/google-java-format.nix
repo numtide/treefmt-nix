@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.google-java-format;
 in
@@ -39,7 +44,8 @@ in
 
       inherit (cfg)
         includes
-        excludes;
+        excludes
+        ;
     };
   };
 }

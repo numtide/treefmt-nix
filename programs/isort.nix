@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.isort;
 in
@@ -20,7 +25,14 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.isort = {
       command = cfg.package;
-      options = if cfg.profile != "" then [ "--profile" cfg.profile ] else [ ];
+      options =
+        if cfg.profile != "" then
+          [
+            "--profile"
+            cfg.profile
+          ]
+        else
+          [ ];
       includes = [
         "*.py"
         "*.pyi"

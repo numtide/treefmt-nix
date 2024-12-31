@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.deadnix;
 in
@@ -18,8 +23,7 @@ in
         [ "--edit" ]
         ++ (lib.optional cfg.no-lambda-arg "--no-lambda-arg")
         ++ (lib.optional cfg.no-lambda-pattern-names "--no-lambda-pattern-names")
-        ++ (lib.optional cfg.no-underscore "--no-underscore")
-      ;
+        ++ (lib.optional cfg.no-underscore "--no-underscore");
       includes = [ "*.nix" ];
     };
   };

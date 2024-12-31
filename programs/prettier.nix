@@ -1,6 +1,16 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  inherit (lib) filterAttrsRecursive mkEnableOption mkOption types;
+  inherit (lib)
+    filterAttrsRecursive
+    mkEnableOption
+    mkOption
+    types
+    ;
 
   cfg = config.programs.prettier;
   configFormat = pkgs.formats.json { };
@@ -10,7 +20,12 @@ let
   settingsSchema = {
     arrowParens = mkOption {
       description = "Include parentheses around a sole arrow function parameter.";
-      type = types.nullOr (types.enum [ "always" "avoid" ]);
+      type = types.nullOr (
+        types.enum [
+          "always"
+          "avoid"
+        ]
+      );
       example = "always";
       default = null;
     };
@@ -52,13 +67,25 @@ let
       description = ''
         Control how Prettier formats quoted code embedded in the file.
       '';
-      type = types.nullOr (types.enum [ "auto" "off" ]);
+      type = types.nullOr (
+        types.enum [
+          "auto"
+          "off"
+        ]
+      );
       example = "auto";
       default = null;
     };
     endOfLine = mkOption {
       description = "Which end of line characters to apply.";
-      type = types.nullOr (types.enum [ "lf" "crlf" "cr" "auto" ]);
+      type = types.nullOr (
+        types.enum [
+          "lf"
+          "crlf"
+          "cr"
+          "auto"
+        ]
+      );
       example = "lf";
       default = null;
     };
@@ -72,7 +99,13 @@ let
     };
     htmlWhitespaceSensitivity = mkOption {
       description = "How to handle whitespaces in HTML.";
-      type = types.nullOr (types.enum [ "css" "strict" "ignore" ]);
+      type = types.nullOr (
+        types.enum [
+          "css"
+          "strict"
+          "ignore"
+        ]
+      );
       example = "css";
       default = null;
     };
@@ -92,8 +125,8 @@ let
     };
     parser = mkOption {
       description = "Which parser to use.";
-      type = types.nullOr (types.either
-        (types.enum [
+      type = types.nullOr (
+        types.either (types.enum [
           "flow"
           "babel"
           "babel-flow"
@@ -117,8 +150,7 @@ let
           "html"
           "angular"
           "lwc"
-        ])
-        types.str
+        ]) types.str
       );
       example = "typescript";
       default = null;
@@ -149,13 +181,25 @@ let
     };
     proseWrap = mkOption {
       description = "How to wrap prose.";
-      type = types.nullOr (types.enum [ "always" "never" "preserve" ]);
+      type = types.nullOr (
+        types.enum [
+          "always"
+          "never"
+          "preserve"
+        ]
+      );
       example = "preserve";
       default = null;
     };
     quoteProps = mkOption {
       description = "Change when properties in objects are quoted";
-      type = types.nullOr (types.enum [ "as-needed" "consistent" "preserve" ]);
+      type = types.nullOr (
+        types.enum [
+          "as-needed"
+          "consistent"
+          "preserve"
+        ]
+      );
       example = "as-needed";
       default = null;
     };
@@ -214,7 +258,13 @@ let
     };
     trailingComma = mkOption {
       description = "Print trailing commas wherever possible when multi-line.";
-      type = types.nullOr (types.enum [ "es5" "none" "all" ]);
+      type = types.nullOr (
+        types.enum [
+          "es5"
+          "none"
+          "all"
+        ]
+      );
       example = "es5";
       default = null;
     };
@@ -235,7 +285,13 @@ let
         Provide a list of patterns to override prettier configuration.
       '';
       type = types.nullOr (types.listOf types.attrs);
-      example = { files = [ "*.html" "legacy/**/*.js" ]; options.tabwidth = 4; };
+      example = {
+        files = [
+          "*.html"
+          "legacy/**/*.js"
+        ];
+        options.tabwidth = 4;
+      };
       default = null;
     };
   };
@@ -245,10 +301,7 @@ let
       # remove all null values
       settings = filterAttrsRecursive (n: v: v != null) cfg.settings;
     in
-    if settings != { } then
-      configFormat.generate "prettierrc.json" settings
-    else
-      null;
+    if settings != { } then configFormat.generate "prettierrc.json" settings else null;
 in
 {
   meta.maintainers = [ ];
@@ -302,10 +355,12 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.prettier = {
       command = cfg.package;
-      options = [ "--write" ] ++ (lib.optionals (settingsFile != null) [
-        "--config"
-        (toString settingsFile)
-      ]);
+      options =
+        [ "--write" ]
+        ++ (lib.optionals (settingsFile != null) [
+          "--config"
+          (toString settingsFile)
+        ]);
       includes = cfg.includes;
       excludes = cfg.excludes;
     };

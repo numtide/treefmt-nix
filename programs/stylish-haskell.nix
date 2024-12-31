@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.stylish-haskell;
 in
@@ -13,7 +18,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.stylish-haskell = {
       command = cfg.package;
-      options = [ "-i" "-r" ];
+      options = [
+        "-i"
+        "-r"
+      ];
       includes = [ "*.hs" ];
     };
   };

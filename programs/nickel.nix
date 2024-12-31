@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.nickel;
 in
@@ -14,7 +19,10 @@ in
     settings.formatter.nickel = {
       command = cfg.package;
       options = [ "format" ];
-      includes = [ "*.ncl" "*.nickel" ];
+      includes = [
+        "*.ncl"
+        "*.nickel"
+      ];
     };
   };
 }

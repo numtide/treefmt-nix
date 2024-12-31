@@ -1,7 +1,19 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib)
-    filterAttrsRecursive mkEnableOption mkIf mkOption mkPackageOption optionals types;
+    filterAttrsRecursive
+    mkEnableOption
+    mkIf
+    mkOption
+    mkPackageOption
+    optionals
+    types
+    ;
 
   cfg = config.programs.dprint;
   configFormat = pkgs.formats.json { };
@@ -22,7 +34,12 @@ let
         };
         extends = mkOption {
           description = "Configurations to extend.";
-          type = types.nullOr (types.oneOf [ types.str (types.listOf types.str) ]);
+          type = types.nullOr (
+            types.oneOf [
+              types.str
+              (types.listOf types.str)
+            ]
+          );
           example = "https://dprint.dev/path/to/config/file.v1.json";
           default = null;
         };
@@ -68,7 +85,10 @@ let
             Array of patterns (globs) to exclude files or directories to format.
           '';
           type = types.nullOr (types.listOf types.str);
-          example = [ "**/node_modules" "**/*-lock.json" ];
+          example = [
+            "**/node_modules"
+            "**/*-lock.json"
+          ];
           default = null;
         };
         plugins = mkOption {
@@ -90,10 +110,7 @@ let
       # remove all null values
       settings = filterAttrsRecursive (n: v: v != null) cfg.settings;
     in
-    if settings != { } then
-      configFormat.generate "dprint.json" settings
-    else
-      null;
+    if settings != { } then configFormat.generate "dprint.json" settings else null;
 in
 {
   meta.maintainers = [ ];
@@ -109,12 +126,13 @@ in
   config = mkIf cfg.enable {
     settings.formatter.dprint = {
       command = cfg.package;
-      options = [ "fmt" ] ++ (optionals (settingsFile != null) [
-        "--config"
-        (toString settingsFile)
-      ]);
-      includes =
-        if cfg.settings.includes != null then cfg.settings.includes else [ ".*" ];
+      options =
+        [ "fmt" ]
+        ++ (optionals (settingsFile != null) [
+          "--config"
+          (toString settingsFile)
+        ]);
+      includes = if cfg.settings.includes != null then cfg.settings.includes else [ ".*" ];
     };
   };
 }

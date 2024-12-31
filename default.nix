@@ -7,25 +7,29 @@ let
   # Program to formatter mapping
   programs = import ./programs.nix;
 
-  all-modules = nixpkgs: [
-    {
-      _module.args = {
-        pkgs = nixpkgs;
-        lib = nixpkgs.lib;
-      };
-    }
-    module-options
-  ]
-  ++ programs.modules;
+  all-modules =
+    nixpkgs:
+    [
+      {
+        _module.args = {
+          pkgs = nixpkgs;
+          lib = nixpkgs.lib;
+        };
+      }
+      module-options
+    ]
+    ++ programs.modules;
 
   # treefmt-nix can be loaded into a submodule. In this case we get our `pkgs` from
   # our own standard option `pkgs`; not externally.
   submodule-modules = [
-    ({ config, lib, ... }:
+    (
+      { config, lib, ... }:
       let
         inherit (lib)
           mkOption
-          types;
+          types
+          ;
       in
       {
         options.pkgs = mkOption {
@@ -37,16 +41,17 @@ let
         config._module.args = {
           pkgs = config.pkgs;
         };
-      })
+      }
+    )
     module-options
-  ]
-  ++ programs.modules;
+  ] ++ programs.modules;
 
   # Use the Nix module system to validate the treefmt config file format.
   #
   # nixpkgs is an instance of <nixpkgs> that contains treefmt.
   # configuration is an attrset used to configure the nix module
-  evalModule = nixpkgs: configuration:
+  evalModule =
+    nixpkgs: configuration:
     nixpkgs.lib.evalModules {
       modules = all-modules nixpkgs ++ [ configuration ];
     };
@@ -55,7 +60,8 @@ let
   #
   # nixpkgs is an instance of <nixpkgs> that contains treefmt.
   # configuration is an attrset used to configure the nix module
-  mkConfigFile = nixpkgs: configuration:
+  mkConfigFile =
+    nixpkgs: configuration:
     let
       mod = evalModule nixpkgs configuration;
     in
@@ -65,7 +71,8 @@ let
   #
   # nixpkgs is an instance of <nixpkgs> that contains treefmt.
   # configuration is an attrset used to configure the nix module
-  mkWrapper = nixpkgs: configuration:
+  mkWrapper =
+    nixpkgs: configuration:
     let
       mod = evalModule nixpkgs configuration;
     in

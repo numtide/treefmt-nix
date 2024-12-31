@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.jsonnet-lint;
 in
@@ -13,7 +18,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.jsonnet-lint = {
       command = "${cfg.package}/bin/jsonnet-lint";
-      includes = [ "*.jsonnet" "*.libsonnet" ];
+      includes = [
+        "*.jsonnet"
+        "*.libsonnet"
+      ];
     };
   };
 }

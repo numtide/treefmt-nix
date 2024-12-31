@@ -1,6 +1,13 @@
-{ lib, pkgs, config, ... }:
-let cfg = config.programs.jsonfmt;
-in {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  cfg = config.programs.jsonfmt;
+in
+{
   meta.maintainers = [ ];
 
   options.programs.jsonfmt = {

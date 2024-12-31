@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.typstyle;
   inherit (lib) mkEnableOption mkIf mkPackageOption;
@@ -15,7 +20,10 @@ in
     settings.formatter.typstyle = {
       command = cfg.package;
       options = [ "-i" ];
-      includes = [ "*.typ" "*.typst" ];
+      includes = [
+        "*.typ"
+        "*.typst"
+      ];
     };
   };
 }

@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.scalafmt;
 in
@@ -13,7 +18,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.scalafmt = {
       command = cfg.package;
-      includes = [ "*.sbt" "*.scala" ];
+      includes = [
+        "*.sbt"
+        "*.scala"
+      ];
     };
   };
 }

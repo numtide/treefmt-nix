@@ -1,7 +1,18 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.csharpier;
-  inherit (lib) mkEnableOption mkOption mkPackageOption mkIf types;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    mkPackageOption
+    mkIf
+    types
+    ;
 in
 {
   options.programs.csharpier = {
@@ -26,7 +37,10 @@ in
     settings.formatter.csharpier = {
       command = pkgs.writeShellApplication {
         name = "dotnet-csharpier";
-        runtimeInputs = with cfg; [ dotnet-sdk package ];
+        runtimeInputs = with cfg; [
+          dotnet-sdk
+          package
+        ];
         text = ''
           dotnet-csharpier "$@"
         '';

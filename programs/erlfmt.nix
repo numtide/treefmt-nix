@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.erlfmt;
 in
@@ -19,8 +24,20 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.erlfmt = {
       command = "${cfg.package}/bin/erlfmt";
-      options = [ "--print-width" (toString cfg.print-width) "--write" ];
-      includes = [ "*.erl" "*.hrl" "*.app" "*.app.src" "*.config" "*.script" "*.escript" ];
+      options = [
+        "--print-width"
+        (toString cfg.print-width)
+        "--write"
+      ];
+      includes = [
+        "*.erl"
+        "*.hrl"
+        "*.app"
+        "*.app.src"
+        "*.config"
+        "*.script"
+        "*.escript"
+      ];
     };
   };
 }

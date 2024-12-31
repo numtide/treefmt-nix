@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.formatjson5;
 in
@@ -33,13 +38,14 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.formatjson5 = {
       command = cfg.package;
-      options = [
-        "--replace"
-        "--indent=${toString cfg.indent}"
-      ]
-      ++ lib.optional cfg.noTrailingCommas "--no_trailing_commas"
-      ++ lib.optional cfg.oneElementLines "--one_element_lines"
-      ++ lib.optional cfg.sortArrays "--sort_arrays";
+      options =
+        [
+          "--replace"
+          "--indent=${toString cfg.indent}"
+        ]
+        ++ lib.optional cfg.noTrailingCommas "--no_trailing_commas"
+        ++ lib.optional cfg.oneElementLines "--one_element_lines"
+        ++ lib.optional cfg.sortArrays "--sort_arrays";
       includes = [ "*.json5" ];
     };
   };

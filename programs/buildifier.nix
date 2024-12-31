@@ -1,6 +1,16 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption mkPackageOption types;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    mkPackageOption
+    types
+    ;
   cfg = config.programs.buildifier;
 in
 {
@@ -24,4 +34,3 @@ in
     };
   };
 }
-

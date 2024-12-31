@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.nixpkgs-fmt;
 in
@@ -27,7 +32,8 @@ in
 
       inherit (cfg)
         includes
-        excludes;
+        excludes
+        ;
     };
   };
 }

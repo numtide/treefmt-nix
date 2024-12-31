@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.typstfmt;
 in
@@ -13,7 +18,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.typstfmt = {
       command = cfg.package;
-      includes = [ "*.typ" "*.typst" ];
+      includes = [
+        "*.typ"
+        "*.typst"
+      ];
     };
   };
 }

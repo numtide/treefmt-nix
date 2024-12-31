@@ -1,8 +1,15 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.nufmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.nufmt = {
     enable = lib.mkEnableOption "nufmt";
     package = lib.mkPackageOption pkgs "nufmt" { };

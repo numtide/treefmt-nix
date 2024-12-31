@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.shfmt;
 in
@@ -24,9 +29,14 @@ in
     settings.formatter.shfmt = {
       command = cfg.package;
       options =
-        (lib.optionals (!isNull cfg.indent_size)
-          [ "-i" (toString cfg.indent_size) ])
-        ++ [ "-s" "-w" ];
+        (lib.optionals (!isNull cfg.indent_size) [
+          "-i"
+          (toString cfg.indent_size)
+        ])
+        ++ [
+          "-s"
+          "-w"
+        ];
       includes = [
         "*.sh"
         "*.bash"

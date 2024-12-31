@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.statix;
   configFormat = pkgs.formats.toml { };
@@ -6,11 +11,10 @@ let
 
   # statix requires its configuration file to be named statix.toml exactly
   # See: https://github.com/nerdypepper/statix/pull/54
-  settingsDir = pkgs.runCommandLocal "statix-config" { }
-    ''
-      mkdir "$out"
-      cp ${settingsFile} "''${out}/statix.toml"
-    '';
+  settingsDir = pkgs.runCommandLocal "statix-config" { } ''
+    mkdir "$out"
+    cp ${settingsFile} "''${out}/statix.toml"
+  '';
 in
 {
   meta.maintainers = [ ];
@@ -31,12 +35,11 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.statix = {
       # statix doesn't support multiple file targets
-      command = pkgs.writeShellScriptBin "statix-fix"
-        ''
-          for file in "''$@"; do
-            ${lib.getExe pkgs.statix} fix --config '${toString settingsDir}/statix.toml' "$file"
-          done
-        '';
+      command = pkgs.writeShellScriptBin "statix-fix" ''
+        for file in "''$@"; do
+          ${lib.getExe pkgs.statix} fix --config '${toString settingsDir}/statix.toml' "$file"
+        done
+      '';
       options = [ ];
       includes = [ "*.nix" ];
     };

@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.ruff-check;
 in
@@ -25,7 +30,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.ruff-check = {
       command = cfg.package;
-      options = lib.mkBefore [ "check" "--fix" ];
+      options = lib.mkBefore [
+        "check"
+        "--fix"
+      ];
       includes = [
         "*.py"
         "*.pyi"

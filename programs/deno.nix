@@ -1,14 +1,22 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 
   cfg = config.programs.deno;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.deno = {
     enable = mkEnableOption "deno";
     package = mkOption {

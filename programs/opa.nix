@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.opa;
 in
@@ -13,7 +18,10 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.opa = {
       command = cfg.package;
-      options = [ "fmt" "-w" ];
+      options = [
+        "fmt"
+        "-w"
+      ];
       includes = [ "*.rego" ];
     };
   };

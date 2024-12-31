@@ -1,8 +1,15 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.toml-sort;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.toml-sort = {
     enable = lib.mkEnableOption "toml-sort";
     package = lib.mkPackageOption pkgs "toml-sort" { };

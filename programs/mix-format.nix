@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.mix-format;
 in
@@ -14,7 +19,10 @@ in
     settings.formatter.mix-format = {
       command = "${cfg.package}/bin/mix";
       options = [ "format" ];
-      includes = [ "*.ex" "*.exs" ];
+      includes = [
+        "*.ex"
+        "*.exs"
+      ];
     };
   };
 }

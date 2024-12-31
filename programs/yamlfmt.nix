@@ -1,7 +1,8 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.programs.yamlfmt;
@@ -32,10 +33,9 @@ in
         "*.yaml"
         "*.yml"
       ];
-      options = lib.optional
-        (
-          cfg.settings != { }
-        ) "-conf=${settingsFormat.generate "yamlfmt.conf" cfg.settings}";
+      options = lib.optional (
+        cfg.settings != { }
+      ) "-conf=${settingsFormat.generate "yamlfmt.conf" cfg.settings}";
     };
   };
 }

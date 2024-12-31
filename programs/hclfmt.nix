@@ -1,5 +1,10 @@
 # NOTE: this is the hclfmt that comes from hashicorp/hcl
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.hclfmt;
 in

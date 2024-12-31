@@ -1,25 +1,23 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   l = lib // builtins;
   cfg = config.programs.ocamlformat;
 
-  detectVersion = configFile: pkgSet:
+  detectVersion =
+    configFile: pkgSet:
     let
-      optionValue = list:
+      optionValue =
+        list:
         assert l.assertMsg (list != [ ]) "treefmt-nix: Unable to detect ocamlformat version from file";
         l.elemAt list (l.length list - 1);
       trim = l.replaceStrings [ " " ] [ "" ];
     in
-    l.getAttr "ocamlformat_${
-      l.replaceStrings ["."] ["_"]
-      (optionValue (l.findFirst (option: l.head option == "version") []
-          (l.map (n: l.splitString "=" (trim n)) (l.splitString "\n" (l.readFile configFile)))))
-    }"
-      pkgSet;
+    l.getAttr "ocamlformat_${l.replaceStrings [ "." ] [ "_" ] (optionValue (l.findFirst (option: l.head option == "version") [ ] (l.map (n: l.splitString "=" (trim n)) (l.splitString "\n" (l.readFile configFile)))))}" pkgSet;
 in
 {
   meta.maintainers = [ ];
@@ -44,12 +42,12 @@ in
 
   config = l.mkIf cfg.enable {
     settings.formatter.ocamlformat = {
-      command =
-        if l.isNull cfg.configFile
-        then cfg.package
-        else detectVersion cfg.configFile cfg.pkgs;
+      command = if l.isNull cfg.configFile then cfg.package else detectVersion cfg.configFile cfg.pkgs;
       options = [ "-i" ];
-      includes = [ "*.ml" "*.mli" ];
+      includes = [
+        "*.ml"
+        "*.mli"
+      ];
     };
   };
 }

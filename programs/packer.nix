@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.packer;
 
@@ -57,7 +62,10 @@ in
     settings.formatter.packer = {
       inherit command;
       options = lib.mkAfter [ "--" ];
-      includes = [ "*.pkr.hcl" "*.pkrvars.hcl" ];
+      includes = [
+        "*.pkr.hcl"
+        "*.pkrvars.hcl"
+      ];
     };
   };
 }

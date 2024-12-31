@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.perltidy;
 in
@@ -40,13 +45,12 @@ in
     settings.formatter.perltidy = {
       command = cfg.package;
 
-      options =
-        lib.optional (cfg.perltidyrc != null) "-pro=${cfg.perltidyrc}"
-        ++ cfg.options;
+      options = lib.optional (cfg.perltidyrc != null) "-pro=${cfg.perltidyrc}" ++ cfg.options;
 
       inherit (cfg)
         includes
-        excludes;
+        excludes
+        ;
     };
   };
 }

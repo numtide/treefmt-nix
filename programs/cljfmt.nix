@@ -1,8 +1,15 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.cljfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.cljfmt = {
     enable = lib.mkEnableOption "cljfmt";
     package = lib.mkPackageOption pkgs "cljfmt" { };
@@ -10,7 +17,12 @@ in
     includes = lib.mkOption {
       description = "Clojure file patterns to format";
       type = lib.types.listOf lib.types.str;
-      default = [ "*.clj" "*.cljc" "*.cljs" "*.cljx" ];
+      default = [
+        "*.clj"
+        "*.cljc"
+        "*.cljs"
+        "*.cljx"
+      ];
     };
   };
 

@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.jsonnetfmt;
 in
@@ -14,7 +19,10 @@ in
     settings.formatter.jsonnetfmt = {
       command = "${cfg.package}/bin/jsonnetfmt";
       options = [ "-i" ];
-      includes = [ "*.jsonnet" "*.libsonnet" ];
+      includes = [
+        "*.jsonnet"
+        "*.libsonnet"
+      ];
     };
   };
 }

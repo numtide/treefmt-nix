@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.typos;
 in
@@ -97,7 +102,15 @@ in
     };
 
     locale = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "en" "en-us" "en-gb" "en-ca" "en-au" ]);
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "en"
+          "en-us"
+          "en-gb"
+          "en-ca"
+          "en-au"
+        ]
+      );
       default = null;
       description = "Language locale to suggest corrections for [possible values: en, en-us, en-gb, en-ca, en-au]";
     };
@@ -106,10 +119,20 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.typos = {
       command = cfg.package;
-      options = [ "--write-changes" ]
-        ++ (lib.optionals (!isNull cfg.threads) [ "--threads" (toString cfg.threads) ])
-        ++ (lib.optionals (!isNull cfg.locale) [ "--locale" (toString cfg.locale) ])
-        ++ (lib.optionals (!isNull cfg.configFile) [ "--config" cfg.configFile ])
+      options =
+        [ "--write-changes" ]
+        ++ (lib.optionals (!isNull cfg.threads) [
+          "--threads"
+          (toString cfg.threads)
+        ])
+        ++ (lib.optionals (!isNull cfg.locale) [
+          "--locale"
+          (toString cfg.locale)
+        ])
+        ++ (lib.optionals (!isNull cfg.configFile) [
+          "--config"
+          cfg.configFile
+        ])
         ++ lib.optional cfg.sort "--sort"
         ++ lib.optional cfg.isolated "--isolated"
         ++ lib.optional cfg.hidden "--hidden"

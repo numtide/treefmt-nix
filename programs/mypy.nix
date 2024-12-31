@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   escapePath = lib.replaceStrings [ "/" "." ] [ "-" "" ];
 in
@@ -10,8 +15,8 @@ in
     package = lib.mkPackageOption pkgs "mypy" { };
     directories = lib.mkOption {
       description = "Directories to run mypy in";
-      type = lib.types.attrsOf
-        (lib.types.submodule (
+      type = lib.types.attrsOf (
+        lib.types.submodule (
           { name, ... }:
           {
             options = {
@@ -44,7 +49,10 @@ in
               modules = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 default = [ "" ];
-                example = [ "mymodule" "tests" ];
+                example = [
+                  "mymodule"
+                  "tests"
+                ];
                 description = "Modules to check";
               };
               files = lib.mkOption {
@@ -55,11 +63,17 @@ in
               };
             };
           }
-        ));
-      default = { "" = { }; };
+        )
+      );
+      default = {
+        "" = { };
+      };
       example = {
         "." = {
-          modules = [ "mymodule" "tests" ];
+          modules = [
+            "mymodule"
+            "tests"
+          ];
         };
         "./subdir" = { };
       };
@@ -67,25 +81,33 @@ in
   };
 
   config = lib.mkIf config.programs.mypy.enable {
-    settings.formatter = lib.mapAttrs'
-      (name: cfg:
-        lib.nameValuePair "mypy-${escapePath name}" {
-          command = pkgs.bash;
-          options = [
-            "-eucx"
-            ''
-              # to allow recursive globbing
-              shopt -s globstar
-              cd "${cfg.directory}"
-              export PYTHONPATH="${
-                lib.concatStringsSep ":"
-                (cfg.extraPythonPaths ++ lib.optional (cfg.extraPythonPackages != []) (pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages))
-              }"
-              ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
-            ''
-          ];
-          includes = (builtins.map (module: "${cfg.directory}/${module}${lib.optionalString (module != "") "/"}**/*.py") cfg.modules) ++ cfg.files;
-        })
-      config.programs.mypy.directories;
+    settings.formatter = lib.mapAttrs' (
+      name: cfg:
+      lib.nameValuePair "mypy-${escapePath name}" {
+        command = pkgs.bash;
+        options = [
+          "-eucx"
+          ''
+            # to allow recursive globbing
+            shopt -s globstar
+            cd "${cfg.directory}"
+            export PYTHONPATH="${
+              lib.concatStringsSep ":" (
+                cfg.extraPythonPaths
+                ++ lib.optional (cfg.extraPythonPackages != [ ]) (
+                  pkgs.python3.pkgs.makePythonPath cfg.extraPythonPackages
+                )
+              )
+            }"
+            ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
+          ''
+        ];
+        includes =
+          (builtins.map (
+            module: "${cfg.directory}/${module}${lib.optionalString (module != "") "/"}**/*.py"
+          ) cfg.modules)
+          ++ cfg.files;
+      }
+    ) config.programs.mypy.directories;
   };
 }

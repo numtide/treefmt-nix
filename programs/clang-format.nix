@@ -1,8 +1,15 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.clang-format;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.clang-format = {
     enable = lib.mkEnableOption "clang-format";
     package = lib.mkPackageOption pkgs "clang-tools" { };

@@ -1,6 +1,13 @@
-{ lib, pkgs, config, ... }:
-let cfg = config.programs.fantomas;
-in {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  cfg = config.programs.fantomas;
+in
+{
   meta.maintainers = [ ];
 
   options.programs.fantomas = {
@@ -13,12 +20,21 @@ in {
     settings.formatter.fantomas = {
       command = pkgs.writeShellApplication {
         name = "fantomas";
-        runtimeInputs = with cfg; [ dotnet-sdk package ];
+        runtimeInputs = with cfg; [
+          dotnet-sdk
+          package
+        ];
         text = ''
           fantomas "$@"
         '';
       };
-      includes = [ "*.fs" "*.fsx" "*.fsi" "*.ml" "*.mli" ];
+      includes = [
+        "*.fs"
+        "*.fsx"
+        "*.fsi"
+        "*.ml"
+        "*.mli"
+      ];
     };
   };
 }

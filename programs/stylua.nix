@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib.types)
     bool
@@ -6,16 +11,17 @@ let
     str
     enum
     listOf
-    nullOr;
+    nullOr
+    ;
 
   cfg = config.programs.stylua;
   configFormat = pkgs.formats.toml { };
 
   /*
-   * The schema and descriptions were taken from the StyLua README
-   * on the project's GitHub page:
-   * <https://github.com/JohnnyMorganz/StyLua/blob/main/README.md>
-   */
+    The schema and descriptions were taken from the StyLua README
+    on the project's GitHub page:
+    <https://github.com/JohnnyMorganz/StyLua/blob/main/README.md>
+  */
   settingsSchema = {
     column_width = lib.mkOption {
       description = ''
@@ -34,7 +40,10 @@ let
       description = ''
         Line endings type.
       '';
-      type = nullOr (enum [ "Unix" "Windows" ]);
+      type = nullOr (enum [
+        "Unix"
+        "Windows"
+      ]);
       example = "Unix";
       default = null;
     };
@@ -43,7 +52,10 @@ let
       description = ''
         Indent type.
       '';
-      type = nullOr (enum [ "Tabs" "Spaces" ]);
+      type = nullOr (enum [
+        "Tabs"
+        "Spaces"
+      ]);
       example = "Tabs";
       default = null;
     };
@@ -150,19 +162,12 @@ let
 
   settingsFile =
     let
-      filterOutNull =
-        lib.filterAttrsRecursive
-          (_: v: v != null);
-      filterOutEmptyAttrs =
-        lib.filterAttrsRecursive
-          (_: v: v != { });
+      filterOutNull = lib.filterAttrsRecursive (_: v: v != null);
+      filterOutEmptyAttrs = lib.filterAttrsRecursive (_: v: v != { });
 
       settings = filterOutEmptyAttrs (filterOutNull cfg.settings);
     in
-    if settings != { } then
-      configFormat.generate "stylua.toml" settings
-    else
-      null;
+    if settings != { } then configFormat.generate "stylua.toml" settings else null;
 in
 {
   meta.maintainers = [ "sebaszv" ];
@@ -194,7 +199,8 @@ in
       ];
       inherit (cfg)
         includes
-        excludes;
+        excludes
+        ;
     };
   };
 }

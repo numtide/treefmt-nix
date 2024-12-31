@@ -1,12 +1,10 @@
 # List all the files in this folder.
 #
 let
-  # All the directory entries, except default.nix. We assume they are all
-  # files.
-  files = builtins.attrNames
-    (builtins.removeAttrs (builtins.readDir ./.) [ "default.nix" ]);
+  # All the directory entries. We assume they are all files.
+  files = builtins.attrNames (builtins.readDir ./programs);
 
-  filenameToPath = filename: ./. + "/${filename}";
+  filenameToPath = filename: ./programs + "/${filename}";
 
   removeNixExt = filename:
     builtins.substring 0 (builtins.stringLength filename - 4) filename;

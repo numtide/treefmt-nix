@@ -5,7 +5,7 @@ let
   module-options = ./module-options.nix;
 
   # Program to formatter mapping
-  programs = import ./programs;
+  programs = import ./programs.nix;
 
   all-modules = nixpkgs: [
     {

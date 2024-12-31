@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -19,9 +20,14 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "statix";
+      includes = [ "*.nix" ];
+    })
+  ];
+
   options.programs.statix = {
-    enable = lib.mkEnableOption "statix";
-    package = lib.mkPackageOption pkgs "statix" { };
     disabled-lints = lib.mkOption {
       description = ''
         List of ignored lints. Run `statix list` to see all available lints.
@@ -36,12 +42,10 @@ in
     settings.formatter.statix = {
       # statix doesn't support multiple file targets
       command = pkgs.writeShellScriptBin "statix-fix" ''
-        for file in "''$@"; do
-          ${lib.getExe pkgs.statix} fix --config '${toString settingsDir}/statix.toml' "$file"
+        for file in "$@"; do
+          ${lib.getExe cfg.package} fix --config '${toString settingsDir}/statix.toml' "$file"
         done
       '';
-      options = [ ];
-      includes = [ "*.nix" ];
     };
   };
 }

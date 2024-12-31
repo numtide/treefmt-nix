@@ -1,27 +1,14 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.scalafmt;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.scalafmt = {
-    enable = lib.mkEnableOption "scalafmt";
-    package = lib.mkPackageOption pkgs "scalafmt" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.scalafmt = {
-      command = cfg.package;
+  imports = [
+    (mkFormatterModule {
+      name = "scalafmt";
       includes = [
         "*.sbt"
         "*.scala"
       ];
-    };
-  };
+    })
+  ];
 }

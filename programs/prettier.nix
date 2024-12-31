@@ -2,15 +2,11 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
-  inherit (lib)
-    filterAttrsRecursive
-    mkEnableOption
-    mkOption
-    types
-    ;
+  inherit (lib) filterAttrsRecursive mkOption types;
 
   cfg = config.programs.prettier;
   configFormat = pkgs.formats.json { };
@@ -306,25 +302,15 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.prettier = {
-    enable = mkEnableOption "prettier";
-    package = mkOption {
-      type = types.package;
-      default = pkgs.nodePackages.prettier;
-      defaultText = lib.literalExpression "pkgs.nodePackages.prettier";
-      description = ''
-        prettier derivation to use.
-      '';
-    };
-
-    # Represents the prettierrc.json config schema
-    settings = settingsSchema;
-
-    # Prettier-specific includes override
-    includes = mkOption {
-      description = "Path / file patterns to include for Prettier";
-      type = types.listOf types.str;
-      default = [
+  imports = [
+    (mkFormatterModule {
+      name = "prettier";
+      package = [
+        "nodePackages"
+        "prettier"
+      ];
+      args = [ "--write" ];
+      includes = [
         "*.cjs"
         "*.css"
         "*.html"
@@ -342,27 +328,20 @@ in
         "*.yaml"
         "*.yml"
       ];
-    };
+    })
+  ];
 
-    # Prettier-specific excludes override
-    excludes = mkOption {
-      description = "Path / file patterns to exclude for Prettier";
-      type = types.listOf types.str;
-      default = [ ];
-    };
+  options.programs.prettier = {
+    # Represents the prettierrc.json config schema
+    settings = settingsSchema;
   };
 
   config = lib.mkIf cfg.enable {
     settings.formatter.prettier = {
-      command = cfg.package;
-      options =
-        [ "--write" ]
-        ++ (lib.optionals (settingsFile != null) [
-          "--config"
-          (toString settingsFile)
-        ]);
-      includes = cfg.includes;
-      excludes = cfg.excludes;
+      options = lib.optionals (settingsFile != null) [
+        "--config"
+        (toString settingsFile)
+      ];
     };
   };
 }

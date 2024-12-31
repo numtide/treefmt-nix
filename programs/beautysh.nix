@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,9 +10,14 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "beautysh";
+      includes = [ "*.sh" ];
+    })
+  ];
+
   options.programs.beautysh = {
-    enable = lib.mkEnableOption "beautysh";
-    package = lib.mkPackageOption pkgs "beautysh" { };
     indent_size = lib.mkOption {
       type = lib.types.int;
       default = 2;
@@ -25,12 +30,10 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.beautysh = {
-      command = cfg.package;
       options = [
         "-i"
         (toString cfg.indent_size)
       ];
-      includes = [ "*.sh" ];
     };
   };
 }

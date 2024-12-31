@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,17 +10,19 @@ in
 {
   meta.maintainers = [ "gabyx" ];
 
-  options.programs.goimports = {
-    enable = lib.mkEnableOption "goimports";
-    package = lib.mkPackageOption pkgs "gotools" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "goimports";
+      package = "gotools";
+      args = [ "-w" ];
+      includes = [ "*.go" ];
+      excludes = [ "vendor/*" ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.goimports = {
       command = "${cfg.package}/bin/goimports";
-      options = [ "-w" ];
-      includes = [ "*.go" ];
-      excludes = [ "vendor/*" ];
     };
   };
 }

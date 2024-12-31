@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,9 +10,17 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "isort";
+      includes = [
+        "*.py"
+        "*.pyi"
+      ];
+    })
+  ];
+
   options.programs.isort = {
-    enable = lib.mkEnableOption "isort";
-    package = lib.mkPackageOption pkgs "isort" { };
     profile = lib.mkOption {
       type = lib.types.str;
       default = "";
@@ -23,20 +31,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.isort = {
-      command = cfg.package;
-      options =
-        if cfg.profile != "" then
-          [
-            "--profile"
-            cfg.profile
-          ]
-        else
-          [ ];
-      includes = [
-        "*.py"
-        "*.pyi"
-      ];
-    };
+    settings.formatter.isort.options = lib.optionals (cfg.profile != "") [
+      "--profile"
+      cfg.profile
+    ];
   };
 }

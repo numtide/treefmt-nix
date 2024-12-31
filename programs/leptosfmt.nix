@@ -1,24 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.leptosfmt;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.leptosfmt = {
-    enable = lib.mkEnableOption "leptosfmt";
-    package = lib.mkPackageOption pkgs "leptosfmt" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.leptosfmt = {
-      command = "${cfg.package}/bin/leptosfmt";
+  imports = [
+    (mkFormatterModule {
+      name = "leptosfmt";
       includes = [ "*.rs" ];
-    };
-  };
+    })
+  ];
 }

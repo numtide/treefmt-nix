@@ -2,15 +2,14 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
   inherit (lib)
     filterAttrsRecursive
-    mkEnableOption
     mkIf
     mkOption
-    mkPackageOption
     optionals
     types
     ;
@@ -75,20 +74,15 @@ let
           default = null;
         };
         includes = mkOption {
-          description = "Array of patterns (globs) to use to find files to format.";
+          internal = true;
+          description = "Set this value on program.dprint.includes";
           type = types.nullOr (types.listOf types.str);
-          example = [ "**/*.{ts,tsx,js,jsx,mjs,json,md}" ];
           default = null;
         };
         excludes = mkOption {
-          description = ''
-            Array of patterns (globs) to exclude files or directories to format.
-          '';
+          internal = true;
+          description = "Set this value on program.dprint.excludes";
           type = types.nullOr (types.listOf types.str);
-          example = [
-            "**/node_modules"
-            "**/*-lock.json"
-          ];
           default = null;
         };
         plugins = mkOption {
@@ -110,29 +104,39 @@ let
       # remove all null values
       settings = filterAttrsRecursive (_n: v: v != null) cfg.settings;
     in
-    if settings != { } then configFormat.generate "dprint.json" settings else null;
+    if settings != { } then
+      configFormat.generate "dprint.json" (
+        settings
+        // {
+          includes = cfg.includes;
+          excludes = cfg.excludes;
+        }
+      )
+    else
+      null;
 in
 {
   meta.maintainers = [ ];
 
-  options.programs.dprint = {
-    enable = mkEnableOption "dprint";
-    package = mkPackageOption pkgs "dprint" { };
+  imports = [
+    (mkFormatterModule {
+      name = "dprint";
+      args = [ "fmt" ];
+      includes = [ ".*" ];
+    })
+  ];
 
+  options.programs.dprint = {
     # Represents the dprint.json config schema
     settings = settingsSchema;
   };
 
   config = mkIf cfg.enable {
     settings.formatter.dprint = {
-      command = cfg.package;
-      options =
-        [ "fmt" ]
-        ++ (optionals (settingsFile != null) [
-          "--config"
-          (toString settingsFile)
-        ]);
-      includes = if cfg.settings.includes != null then cfg.settings.includes else [ ".*" ];
+      options = optionals (settingsFile != null) [
+        "--config"
+        (toString settingsFile)
+      ];
     };
   };
 }

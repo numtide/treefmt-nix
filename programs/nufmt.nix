@@ -1,26 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.nufmt;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.nufmt = {
-    enable = lib.mkEnableOption "nufmt";
-    package = lib.mkPackageOption pkgs "nufmt" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.nufmt = {
-      command = "${cfg.package}/bin/nufmt";
-      includes = [
-        "*.nu"
-      ];
-    };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "nufmt";
+      includes = [ "*.nu" ];
+    })
+  ];
 }

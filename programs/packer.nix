@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -53,19 +54,20 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.packer = {
-    enable = lib.mkEnableOption "packer";
-    package = lib.mkPackageOption pkgs "packer" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "packer";
+      includes = [
+        "*.pkr.hcl"
+        "*.pkrvars.hcl"
+      ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.packer = {
       inherit command;
       options = lib.mkAfter [ "--" ];
-      includes = [
-        "*.pkr.hcl"
-        "*.pkrvars.hcl"
-      ];
     };
   };
 }

@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,10 +10,15 @@ in
 {
   meta.maintainers = [ "adam-gaia" ];
 
-  options.programs.typos = {
-    enable = lib.mkEnableOption "typos";
-    package = lib.mkPackageOption pkgs "typos" { };
+  imports = [
+    (mkFormatterModule {
+      name = "typos";
+      args = [ "--write-changes" ];
+      includes = [ "*" ];
+    })
+  ];
 
+  options.programs.typos = {
     threads = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
       default = null;
@@ -118,10 +123,8 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.typos = {
-      command = cfg.package;
       options =
-        [ "--write-changes" ]
-        ++ (lib.optionals (!isNull cfg.threads) [
+        (lib.optionals (!isNull cfg.threads) [
           "--threads"
           (toString cfg.threads)
         ])
@@ -145,9 +148,6 @@ in
         ++ lib.optional cfg.noCheckFilenames "--no-check-filenames"
         ++ lib.optional cfg.noCheckFiles "--no-check-files"
         ++ lib.optional cfg.noUnicode "--no-unicode";
-      includes = [
-        "*"
-      ];
     };
   };
 }

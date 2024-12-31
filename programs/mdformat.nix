@@ -1,24 +1,15 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.mdformat;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.mdformat = {
-    enable = lib.mkEnableOption "mdformat";
-    package = lib.mkPackageOption pkgs [ "python3Packages" "mdformat" ] { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.mdformat = {
-      command = cfg.package;
+  imports = [
+    (mkFormatterModule {
+      name = "mdformat";
+      package = [
+        "python3Packages"
+        "mdformat"
+      ];
       includes = [ "*.md" ];
-    };
-  };
+    })
+  ];
 }

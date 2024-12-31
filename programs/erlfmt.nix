@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,9 +10,23 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "erlfmt";
+      args = [ "--write" ];
+      includes = [
+        "*.erl"
+        "*.hrl"
+        "*.app"
+        "*.app.src"
+        "*.config"
+        "*.script"
+        "*.escript"
+      ];
+    })
+  ];
+
   options.programs.erlfmt = {
-    enable = lib.mkEnableOption "erlfmt";
-    package = lib.mkPackageOption pkgs "erlfmt" { };
     print-width = lib.mkOption {
       description = "The line length that formatter would wrap on";
       type = lib.types.int;
@@ -23,20 +37,9 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.erlfmt = {
-      command = "${cfg.package}/bin/erlfmt";
       options = [
         "--print-width"
         (toString cfg.print-width)
-        "--write"
-      ];
-      includes = [
-        "*.erl"
-        "*.hrl"
-        "*.app"
-        "*.app.src"
-        "*.config"
-        "*.script"
-        "*.escript"
       ];
     };
   };

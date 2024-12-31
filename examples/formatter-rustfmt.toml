@@ -3,4 +3,4 @@
 command = "rustfmt"
 excludes = []
 includes = ["*.rs"]
-options = ["--edition", "2021", "--config", "skip_children=true"]
+options = ["--config", "skip_children=true", "--edition", "2021"]

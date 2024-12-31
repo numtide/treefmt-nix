@@ -1,24 +1,12 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.nixfmt;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.nixfmt = {
-    enable = lib.mkEnableOption "nixfmt";
-    package = lib.mkPackageOption pkgs "nixfmt-rfc-style" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.nixfmt = {
-      command = cfg.package;
+  imports = [
+    (mkFormatterModule {
+      name = "nixfmt";
+      package = "nixfmt-rfc-style";
       includes = [ "*.nix" ];
-    };
-  };
+    })
+  ];
 }

@@ -1,24 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.keep-sorted;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.keep-sorted = {
-    enable = lib.mkEnableOption "keep-sorted";
-    package = lib.mkPackageOption pkgs "keep-sorted" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.keep-sorted = {
-      command = cfg.package;
+  imports = [
+    (mkFormatterModule {
+      name = "keep-sorted";
       includes = [ "*" ];
-    };
-  };
+    })
+  ];
 }

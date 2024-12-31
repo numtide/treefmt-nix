@@ -1,24 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.meson;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ "RossSmyth" ];
 
-  options.programs.meson = {
-    enable = lib.mkEnableOption "meson";
-    package = lib.mkPackageOption pkgs "meson" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.meson = {
-      command = cfg.package;
-      options = [
+  imports = [
+    (mkFormatterModule {
+      name = "meson";
+      args = [
         "fmt"
         "-i"
       ];
@@ -30,6 +17,6 @@ in
         "*/meson.options"
         "*/meson_options.txt"
       ];
-    };
-  };
+    })
+  ];
 }

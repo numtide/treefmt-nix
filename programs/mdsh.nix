@@ -1,25 +1,12 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.mdsh;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ "zimbatm" ];
 
-  options.programs.mdsh = {
-    enable = lib.mkEnableOption "mdsh";
-    package = lib.mkPackageOption pkgs "mdsh" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.mdsh = {
-      command = cfg.package;
-      options = [ "--inputs" ];
+  imports = [
+    (mkFormatterModule {
+      name = "mdsh";
+      args = [ "--inputs" ];
       includes = [ "README.md" ];
-    };
-  };
+    })
+  ];
 }

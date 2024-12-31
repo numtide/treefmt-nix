@@ -1,25 +1,12 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.jsonfmt;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.jsonfmt = {
-    enable = lib.mkEnableOption "jsonfmt";
-    package = lib.mkPackageOption pkgs "jsonfmt" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.jsonfmt = {
-      command = cfg.package;
+  imports = [
+    (mkFormatterModule {
+      name = "jsonfmt";
+      args = [ "-w" ];
       includes = [ "*.json" ];
-      options = [ "-w" ];
-    };
-  };
+    })
+  ];
 }

@@ -28,7 +28,7 @@ in
               extraPythonPackages = lib.mkOption {
                 type = lib.types.listOf lib.types.package;
                 default = [ ];
-                example = lib.literalMD ''[ pkgs.python3.pkgs.requests ]'';
+                example = lib.literalMD "[ pkgs.python3.pkgs.requests ]";
                 description = "Extra packages to add to PYTHONPATH";
               };
               extraPythonPaths = lib.mkOption {

@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,20 +11,21 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.dnscontrol = {
-    enable = lib.mkEnableOption "dnscontrol";
-    package = lib.mkPackageOption pkgs "dnscontrol" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "dnscontrol";
+      includes = [ "dnsconfig.js" ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.dnscontrol = {
       # dnscontrol doesn't support multiple file targets
       command = pkgs.writeShellScriptBin "dnscontrol-fix" ''
-        for file in "''$@"; do
+        for file in "$@"; do
           ${lib.getExe cfg.package} fmt -i "$file" -o "$file"
         done
       '';
-      includes = [ "dnsconfig.js" ];
     };
   };
 }

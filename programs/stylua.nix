@@ -2,15 +2,14 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
   inherit (lib.types)
     bool
     int
-    str
     enum
-    listOf
     nullOr
     ;
 
@@ -172,35 +171,23 @@ in
 {
   meta.maintainers = [ "sebaszv" ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "stylua";
+      includes = [ "*.lua" ];
+    })
+  ];
+
   options.programs.stylua = {
-    enable = lib.mkEnableOption "stylua";
-    package = lib.mkPackageOption pkgs "stylua" { };
-
     settings = settingsSchema;
-
-    includes = lib.mkOption {
-      description = "Path/file patterns to include for StyLua";
-      type = listOf str;
-      default = [ "*.lua" ];
-    };
-    excludes = lib.mkOption {
-      description = "Path/file patterns to exclude for StyLua";
-      type = listOf str;
-      default = [ ];
-    };
   };
 
   config = lib.mkIf cfg.enable {
     settings.formatter.stylua = {
-      command = cfg.package;
       options = lib.mkIf (settingsFile != null) [
         "--config-path"
         (toString settingsFile)
       ];
-      inherit (cfg)
-        includes
-        excludes
-        ;
     };
   };
 }

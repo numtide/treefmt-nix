@@ -37,6 +37,18 @@ let
             default = [ ];
             example = [ "./node_modules/**" ];
           };
+
+          on-unmatched = mkOption {
+            description = "Log paths that did not match any formatters at the specified log level.";
+            type = types.enum [
+              "debug"
+              "info"
+              "warn"
+              "error"
+              "fatal"
+            ];
+            default = "warn";
+          };
         };
 
         formatter = mkOption {

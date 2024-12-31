@@ -1,11 +1,13 @@
 { pkgs, ... }:
 {
   projectRootFile = "treefmt.nix";
-  programs.mdsh.enable = true;
-  programs.yamlfmt.enable = true;
-  programs.deno.enable = pkgs.hostPlatform.system != "riscv64-linux";
-  programs.nixfmt.enable = true;
-  programs.shfmt.enable = pkgs.hostPlatform.system != "riscv64-linux";
-  programs.shellcheck.enable = pkgs.hostPlatform.system != "riscv64-linux";
   settings.global.excludes = [ "*.toml" ];
+
+  programs.deadnix.enable = true;
+  programs.deno.enable = pkgs.hostPlatform.system != "riscv64-linux";
+  programs.mdsh.enable = true;
+  programs.nixfmt.enable = true;
+  programs.shellcheck.enable = pkgs.hostPlatform.system != "riscv64-linux";
+  programs.shfmt.enable = pkgs.hostPlatform.system != "riscv64-linux";
+  programs.yamlfmt.enable = true;
 }

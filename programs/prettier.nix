@@ -299,7 +299,7 @@ let
   settingsFile =
     let
       # remove all null values
-      settings = filterAttrsRecursive (n: v: v != null) cfg.settings;
+      settings = filterAttrsRecursive (_n: v: v != null) cfg.settings;
     in
     if settings != { } then configFormat.generate "prettierrc.json" settings else null;
 in

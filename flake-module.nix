@@ -18,10 +18,7 @@ in
     perSystem = mkPerSystemOption (
       {
         config,
-        self',
-        inputs',
         pkgs,
-        system,
         ...
       }:
       {

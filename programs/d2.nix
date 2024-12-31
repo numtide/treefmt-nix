@@ -8,6 +8,8 @@ let
   cfg = config.programs.d2;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.d2 = {
     enable = lib.mkEnableOption "d2";
     package = lib.mkPackageOption pkgs "d2" { };

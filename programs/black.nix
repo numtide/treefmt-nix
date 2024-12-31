@@ -8,6 +8,8 @@ let
   cfg = config.programs.black;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.black = {
     enable = lib.mkEnableOption "black";
     package = lib.mkPackageOption pkgs "black" { };

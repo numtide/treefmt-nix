@@ -14,6 +14,8 @@ let
   cfg = config.programs.buildifier;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.buildifier = {
     enable = mkEnableOption "buildifier";
     package = mkPackageOption pkgs "buildifier" { };

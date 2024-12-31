@@ -15,6 +15,8 @@ let
   cfg = config.programs.deno;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.deno = {
     enable = mkEnableOption "deno";
     package = mkOption {

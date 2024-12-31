@@ -8,6 +8,8 @@ let
   cfg = config.programs.fish_indent;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.fish_indent = {
     enable = lib.mkEnableOption "fish_indent";
     package = lib.mkPackageOption pkgs "fish" { };

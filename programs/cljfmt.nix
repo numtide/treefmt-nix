@@ -8,6 +8,8 @@ let
   cfg = config.programs.cljfmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.cljfmt = {
     enable = lib.mkEnableOption "cljfmt";
     package = lib.mkPackageOption pkgs "cljfmt" { };

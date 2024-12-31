@@ -8,6 +8,8 @@ let
   cfg = config.programs.deadnix;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.deadnix = {
     enable = lib.mkEnableOption "deadnix";
     package = lib.mkPackageOption pkgs "deadnix" { };

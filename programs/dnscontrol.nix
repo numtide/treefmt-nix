@@ -8,6 +8,8 @@ let
   cfg = config.programs.dnscontrol;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.dnscontrol = {
     enable = lib.mkEnableOption "dnscontrol";
     package = lib.mkPackageOption pkgs "dnscontrol" { };

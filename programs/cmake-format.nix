@@ -8,6 +8,8 @@ let
   cfg = config.programs.cmake-format;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.cmake-format = {
     enable = lib.mkEnableOption "cmake-format";
     package = lib.mkPackageOption pkgs "cmake-format" { };

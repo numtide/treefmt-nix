@@ -32,6 +32,8 @@ let
   cfg = config.programs.biome;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.biome = {
     enable = l.mkEnableOption "biome";
     package = l.mkPackageOption p "biome" { };

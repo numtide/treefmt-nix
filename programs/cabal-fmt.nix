@@ -8,6 +8,8 @@ let
   cfg = config.programs.cabal-fmt;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.cabal-fmt = {
     enable = lib.mkEnableOption "cabal-fmt";
     package = lib.mkOption {

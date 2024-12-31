@@ -8,6 +8,8 @@ let
   cfg = config.programs.cue;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.cue = {
     enable = lib.mkEnableOption "cue";
     package = lib.mkPackageOption pkgs "cue" { };

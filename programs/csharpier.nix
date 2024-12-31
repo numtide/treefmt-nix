@@ -15,6 +15,8 @@ let
     ;
 in
 {
+  meta.maintainers = [ ];
+
   options.programs.csharpier = {
     enable = mkEnableOption "csharpier";
     package = mkPackageOption pkgs "csharpier" { };

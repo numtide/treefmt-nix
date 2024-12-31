@@ -218,7 +218,7 @@ functions.
 
 ## Supported programs
 
-<!-- `> ./supported-programs.sh` -->
+<!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
 `treefmt-nix` currently supports 94 formatters:

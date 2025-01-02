@@ -1,27 +1,14 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.typstfmt;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.typstfmt = {
-    enable = lib.mkEnableOption "typstfmt";
-    package = lib.mkPackageOption pkgs "typstfmt" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.typstfmt = {
-      command = cfg.package;
+  imports = [
+    (mkFormatterModule {
+      name = "typstfmt";
       includes = [
         "*.typ"
         "*.typst"
       ];
-    };
-  };
+    })
+  ];
 }

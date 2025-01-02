@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,25 +10,22 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.nixfmt-classic = {
-    enable = lib.mkEnableOption "nixfmt-classic";
-    package = lib.mkPackageOption pkgs "nixfmt-classic" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "nixfmt-classic";
+      includes = [ "*.nix" ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.nixfmt-classic = (
-      lib.warn
-        ''
-          nixfmt-classic is the original flavor of 'nixfmt'.
-          This version differs considerably from the new standard and is currently
-          unmaintained.
-          It has been superseded by 'nixfmt', which conforms to the
-          'nixfmt-rfc-style' standard.
-        ''
-        {
-          command = cfg.package;
-          includes = [ "*.nix" ];
-        }
+      lib.warn ''
+        nixfmt-classic is the original flavor of 'nixfmt'.
+        This version differs considerably from the new standard and is currently
+        unmaintained.
+        It has been superseded by 'nixfmt', which conforms to the
+        'nixfmt-rfc-style' standard.
+      '' { }
     );
   };
 }

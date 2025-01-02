@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,22 +10,19 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.nixfmt-rfc-style = {
-    enable = lib.mkEnableOption "nixfmt-rfc-style";
-    package = lib.mkPackageOption pkgs "nixfmt-rfc-style" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "nixfmt-rfc-style";
+      includes = [ "*.nix" ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.nixfmt-rfc-style = (
-      lib.warn
-        ''
-           nixfmt-rfc-style is now the default for the 'nixfmt' formatter.
-          'nixfmt-rfc-style' is deprecated and will be removed in the future.
-        ''
-        {
-          command = cfg.package;
-          includes = [ "*.nix" ];
-        }
+      lib.warn ''
+         nixfmt-rfc-style is now the default for the 'nixfmt' formatter.
+        'nixfmt-rfc-style' is deprecated and will be removed in the future.
+      '' { }
     );
   };
 }

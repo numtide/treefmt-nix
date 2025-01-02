@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,10 +11,13 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.fish_indent = {
-    enable = lib.mkEnableOption "fish_indent";
-    package = lib.mkPackageOption pkgs "fish" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "fish_indent";
+      package = "fish";
+      includes = [ "*.fish" ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.fish_indent = {
@@ -27,7 +31,6 @@ in
           fish_indent --check "$@" 2>&1 | xargs --no-run-if-empty fish_indent --write || true
         '';
       };
-      includes = [ "*.fish" ];
     };
   };
 }

@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,15 +10,17 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.nimpretty = {
-    enable = lib.mkEnableOption "nimpretty";
-    package = lib.mkPackageOption pkgs "nim" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "nimpretty";
+      package = "nim";
+      includes = [ "*.nim" ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.nimpretty = {
       command = "${cfg.package}/bin/nimpretty";
-      includes = [ "*.nim" ];
     };
   };
 }

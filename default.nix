@@ -7,6 +7,71 @@ let
   # Program to formatter mapping
   programs = import ./programs.nix;
 
+  mkFormatterModule =
+    {
+      name,
+      package ? name,
+      mainProgram ? null,
+      args ? [ ],
+      includes ? [ ],
+      excludes ? [ ],
+    }:
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
+    let
+      cfg = config.programs.${name};
+    in
+    {
+      options.programs.${name} = {
+        enable = lib.mkEnableOption name;
+
+        package = lib.mkPackageOption pkgs package { };
+
+        includes = lib.mkOption {
+          description = "Path / file patterns to include";
+          type = lib.types.listOf lib.types.str;
+          default = includes;
+        };
+
+        excludes = lib.mkOption {
+          description = "Path / file patterns to exclude";
+          type = lib.types.listOf lib.types.str;
+          default = excludes;
+        };
+
+        priority = lib.mkOption {
+          description = "Priority";
+          type = lib.types.nullOr lib.types.int;
+          default = null;
+        };
+      };
+
+      config = lib.mkIf cfg.enable {
+        settings.formatter.${name} =
+          {
+            command = lib.mkDefault (
+              if mainProgram == null then cfg.package else "${cfg.package}/bin/${mainProgram}"
+            );
+          }
+          // (lib.optionalAttrs (args != [ ]) {
+            options = if args._type or null == "order" then args else lib.mkBefore args;
+          })
+          // (lib.optionalAttrs (cfg.includes != [ ]) {
+            inherit (cfg) includes;
+          })
+          // (lib.optionalAttrs (cfg.excludes != [ ]) {
+            inherit (cfg) excludes;
+          })
+          // (lib.optionalAttrs (cfg.priority != null) {
+            inherit (cfg) priority;
+          });
+      };
+    };
+
   all-modules =
     nixpkgs:
     [
@@ -54,6 +119,9 @@ let
     nixpkgs: configuration:
     nixpkgs.lib.evalModules {
       modules = all-modules nixpkgs ++ [ configuration ];
+      specialArgs = {
+        inherit mkFormatterModule;
+      };
     };
 
   # Returns a treefmt.toml generated from the passed configuration.

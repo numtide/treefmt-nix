@@ -1,24 +1,13 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.gdformat;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.gdformat = {
-    enable = lib.mkEnableOption "gdformat";
-    package = lib.mkPackageOption pkgs "gdtoolkit_4" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.gdformat = {
-      command = "${cfg.package}/bin/gdformat";
+  imports = [
+    (mkFormatterModule {
+      name = "gdformat";
+      package = "gdtoolkit_4";
+      mainProgram = "gdformat";
       includes = [ "*.gd" ];
-    };
-  };
+    })
+  ];
 }

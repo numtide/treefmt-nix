@@ -1,25 +1,12 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.templ;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.templ = {
-    enable = lib.mkEnableOption "templ";
-    package = lib.mkPackageOption pkgs "templ" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.templ = {
-      command = "${cfg.package}/bin/templ";
-      options = [ "fmt" ];
+  imports = [
+    (mkFormatterModule {
+      name = "templ";
+      args = [ "fmt" ];
       includes = [ "*.templ" ];
-    };
-  };
+    })
+  ];
 }

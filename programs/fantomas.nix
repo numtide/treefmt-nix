@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,9 +11,21 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "fantomas";
+      args = [ "--inputs" ];
+      includes = [
+        "*.fs"
+        "*.fsx"
+        "*.fsi"
+        "*.ml"
+        "*.mli"
+      ];
+    })
+  ];
+
   options.programs.fantomas = {
-    enable = lib.mkEnableOption "fantomas";
-    package = lib.mkPackageOption pkgs "fantomas" { };
     dotnet-sdk = lib.mkPackageOption pkgs "dotnet-sdk" { };
   };
 
@@ -28,13 +41,6 @@ in
           fantomas "$@"
         '';
       };
-      includes = [
-        "*.fs"
-        "*.fsx"
-        "*.fsi"
-        "*.ml"
-        "*.mli"
-      ];
     };
   };
 }

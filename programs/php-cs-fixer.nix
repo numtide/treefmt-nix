@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -11,9 +11,19 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "php-cs-fixer";
+      package = [
+        "phpPackages"
+        "php-cs-fixer"
+      ];
+      args = [ "fix" ];
+      includes = [ "*.php" ];
+    })
+  ];
+
   options.programs.php-cs-fixer = {
-    enable = lib.mkEnableOption "php-cs-fixer";
-    package = lib.mkPackageOption pkgs.phpPackages "php-cs-fixer" { };
     configFile = lib.mkOption {
       description = "Path to php-cs-fixer config file.";
       type = types.oneOf [
@@ -27,13 +37,10 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.php-cs-fixer = {
-      command = "${cfg.package}/bin/php-cs-fixer";
       options = [
-        "fix"
         "--config"
         "${cfg.configFile}"
       ];
-      includes = [ "*.php" ];
     };
   };
 }

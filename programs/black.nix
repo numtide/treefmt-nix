@@ -1,27 +1,14 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.black;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.black = {
-    enable = lib.mkEnableOption "black";
-    package = lib.mkPackageOption pkgs "black" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.black = {
-      command = cfg.package;
+  imports = [
+    (mkFormatterModule {
+      name = "black";
       includes = [
         "*.py"
         "*.pyi"
       ];
-    };
-  };
+    })
+  ];
 }

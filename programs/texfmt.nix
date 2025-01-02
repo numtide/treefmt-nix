@@ -1,24 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.texfmt;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.texfmt = {
-    enable = lib.mkEnableOption "texfmt";
-    package = lib.mkPackageOption pkgs "tex-fmt" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.texfmt = {
-      command = lib.getExe' cfg.package "tex-fmt";
-      options = [ ];
+  imports = [
+    (mkFormatterModule {
+      name = "texfmt";
+      package = "tex-fmt";
       includes = [
         "*.tex"
         "*.sty"
@@ -26,6 +13,6 @@ in
         "*.bib"
         "*.cmh"
       ];
-    };
-  };
+    })
+  ];
 }

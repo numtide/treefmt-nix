@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,9 +10,19 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "ormolu";
+      args = [
+        "--mode"
+        "inplace"
+        "--check-idempotence"
+      ];
+      includes = [ "*.hs" ];
+    })
+  ];
+
   options.programs.ormolu = {
-    enable = lib.mkEnableOption "ormolu";
-    package = lib.mkPackageOption pkgs "ormolu" { };
     ghcOpts = lib.mkOption {
       description = "Which GHC language extensions to enable";
       default = [
@@ -25,18 +35,12 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.ormolu = {
-      command = cfg.package;
-      options =
-        [
-          "--mode"
-          "inplace"
-          "--check-idempotence"
-        ]
-        ++ (lib.concatMap (x: [
+      options = (
+        lib.concatMap (x: [
           "--ghc-opt"
           "-X${x}"
-        ]) cfg.ghcOpts);
-      includes = [ "*.hs" ];
+        ]) cfg.ghcOpts
+      );
     };
   };
 }

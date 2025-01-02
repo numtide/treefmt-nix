@@ -1,24 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.muon;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.muon = {
-    enable = lib.mkEnableOption "muon";
-    package = lib.mkPackageOption pkgs "muon" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.muon = {
-      command = cfg.package;
-      options = [
+  imports = [
+    (mkFormatterModule {
+      name = "muon";
+      args = [
         "fmt"
         "-i"
       ];
@@ -30,6 +17,6 @@ in
         "*/meson.options"
         "*/meson_options.txt"
       ];
-    };
-  };
+    })
+  ];
 }

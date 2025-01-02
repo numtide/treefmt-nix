@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,10 +10,15 @@ in
 {
   meta.maintainers = [ "sebaszv" ];
 
-  options.programs.google-java-format = {
-    enable = lib.mkEnableOption "google-java-format";
-    package = lib.mkPackageOption pkgs "google-java-format" { };
+  imports = [
+    (mkFormatterModule {
+      name = "google-java-format";
+      args = [ "--replace" ];
+      includes = [ "*.java" ];
+    })
+  ];
 
+  options.programs.google-java-format = {
     aospStyle = lib.mkOption {
       description = ''
         Whether to use AOSP (Android Open Source Project) indentation.
@@ -24,28 +29,9 @@ in
       example = true;
       default = false;
     };
-
-    includes = lib.mkOption {
-      description = "Path/file patterns to include for google-java-format";
-      type = lib.types.listOf lib.types.str;
-      default = [ "*.java" ];
-    };
-    excludes = lib.mkOption {
-      description = "Path/file patterns to exclude for google-java-format";
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-    };
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.google-java-format = {
-      command = cfg.package;
-      options = [ "--replace" ] ++ (lib.optional cfg.aospStyle "--aosp");
-
-      inherit (cfg)
-        includes
-        excludes
-        ;
-    };
+    settings.formatter.google-java-format.options = lib.optional cfg.aospStyle "--aosp";
   };
 }

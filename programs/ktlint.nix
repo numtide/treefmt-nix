@@ -1,28 +1,15 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.ktlint;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.ktlint = {
-    enable = lib.mkEnableOption "ktlint";
-    package = lib.mkPackageOption pkgs "ktlint" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.ktlint = {
-      command = cfg.package;
-      options = [ "--format" ];
+  imports = [
+    (mkFormatterModule {
+      name = "ktlint";
+      args = [ "--format" ];
       includes = [
         "*.kt"
         "*.kts"
       ];
-    };
-  };
+    })
+  ];
 }

@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,9 +10,15 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "formatjson5";
+      args = [ "--replace" ];
+      includes = [ "*.json5" ];
+    })
+  ];
+
   options.programs.formatjson5 = {
-    enable = lib.mkEnableOption "formatjson5";
-    package = lib.mkPackageOption pkgs "formatjson5" { };
     noTrailingCommas = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -37,16 +43,13 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.formatjson5 = {
-      command = cfg.package;
       options =
         [
-          "--replace"
           "--indent=${toString cfg.indent}"
         ]
         ++ lib.optional cfg.noTrailingCommas "--no_trailing_commas"
         ++ lib.optional cfg.oneElementLines "--one_element_lines"
         ++ lib.optional cfg.sortArrays "--sort_arrays";
-      includes = [ "*.json5" ];
     };
   };
 }

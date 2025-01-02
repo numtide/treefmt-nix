@@ -1,28 +1,15 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.zig;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.zig = {
-    enable = lib.mkEnableOption "zig";
-    package = lib.mkPackageOption pkgs "zig" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.zig = {
-      command = cfg.package;
-      options = [ "fmt" ];
+  imports = [
+    (mkFormatterModule {
+      name = "zig";
+      args = [ "fmt" ];
       includes = [
         "*.zig"
         "*.zon"
       ];
-    };
-  };
+    })
+  ];
 }

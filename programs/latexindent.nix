@@ -1,24 +1,16 @@
 {
-  lib,
-  pkgs,
-  config,
+  mkFormatterModule,
   ...
 }:
-let
-  cfg = config.programs.latexindent;
-in
 {
   meta.maintainers = [ ];
 
-  options.programs.latexindent = {
-    enable = lib.mkEnableOption "latexindent";
-    package = lib.mkPackageOption pkgs "texliveMedium" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.latexindent = {
-      command = lib.getExe' cfg.package "latexindent";
-      options = [ "-wd" ];
+  imports = [
+    (mkFormatterModule {
+      name = "latexindent";
+      package = "texliveMedium";
+      mainProgram = "latexindent";
+      args = [ "-wd" ];
       includes = [
         "*.tex"
         "*.sty"
@@ -26,6 +18,6 @@ in
         "*.bib"
         "*.cmh"
       ];
-    };
-  };
+    })
+  ];
 }

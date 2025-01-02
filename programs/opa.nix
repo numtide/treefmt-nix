@@ -1,28 +1,16 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.opa;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.opa = {
-    enable = lib.mkEnableOption "opa";
-    package = lib.mkPackageOption pkgs "open-policy-agent" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.opa = {
-      command = cfg.package;
-      options = [
+  imports = [
+    (mkFormatterModule {
+      name = "opa";
+      package = "open-policy-agent";
+      args = [
         "fmt"
         "-w"
       ];
       includes = [ "*.rego" ];
-    };
-  };
+    })
+  ];
 }

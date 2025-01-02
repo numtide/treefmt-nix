@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,16 +10,22 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "fourmolu";
+      package = [
+        "haskellPackages"
+        "fourmolu"
+      ];
+      args = [
+        "-i"
+        "-c"
+      ];
+      includes = [ "*.hs" ];
+    })
+  ];
+
   options.programs.fourmolu = {
-    enable = lib.mkEnableOption "fourmolu";
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.haskellPackages.fourmolu;
-      defaultText = lib.literalExpression "pkgs.haskellPackages.fourmolu";
-      description = ''
-        fourmolu derivation to use.
-      '';
-    };
     ghcOpts = lib.mkOption {
       description = "Which GHC language extensions to enable";
       default = [
@@ -32,17 +38,10 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.fourmolu = {
-      command = cfg.package;
-      options =
-        [
-          "-i"
-          "-c"
-        ]
-        ++ (lib.concatMap (x: [
-          "--ghc-opt"
-          "-X${x}"
-        ]) cfg.ghcOpts);
-      includes = [ "*.hs" ];
+      options = lib.concatMap (x: [
+        "--ghc-opt"
+        "-X${x}"
+      ]) cfg.ghcOpts;
     };
   };
 }

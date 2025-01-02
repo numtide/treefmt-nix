@@ -3,6 +3,7 @@
   pkgs,
   config,
   options,
+  mkFormatterModule,
   ...
 }:
 let
@@ -34,15 +35,24 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.biome = {
-    enable = l.mkEnableOption "biome";
-    package = l.mkPackageOption p "biome" { };
+  imports = [
+    (mkFormatterModule {
+      name = "biome";
+      args = [
+        "format"
+        "--write"
+        "--no-errors-on-unmatched"
+      ];
+      includes = ext.js ++ ext.json;
+    })
+  ];
 
+  options.programs.biome = {
     settings =
       let
         shared = {
           indentStyle = l.mkOption {
-            description = ''The style of the indentation. It can be `tab` or `space`.'';
+            description = "The style of the indentation. It can be `tab` or `space`.";
             type = t.enum [
               "tab"
               "space"
@@ -145,7 +155,7 @@ in
             };
 
             quoteStyle = l.mkOption {
-              description = ''The type of quote used when representing string literals. It can be `single` or `double`.'';
+              description = "The type of quote used when representing string literals. It can be `single` or `double`.";
               type = t.enum [
                 "single"
                 "double"
@@ -155,7 +165,7 @@ in
             };
 
             jsxQuoteStyle = l.mkOption {
-              description = ''The type of quote used when representing jsx string literals. It can be `single` or `double`.'';
+              description = "The type of quote used when representing jsx string literals. It can be `single` or `double`.";
               type = t.enum [
                 "single"
                 "double"
@@ -165,7 +175,7 @@ in
             };
 
             quoteProperties = l.mkOption {
-              description = ''When properties inside objects should be quoted. It can be `asNeeded` or `preserve`.'';
+              description = "When properties inside objects should be quoted. It can be `asNeeded` or `preserve`.";
               type = t.enum [
                 "asNeeded"
                 "preserve"
@@ -222,7 +232,7 @@ in
             };
 
             bracketSameLine = l.mkOption {
-              description = ''Choose whether the ending `>` of a multi-line JSX element should be on the last attribute line or not'';
+              description = "Choose whether the ending `>` of a multi-line JSX element should be on the last attribute line or not";
               type = t.bool;
               example = true;
               default = false;
@@ -274,28 +284,10 @@ in
           } // shared;
         };
       };
-
-    includes = l.mkOption {
-      description = "Path / file patterns to include for Biome";
-      type = t.listOf t.str;
-      example = [ "*.mjs" ];
-      default = ext.js ++ ext.json;
-    };
-
-    excludes = l.mkOption {
-      description = "Path / file patterns to exclude for Biome";
-      type = t.listOf t.str;
-      example = [ "*.mjs" ];
-      default = [ ];
-    };
   };
 
   config = l.mkIf cfg.enable {
     settings.formatter.biome = {
-      command = l.getExe cfg.package;
-
-      inherit (cfg) includes excludes;
-
       options =
         let
           settings =
@@ -342,12 +334,7 @@ in
             in
             filterEmpty (filterDefaults cfg.settings);
         in
-        [
-          "format"
-          "--write"
-          "--no-errors-on-unmatched"
-        ]
-        ++ l.optionals (settings != { }) [
+        l.optionals (settings != { }) [
           # NOTE(@huwaireb): Biome does not accept a direct path to a file for config-path, only a directory.
           "--config-path"
           (l.toString (p.writeTextDir "biome.json" (l.toJSON settings)))

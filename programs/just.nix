@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,10 +11,15 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.just = {
-    enable = lib.mkEnableOption "just";
-    package = lib.mkPackageOption pkgs "just" { };
-  };
+  imports = [
+    (mkFormatterModule {
+      name = "just";
+      includes = [
+        "[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # 'justfile', case insensitive
+        ".[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # '.justfile', case insensitive
+      ];
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.just = {
@@ -26,10 +32,6 @@ in
           done
         ''
         "--" # bash swallows the second argument when using -c
-      ];
-      includes = [
-        "[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # 'justfile', case insensitive
-        ".[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # '.justfile', case insensitive
       ];
     };
   };

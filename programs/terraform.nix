@@ -1,31 +1,18 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.programs.terraform;
-in
+{ mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
 
-  options.programs.terraform = {
-    enable = lib.mkEnableOption "terraform";
-    # opentofu is the opensource version of terraform and cached in cache.nixos.org
-    package = lib.mkPackageOption pkgs "opentofu" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.terraform = {
-      command = cfg.package;
-      options = [ "fmt" ];
+  imports = [
+    (mkFormatterModule {
+      name = "terraform";
+      package = "opentofu";
+      args = [ "fmt" ];
       # All opentofu-supported files
       includes = [
         "*.tf"
         "*.tfvars"
         "*.tftest.hcl"
       ];
-    };
-  };
+    })
+  ];
 }

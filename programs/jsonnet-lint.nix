@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,18 +10,20 @@ in
 {
   meta.maintainers = [ ];
 
-  options.programs.jsonnet-lint = {
-    enable = lib.mkEnableOption "jsonnet";
-    package = lib.mkPackageOption pkgs "go-jsonnet" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.jsonnet-lint = {
-      command = "${cfg.package}/bin/jsonnet-lint";
+  imports = [
+    (mkFormatterModule {
+      name = "jsonnet-lint";
+      package = "go-jsonnet";
       includes = [
         "*.jsonnet"
         "*.libsonnet"
       ];
+    })
+  ];
+
+  config = lib.mkIf cfg.enable {
+    settings.formatter.jsonnet-lint = {
+      command = "${cfg.package}/bin/jsonnet-lint";
     };
   };
 }

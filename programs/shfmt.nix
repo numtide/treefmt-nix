@@ -1,7 +1,7 @@
 {
-  lib,
-  pkgs,
   config,
+  lib,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,9 +10,24 @@ in
 {
   meta.maintainers = [ "zimbatm" ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "shfmt";
+      args = [
+        "-s"
+        "-w"
+      ];
+      includes = [
+        "*.sh"
+        "*.bash"
+        # direnv
+        "*.envrc"
+        "*.envrc.*"
+      ];
+    })
+  ];
+
   options.programs.shfmt = {
-    enable = lib.mkEnableOption "shfmt";
-    package = lib.mkPackageOption pkgs "shfmt" { };
     indent_size = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
       default = 2;
@@ -26,24 +41,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.shfmt = {
-      command = cfg.package;
-      options =
-        (lib.optionals (!isNull cfg.indent_size) [
-          "-i"
-          (toString cfg.indent_size)
-        ])
-        ++ [
-          "-s"
-          "-w"
-        ];
-      includes = [
-        "*.sh"
-        "*.bash"
-        # direnv
-        "*.envrc"
-        "*.envrc.*"
-      ];
-    };
+    settings.formatter.shfmt.options = lib.optionals (!isNull cfg.indent_size) [
+      "-i"
+      (toString cfg.indent_size)
+    ];
   };
 }

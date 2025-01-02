@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,16 +10,20 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "zprint";
+      args = [ "--write" ];
+      includes = [
+        "*.clj"
+        "*.cljc"
+        "*.cljs"
+        "*.edn"
+      ];
+    })
+  ];
+
   options.programs.zprint = {
-    enable = lib.mkEnableOption "zprint";
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.zprint;
-      defaultText = lib.literalExpression "pkgs.zprint";
-      description = ''
-        zprint derivation to use.
-      '';
-    };
     zprintOpts = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
@@ -32,15 +36,8 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.zprint = {
-      command = cfg.package;
       # zprint options must be first
-      options = (lib.optional (cfg.zprintOpts != null) cfg.zprintOpts) ++ [ "--write" ];
-      includes = [
-        "*.clj"
-        "*.cljc"
-        "*.cljs"
-        "*.edn"
-      ];
+      options = lib.optional (cfg.zprintOpts != null) cfg.zprintOpts;
     };
   };
 }

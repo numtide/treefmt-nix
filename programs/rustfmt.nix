@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   config,
+  mkFormatterModule,
   ...
 }:
 let
@@ -10,8 +10,18 @@ in
 {
   meta.maintainers = [ ];
 
+  imports = [
+    (mkFormatterModule {
+      name = "rustfmt";
+      args = [
+        "--config"
+        "skip_children=true"
+      ];
+      includes = [ "*.rs" ];
+    })
+  ];
+
   options.programs.rustfmt = {
-    enable = lib.mkEnableOption "rustfmt";
     edition = lib.mkOption {
       type = lib.types.str;
       default = "2021";
@@ -19,19 +29,14 @@ in
         Rust edition to target when formatting
       '';
     };
-    package = lib.mkPackageOption pkgs "rustfmt" { };
   };
 
   config = lib.mkIf cfg.enable {
     settings.formatter.rustfmt = {
-      command = "${cfg.package}/bin/rustfmt";
       options = [
         "--edition"
         cfg.edition
-        "--config"
-        "skip_children=true"
       ];
-      includes = [ "*.rs" ];
     };
   };
 }

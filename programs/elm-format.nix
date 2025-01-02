@@ -23,7 +23,7 @@ in
     };
 
     includes = lib.mkOption {
-      description = "Path / file patterns to include for Biome";
+      description = "Path / file patterns to include for elm-format";
       type = lib.types.listOf lib.types.str;
       example = [ "*.elm" ];
       default = [ "*.elm" ];

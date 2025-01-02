@@ -15,12 +15,16 @@ let
     [
       # See https://github.com/numtide/treefmt-nix/pull/201
       "swift-format"
+      # See https://github.com/NixOS/nixpkgs/pull/370124
+      "formatjson5"
     ]
     # Broken on macOS
     ++ (lib.optionals pkgs.stdenv.isDarwin [
       "fantomas"
       "gdformat"
       "muon"
+      # See https://github.com/NixOS/nixpkgs/issues/370084
+      "elm-format"
     ]);
 
   programConfigs =
@@ -61,6 +65,9 @@ let
               &&
                 # gdformat is bloken on macOS
                 n != "formatter-gdformat"
+              &&
+                # elm-format is bloken on macOS
+                n != "formatter-elm-format"
             ) programConfigs
           );
     in

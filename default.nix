@@ -120,14 +120,20 @@ let
     # NOTE: keep in sync with submoduleWith
     nixpkgs.lib.evalModules {
       modules = all-modules nixpkgs ++ [ configuration ];
-      specialArgs = {
-        inherit mkFormatterModule;
-      };
+      specialArgs = defaultSpecialArgs;
     };
 
   /**
+    The built-in specialArgs for treefmt-nix.
+    These are module arguments that are passed to all treefmt-nix modules.
+  */
+  defaultSpecialArgs = {
+    inherit mkFormatterModule;
+  };
+
+  /**
     Invoke treefmt-nix as a submodule, integrating this into a larger configuration management system.
-  
+
     Unlike in `evalModule`, the caller is responsible for setting `_module.args.pkgs` inside the submodule.
 
     # Inputs
@@ -151,9 +157,7 @@ let
     # NOTE: keep in sync with evalModule
     lib.types.submoduleWith {
       modules = submodule-modules ++ modules;
-      specialArgs = {
-        inherit mkFormatterModule;
-      } // specialArgs;
+      specialArgs = defaultSpecialArgs // specialArgs;
     };
 
   # Returns a treefmt.toml generated from the passed configuration.

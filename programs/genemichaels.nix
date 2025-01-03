@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  options,
   ...
 }:
 let
@@ -25,12 +26,21 @@ let
     mkOption
     mkPackageOption
     ;
+
+  showOptionParent =
+    opt: _n:
+    assert opt._type == "option";
+    lib.showOption (lib.take (lib.length opt.loc - 1) opt.loc);
 in
 {
   meta.maintainers = [ "djacu" ];
 
   options.programs.genemichaels = {
-    enable = mkEnableOption "genemichaels";
+    enable = mkEnableOption "genemichaels" // {
+      description = ''
+        Whether to enable [`genemichaels`](https://github.com/andrewbaxter/genemichaels/blob/master/readme_genemichaels.md), a Rust code formatter.
+      '';
+    };
     package = mkPackageOption pkgs "genemichaels" { };
 
     # Configuration scheme for genemichaels, which we generate .genemichaels.json with.
@@ -114,8 +124,9 @@ in
     settingsFile = mkOption {
       description = "The configuration file used by `genemichaels`.";
       type = types.path;
-      example = ./.genemichaels.json;
+      example = lib.literalExpression ''./.genemichaels.json'';
       default = configFormat.generate ".genemichaels.json" cfg.settings;
+      defaultText = lib.literalMD "Generated JSON file from `${showOptionParent options.programs.genemichaels.settings.max_width 1}`";
     };
 
     threadCount = mkOption {

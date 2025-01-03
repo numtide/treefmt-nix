@@ -117,11 +117,43 @@ let
   # configuration is an attrset used to configure the nix module
   evalModule =
     nixpkgs: configuration:
+    # NOTE: keep in sync with submoduleWith
     nixpkgs.lib.evalModules {
       modules = all-modules nixpkgs ++ [ configuration ];
       specialArgs = {
         inherit mkFormatterModule;
       };
+    };
+
+  /**
+    Invoke treefmt-nix as a submodule, integrating this into a larger configuration management system.
+  
+    Unlike in `evalModule`, the caller is responsible for setting `_module.args.pkgs` inside the submodule.
+
+    # Inputs
+
+    - `lib`: the Nixpkgs `lib`
+
+    - attribute set
+      - `modules`: additional modules to include. Unlike modules in `config`, these will be rendered in the documentation.
+      - `specialArgs`: additional arguments to pass to all modules in the submodule. See [`evalModules`' `specialArgs`](https://nixos.org/manual/nixpkgs/stable/#module-system-lib-evalModules-param-specialArgs).
+
+    # Output
+
+    A module system type that can be passed to [`mkOption`](https://nixos.org/manual/nixos/stable/#sec-option-declarations)'s `type`.
+  */
+  submoduleWith =
+    lib:
+    {
+      modules ? [ ],
+      specialArgs ? { },
+    }:
+    # NOTE: keep in sync with evalModule
+    lib.types.submoduleWith {
+      modules = submodule-modules ++ modules;
+      specialArgs = {
+        inherit mkFormatterModule;
+      } // specialArgs;
     };
 
   # Returns a treefmt.toml generated from the passed configuration.
@@ -153,6 +185,7 @@ in
     all-modules
     submodule-modules
     evalModule
+    submoduleWith
     mkConfigFile
     mkWrapper
     ;

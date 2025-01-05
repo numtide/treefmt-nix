@@ -206,21 +206,8 @@ in
                     "$@"
                 '';
             x = pkgs.writeShellScriptBin "treefmt" code;
-            # used by tooling to detect if treefmt was wrapped or not
-            y = pkgs.writeShellScriptBin "treefmt-nix" code;
           in
-          (
-            pkgs.symlinkJoin {
-              name = "treefmt-nix";
-              paths = [
-                x
-                y
-              ];
-            }
-            // {
-              meta = config.package.meta // x.meta;
-            }
-          );
+          (x // { meta = config.package.meta // x.meta; });
       };
       programs = mkOption {
         type = types.attrsOf types.package;

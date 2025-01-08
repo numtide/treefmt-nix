@@ -23,6 +23,17 @@ let
 
   configFormat = pkgs.formats.toml { };
 
+  # Remove keys in the setting that are "empty" to keep the config file lean
+  emptySettingsKeys =
+    lib.optional (config.settings.excludes == [ ]) "excludes"
+    ++ lib.optional (config.settings.on-unmatched == null) "on-unmatched"
+    # Remove deprecated 'global' key (created by mkRenamedOptionModule for backwards compatibility)
+    ++ [ "global" ];
+
+  settingsData = builtins.removeAttrs config.settings emptySettingsKeys;
+
+  configFile = configFormat.generate "treefmt.toml" settingsData;
+
   # The schema of the treefmt.toml data structure.
   configSchema = mkOption {
     default = { };
@@ -40,16 +51,19 @@ let
           default = [ ];
           example = [ "node_modules/*" ];
         };
+
         on-unmatched = mkOption {
           description = "Log paths that did not match any formatters at the specified log level.";
-          type = types.enum [
-            "debug"
-            "info"
-            "warn"
-            "error"
-            "fatal"
-          ];
-          default = "warn";
+          type = types.nullOr (
+            types.enum [
+              "debug"
+              "info"
+              "warn"
+              "error"
+              "fatal"
+            ]
+          );
+          default = null;
         };
 
         formatter = mkOption {
@@ -328,7 +342,7 @@ in
 
   # Config
   config.build = {
-    configFile = configFormat.generate "treefmt.toml" config.settings;
+    inherit configFile;
     devShell = pkgs.mkShell {
       nativeBuildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);
     };

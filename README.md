@@ -221,7 +221,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 96 formatters:
+`treefmt-nix` currently supports 97 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [alejandra](programs/alejandra.nix)
@@ -291,6 +291,7 @@ functions.
 * [packer](programs/packer.nix)
 * [perltidy](programs/perltidy.nix)
 * [php-cs-fixer](programs/php-cs-fixer.nix)
+* [pinact](programs/pinact.nix)
 * [prettier](programs/prettier.nix)
 * [protolint](programs/protolint.nix)
 * [purs-tidy](programs/purs-tidy.nix)

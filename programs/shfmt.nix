@@ -8,7 +8,10 @@ let
   cfg = config.programs.shfmt;
 in
 {
-  meta.maintainers = [ "zimbatm" ];
+  meta.maintainers = [
+    "zimbatm"
+    "katexochen"
+  ];
 
   imports = [
     (mkFormatterModule {

@@ -9,7 +9,7 @@ let
   cfg = config.programs.just;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "katexochen" ];
 
   imports = [
     (mkFormatterModule {

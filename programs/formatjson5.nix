@@ -8,7 +8,7 @@ let
   cfg = config.programs.formatjson5;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "katexochen" ];
 
   imports = [
     (mkFormatterModule {

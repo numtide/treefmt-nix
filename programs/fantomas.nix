@@ -14,7 +14,6 @@ in
   imports = [
     (mkFormatterModule {
       name = "fantomas";
-      args = [ "--inputs" ];
       includes = [
         "*.fs"
         "*.fsx"

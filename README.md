@@ -387,6 +387,13 @@ That mostly means, for the given formatter:
 - You get precedence if any decisions need to be made.
 - Getting pinged if any issue is being found.
 
+## Supported Nix versions
+
+treefmt-nix works with all known Nix version.
+
+If you rely on flakes and `nix fmt`, we recommend running Nix 2.25 or Lix 2.92
+or later. See https://github.com/NixOS/nix/pull/11438
+
 ## Commercial support
 
 Looking for help or customization?

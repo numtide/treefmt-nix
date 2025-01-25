@@ -17,6 +17,8 @@ in
       includes = [
         "[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # 'justfile', case insensitive
         ".[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # '.justfile', case insensitive
+        "*.[Jj][Uu][Ss][Tt]" # '.just' module, case insensitive
+        "*.[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # '.justfile' module, case insensitive
       ];
     })
   ];

@@ -203,7 +203,7 @@ programs.gofmt.enable = true;
   options or includes this way.
 
 For detailed description of the options, refer to the `treefmt`
-[documentation](https://treefmt.com/configure.html).
+[documentation](https://treefmt.com/latest/getting-started/configure/).
 
 ## Project structure
 

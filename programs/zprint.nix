@@ -37,7 +37,7 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.zprint = {
       # zprint options must be first
-      options = lib.optional (cfg.zprintOpts != null) cfg.zprintOpts;
+      options = lib.mkOrder 100 (lib.optional (cfg.zprintOpts != null) cfg.zprintOpts);
     };
   };
 }

@@ -49,15 +49,17 @@ in
   options.programs.sqlfluff = {
     dialect = lib.mkOption {
       description = "The sql dialect to use for formatting";
-      type = lib.types.enum dialects;
-      default = "ansi";
+      type = with lib.types; nullOr (enum dialects);
+      default = null;
       example = "sqlite";
     };
   };
 
   config = lib.mkIf cfg.enable {
     settings.formatter.sqlfluff = {
-      options = [ "--dialect=${cfg.dialect}" ];
+      options = lib.optionals (cfg.dialect != null) [
+        "--dialect=${cfg.dialect}"
+      ];
     };
   };
 }

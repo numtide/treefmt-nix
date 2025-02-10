@@ -41,7 +41,12 @@ in
   imports = [
     (mkFormatterModule {
       name = "sqlfluff";
-      args = [ "format" ];
+      args = [
+        "format"
+        "--disable-progress-bar"
+        "--processes"
+        "0"
+      ];
       includes = [ "*.sql" ];
     })
   ];

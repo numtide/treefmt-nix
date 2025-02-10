@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.programs.sqlfluff;
+  cfg = config.programs.sqlfluff-format;
 
   # https://github.com/sqlfluff/sqlfluff/blob/main/README.md#dialects-supported
   dialects = [
@@ -39,14 +39,16 @@ in
   meta.maintainers = [ ];
 
   imports = [
+    (lib.mkRenamedOptionModule [ "programs" "sqlfluff" ] [ "programs" "sqlfluff-format" ])
     (mkFormatterModule {
-      name = "sqlfluff";
+      name = "sqlfluff-format";
+      package = "sqlfluff";
       args = [ "format" ];
       includes = [ "*.sql" ];
     })
   ];
 
-  options.programs.sqlfluff = {
+  options.programs.sqlfluff-format = {
     dialect = lib.mkOption {
       description = "The sql dialect to use for formatting";
       type = with lib.types; nullOr (enum dialects);
@@ -56,7 +58,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.sqlfluff = {
+    settings.formatter.sqlfluff-format = {
       options = lib.optionals (cfg.dialect != null) [
         "--dialect=${cfg.dialect}"
       ];

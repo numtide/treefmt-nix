@@ -3,4 +3,4 @@
 command = "sqlfluff"
 excludes = []
 includes = ["*.sql"]
-options = ["lint"]
+options = ["lint", "--disable-progress-bar", "--processes", "0"]

@@ -3,4 +3,4 @@
 command = "sqlfluff"
 excludes = []
 includes = ["*.sql"]
-options = ["format"]
+options = ["format", "--disable-progress-bar", "--processes", "0"]

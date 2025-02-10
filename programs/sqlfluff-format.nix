@@ -43,7 +43,12 @@ in
     (mkFormatterModule {
       name = "sqlfluff-format";
       package = "sqlfluff";
-      args = [ "format" ];
+      args = [
+        "format"
+        "--disable-progress-bar"
+        "--processes"
+        "0"
+      ];
       includes = [ "*.sql" ];
     })
   ];

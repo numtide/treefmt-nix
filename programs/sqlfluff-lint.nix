@@ -15,7 +15,12 @@ in
     (mkFormatterModule {
       name = "sqlfluff-lint";
       package = "sqlfluff";
-      args = [ "lint" ];
+      args = [
+        "lint"
+        "--disable-progress-bar"
+        "--processes"
+        "0"
+      ];
       includes = [ "*.sql" ];
     })
   ];

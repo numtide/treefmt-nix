@@ -15,6 +15,13 @@
         "*.h"
         "*.hh"
         "*.hpp"
+        "*.glsl"
+        "*.vert"
+        ".tesc"
+        ".tese"
+        ".geom"
+        ".frag"
+        ".comp"
       ];
     })
   ];

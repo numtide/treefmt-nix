@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   mkFormatterModule,
   ...
@@ -15,22 +14,14 @@ in
     (mkFormatterModule {
       name = "fish_indent";
       package = "fish";
+      args = [ "--write" ];
       includes = [ "*.fish" ];
     })
   ];
 
   config = lib.mkIf cfg.enable {
     settings.formatter.fish_indent = {
-      command = pkgs.writeShellApplication {
-        name = "fish_indent-wrapper";
-        runtimeInputs = [
-          cfg.package
-          pkgs.findutils
-        ];
-        text = ''
-          fish_indent --check "$@" 2>&1 | xargs --no-run-if-empty fish_indent --write || true
-        '';
-      };
+      command = "${cfg.package}/bin/fish_indent";
     };
   };
 }

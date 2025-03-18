@@ -221,7 +221,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 97 formatters:
+`treefmt-nix` currently supports 98 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [alejandra](programs/alejandra.nix)
@@ -258,6 +258,7 @@ functions.
 * [gofmt](programs/gofmt.nix)
 * [gofumpt](programs/gofumpt.nix)
 * [goimports](programs/goimports.nix)
+* [golines](programs/golines.nix)
 * [google-java-format](programs/google-java-format.nix)
 * [hclfmt](programs/hclfmt.nix)
 * [hlint](programs/hlint.nix)
@@ -365,6 +366,7 @@ In order to add a new formatter do the following things:
 2. Consider adding yourself as the `meta.maintainer` (see below).
 3. Run `./examples.sh` to update the `./examples` folder.
 4. To test the program:
+
    1. Extend the project's `./treefmt.nix` file (temporarily) to enable the new
       formatter and configure it in whatever manner is appropriate.
    2. Add a bunch of pertinent sources in this repo -- for instance, if the new
@@ -374,7 +376,20 @@ In order to add a new formatter do the following things:
    3. Run `nix fmt`. Confirm that well-formatted files are unchanged and that
       badly-formatted files are flagged as such. Re-run `nix fmt` and confirm
       that no additional changes were made.
-   4. Once this is good, revert those changes.
+   4. Add the formatter to this file [here](#supported-programs) by running:
+
+      ```bash
+      mdsh -i README.md -o README.md
+      ```
+
+      or with Nix
+
+      ```bash
+      nix run github:zimbatm/mdsh -- -i README.md -o README.md
+      ```
+
+   5. Once this is good, revert those changes.
+
 5. Submit the PR!
 
 ### Definition of a `meta.maintainer`

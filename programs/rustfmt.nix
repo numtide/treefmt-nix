@@ -13,6 +13,7 @@ in
   imports = [
     (mkFormatterModule {
       name = "rustfmt";
+      mainProgram = "rustfmt";
       args = [
         "--config"
         "skip_children=true"

@@ -1,4 +1,12 @@
-{ mkFormatterModule, ... }:
+{
+  config,
+  lib,
+  mkFormatterModule,
+  ...
+}:
+let
+  cfg = config.programs.meson;
+in
 {
   meta.maintainers = [ "RossSmyth" ];
 
@@ -19,4 +27,19 @@
       ];
     })
   ];
+
+  options.programs.meson = {
+    editorconfig = lib.mkOption {
+      description = ''
+        Try to read configuration from .editorconfig
+      '';
+      type = lib.types.bool;
+      example = true;
+      default = false;
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    settings.formatter.meson.options = lib.optionals cfg.editorconfig [ "-e" ];
+  };
 }

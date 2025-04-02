@@ -21,7 +21,7 @@ in
     alpha = lib.mkEnableOption "Perform additional optimization on images with an alpha channel";
     opt = lib.mkOption {
       description = "Set the optimization level preset";
-      type = with lib.types; nullOr str;
+      type = with lib.types; str;
       example = "max";
       default = "2";
     };

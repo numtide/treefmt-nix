@@ -244,6 +244,7 @@ functions.
 * [dnscontrol](programs/dnscontrol.nix)
 * [dos2unix](programs/dos2unix.nix)
 * [dprint](programs/dprint.nix)
+* [efmt](programs/efmt.nix)
 * [elm-format](programs/elm-format.nix)
 * [erlfmt](programs/erlfmt.nix)
 * [fantomas](programs/fantomas.nix)

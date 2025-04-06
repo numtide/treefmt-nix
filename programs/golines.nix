@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  mkFormatterModule,
-  ...
-}:
+{ lib, config, mkFormatterModule, ... }:
 let
   cfg = config.programs.golines;
 in
@@ -25,7 +20,7 @@ in
     })
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable != null && cfg.enable) {
     settings.formatter.golines = {
       command = "${cfg.package}/bin/golines";
     };

@@ -13,7 +13,7 @@ in
     })
   ];
 
-  config = lib.mkIf (cfg.enable or false) {  # Защита от случая, если `cfg.enable` не определено
+  config = lib.mkIf (cfg.enable or false) {
     settings.formatter.fish_indent = {
       command = "${cfg.package}/bin/fish_indent";
     };

@@ -1,9 +1,3 @@
-{
-  lib,
-  config,
-  mkFormatterModule,
-  ...
-}:
 let
   cfg = config.programs.fish_indent;
 in
@@ -19,7 +13,7 @@ in
     })
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable or false) {  # Защита от случая, если `cfg.enable` не определено
     settings.formatter.fish_indent = {
       command = "${cfg.package}/bin/fish_indent";
     };

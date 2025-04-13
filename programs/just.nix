@@ -7,6 +7,8 @@
 }:
 let
   cfg = config.programs.just;
+  # Search 'justfile' in subdirectories
+  addSubdirectory = lib.lists.concatMap (fileName: [ fileName ] ++ [ "*/${fileName}" ]);
 in
 {
   meta.maintainers = [ "katexochen" ];
@@ -14,7 +16,7 @@ in
   imports = [
     (mkFormatterModule {
       name = "just";
-      includes = [
+      includes = addSubdirectory [
         "[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # 'justfile', case insensitive
         ".[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]" # '.justfile', case insensitive
         "*.[Jj][Uu][Ss][Tt]" # '.just' module, case insensitive

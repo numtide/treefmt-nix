@@ -51,11 +51,8 @@ let
           (
             lib.filterAttrs (
               n: _:
-              # just example contains store paths
-              n != "formatter-just"
-              &&
-                # mypy example contains store paths
-                n != "formatter-mypy"
+              # mypy example contains store paths
+              n != "formatter-mypy"
               &&
                 # muon is broken on macOS
                 n != "formatter-muon"

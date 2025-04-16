@@ -55,12 +55,6 @@ in
                 ];
                 description = "Modules to check";
               };
-              files = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-                example = [ "*/tasks.py" ];
-                description = "Single files to check. Can be globs";
-              };
             };
           }
         )
@@ -88,8 +82,6 @@ in
         options = [
           "-eucx"
           ''
-            # to allow recursive globbing
-            shopt -s globstar
             ${lib.optionalString (cfg.directory != "") ''cd "${cfg.directory}"''}
             export PYTHONPATH="${
               lib.concatStringsSep ":" (
@@ -99,15 +91,15 @@ in
                 )
               )
             }"
-            ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${lib.optionalString (cfg.files != []) (builtins.toString cfg.files)}
+            ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules}
           ''
         ];
-        includes =
-          (builtins.map (
-            module:
-            lib.concatStringsSep "/" (lib.optional (cfg.directory != "") cfg.directory ++ lib.optional (module != "") module ++ ["*.py"])
-          ) cfg.modules)
-          ++ cfg.files;
+        includes = builtins.map (
+          module:
+          lib.concatStringsSep "/" (
+            lib.optional (cfg.directory != "") cfg.directory ++ lib.optional (module != "") module ++ [ "*.py" ]
+          )
+        ) cfg.modules;
       }
     ) config.programs.mypy.directories;
   };

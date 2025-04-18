@@ -34,7 +34,7 @@ in
               extraPythonPaths = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 default = [ ];
-                example = [ "./path/to/my/module" ];
+                example = [ "path/to/my/module" ];
                 description = ''
                   Extra paths to add to PYTHONPATH.
                   Paths are interpreted relative to the directory options and are added before extraPythonPackages.
@@ -55,12 +55,6 @@ in
                 ];
                 description = "Modules to check";
               };
-              files = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-                example = [ "./**/tasks.py" ];
-                description = "Single files to check. Can be globs";
-              };
             };
           }
         )
@@ -69,13 +63,13 @@ in
         "" = { };
       };
       example = {
-        "." = {
+        "" = {
           modules = [
             "mymodule"
             "tests"
           ];
         };
-        "./subdir" = { };
+        "subdir" = { };
       };
     };
   };
@@ -88,9 +82,7 @@ in
         options = [
           "-eucx"
           ''
-            # to allow recursive globbing
-            shopt -s globstar
-            cd "${cfg.directory}"
+            ${lib.optionalString (cfg.directory != "") ''cd "${cfg.directory}"''}
             export PYTHONPATH="${
               lib.concatStringsSep ":" (
                 cfg.extraPythonPaths
@@ -99,14 +91,15 @@ in
                 )
               )
             }"
-            ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules} ${builtins.toString cfg.files}
+            ${lib.getExe config.programs.mypy.package} ${lib.escapeShellArgs cfg.options} ${lib.escapeShellArgs cfg.modules}
           ''
         ];
-        includes =
-          (builtins.map (
-            module: "${cfg.directory}/${module}${lib.optionalString (module != "") "/"}**/*.py"
-          ) cfg.modules)
-          ++ cfg.files;
+        includes = builtins.map (
+          module:
+          lib.concatStringsSep "/" (
+            lib.optional (cfg.directory != "") cfg.directory ++ lib.optional (module != "") module ++ [ "*.py" ]
+          )
+        ) cfg.modules;
       }
     ) config.programs.mypy.directories;
   };

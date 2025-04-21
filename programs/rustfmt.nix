@@ -25,7 +25,7 @@ in
   options.programs.rustfmt = {
     edition = lib.mkOption {
       type = lib.types.str;
-      default = "2021";
+      default = "2024";
       description = ''
         Rust edition to target when formatting
       '';

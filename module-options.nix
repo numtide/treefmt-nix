@@ -35,7 +35,7 @@ let
             description = "A global list of paths to exclude. Supports glob.";
             type = types.listOf types.str;
             default = [ ];
-            example = [ "./node_modules/**" ];
+            example = [ "node_modules/*" ];
           };
 
           on-unmatched = mkOption {

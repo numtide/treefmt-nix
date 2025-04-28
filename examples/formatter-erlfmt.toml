@@ -2,5 +2,13 @@
 [formatter.erlfmt]
 command = "erlfmt"
 excludes = []
-includes = ["*.erl", "*.hrl", "*.app", "*.app.src", "*.config", "*.script", "*.escript"]
+includes = [
+    "*.erl",
+    "*.hrl",
+    "*.app",
+    "*.app.src",
+    "*.config",
+    "*.script",
+    "*.escript",
+]
 options = ["--write", "--print-width", "100"]

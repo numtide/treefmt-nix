@@ -2,5 +2,12 @@
 [formatter.meson]
 command = "meson"
 excludes = []
-includes = ["meson.build", "meson.options", "meson_options.txt", "*/meson.build", "*/meson.options", "*/meson_options.txt"]
+includes = [
+    "meson.build",
+    "meson.options",
+    "meson_options.txt",
+    "*/meson.build",
+    "*/meson.options",
+    "*/meson_options.txt",
+]
 options = ["fmt", "-i"]

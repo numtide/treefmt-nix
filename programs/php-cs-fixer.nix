@@ -15,7 +15,7 @@ in
     (mkFormatterModule {
       name = "php-cs-fixer";
       package = [
-        "phpPackages"
+        "php83Packages"
         "php-cs-fixer"
       ];
       args = [ "fix" ];

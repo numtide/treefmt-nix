@@ -259,14 +259,14 @@ in
               [init]
                 defaultBranch = main
               EOF
-              git init
+              git init --quiet
               git add .
               git commit -m init --quiet
               export LANG=${if pkgs.stdenv.isDarwin then "en_US.UTF-8" else "C.UTF-8"}
               export LC_ALL=${if pkgs.stdenv.isDarwin then "en_US.UTF-8" else "C.UTF-8"}
               treefmt --version
               treefmt --no-cache
-              git status
+              git status --short
               git --no-pager diff --exit-code
               touch $out
             '';

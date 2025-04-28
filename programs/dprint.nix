@@ -8,6 +8,7 @@
 let
   inherit (lib)
     filterAttrsRecursive
+    literalExpression
     mkIf
     mkOption
     optionals
@@ -88,11 +89,28 @@ let
         plugins = mkOption {
           description = "Array of plugin URLs to format files.";
           type = types.nullOr (types.listOf types.str);
-          example = [
-            "https://plugins.dprint.dev/json-0.17.2.wasm"
-            "https://plugins.dprint.dev/markdown-0.15.2.wasm"
-            "https://plugins.dprint.dev/typescript-0.84.4.wasm"
-          ];
+          example =
+            literalExpression
+              # nix
+              ''
+                # (recommended) using plugins from nixpkgs
+                # plugins is the list of all available dprint plugins in nixpkgs
+                (pkgs.dprint-plugins.getPluginList (
+                  plugins: with plugins; [
+                    dprint-plugin-toml
+                    dprint-plugin-dockerfile
+                    g-plane-pretty_yaml
+                    # (pkgs.callPackage ./dprint/plugins/sample.nix {})
+                  ]
+                ))
+                # (not recommended) using url plugins
+                # treefmt then only works outside the nix sandbox, so treefmt nix flake check will fail
+                ++ [
+                  "https://plugins.dprint.dev/json-0.17.2.wasm"
+                  "https://plugins.dprint.dev/markdown-0.15.2.wasm"
+                  "https://plugins.dprint.dev/typescript-0.84.4.wasm"
+                ]
+              '';
           default = null;
         };
       };

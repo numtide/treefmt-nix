@@ -38,7 +38,7 @@ in
               {
                 options.pkgs = lib.mkOption {
                   default = pkgs;
-                  defaultText = "`pkgs` (module argument of `perSystem`)";
+                  defaultText = lib.literalMD "`pkgs` (module argument of `perSystem`)";
                 };
                 options.flakeFormatter = lib.mkOption {
                   type = types.bool;

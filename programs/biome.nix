@@ -30,6 +30,10 @@ let
     "*.jsonc"
   ];
 
+  ext.css = [
+    "*.css"
+  ];
+
   cfg = config.programs.biome;
 in
 {
@@ -43,7 +47,7 @@ in
         "--write"
         "--no-errors-on-unmatched"
       ];
-      includes = ext.js ++ ext.json;
+      includes = ext.js ++ ext.json ++ ext.css;
     })
   ];
 
@@ -106,6 +110,15 @@ in
             example = [ "scripts/*.js" ];
             default = [ ];
           };
+          quoteStyle = l.mkOption {
+            description = "The type of quote used when representing string literals. It can be `single` or `double`.";
+            type = t.enum [
+              "single"
+              "double"
+            ];
+            example = "single";
+            default = "double";
+          };
         };
       in
       {
@@ -154,15 +167,7 @@ in
               default = true;
             };
 
-            quoteStyle = l.mkOption {
-              description = "The type of quote used when representing string literals. It can be `single` or `double`.";
-              type = t.enum [
-                "single"
-                "double"
-              ];
-              example = "single";
-              default = "double";
-            };
+            inherit (common) quoteStyle;
 
             jsxQuoteStyle = l.mkOption {
               description = "The type of quote used when representing jsx string literals. It can be `single` or `double`.";
@@ -283,6 +288,32 @@ in
             };
           } // shared;
         };
+
+        css = {
+          formatter = {
+            enabled = l.mkOption {
+              description = "Enables Biome’s formatter for CSS (and its super languages) files.";
+              type = t.bool;
+              example = true;
+              default = false;
+            };
+            inherit (common) quoteStyle;
+          } // shared;
+
+          parser.cssModules = l.mkOption {
+            description = "Enables parsing of CSS modules";
+            type = t.bool;
+            example = true;
+            default = false;
+          };
+
+          linter.enabled = l.mkOption {
+            description = "Enables Biome’s linter for CSS (and its super languages) files.";
+            type = t.bool;
+            example = true;
+            default = false;
+          };
+        };
       };
   };
 
@@ -335,9 +366,8 @@ in
             filterEmpty (filterDefaults cfg.settings);
         in
         l.optionals (settings != { }) [
-          # NOTE(@huwaireb): Biome does not accept a direct path to a file for config-path, only a directory.
           "--config-path"
-          (l.toString (p.writeTextDir "biome.json" (l.toJSON settings)))
+          (l.toString (p.writeText "biome.json" (l.toJSON settings)))
         ];
     };
   };

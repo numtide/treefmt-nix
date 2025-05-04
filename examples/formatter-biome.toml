@@ -16,5 +16,6 @@ includes = [
     "*.d.mts",
     "*.json",
     "*.jsonc",
+    "*.css",
 ]
 options = ["format", "--write", "--no-errors-on-unmatched"]

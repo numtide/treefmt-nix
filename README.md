@@ -359,7 +359,7 @@ settings.formatter = {
 PRs to add new formatters are welcome!
 
 - The formatter should conform to the
-  [formatter specifications](https://numtide.github.io/treefmt/formatter-spec).
+  [formatter specifications](https://treefmt.com/latest/reference/formatter-spec/).
 - This is not the place to debate formatting preferences. Please pick defaults
   that are standard in your community -- for instance, python is usually
   indented with 4 spaces, so don't add a python formatter with 2 spaces as the

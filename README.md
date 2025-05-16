@@ -221,7 +221,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 103 formatters:
+`treefmt-nix` currently supports 104 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [alejandra](programs/alejandra.nix)
@@ -269,6 +269,7 @@ functions.
 * [jsonnet-lint](programs/jsonnet-lint.nix)
 * [jsonnetfmt](programs/jsonnetfmt.nix)
 * [just](programs/just.nix)
+* [kdlfmt](programs/kdlfmt.nix)
 * [keep-sorted](programs/keep-sorted.nix)
 * [ktfmt](programs/ktfmt.nix)
 * [ktlint](programs/ktlint.nix)

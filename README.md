@@ -326,6 +326,7 @@ functions.
 * [typstyle](programs/typstyle.nix)
 * [yamlfmt](programs/yamlfmt.nix)
 * [zig](programs/zig.nix)
+* [zizmor](programs/zizmor.nix)
 * [zprint](programs/zprint.nix)
 <!-- END mdsh -->
 

@@ -3,4 +3,4 @@
 command = "rstfmt"
 excludes = []
 includes = ["*.rst", "*.txt"]
-options = ["-w", "80"]
+options = ["-w", "72"]

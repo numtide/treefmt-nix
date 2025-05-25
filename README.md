@@ -221,7 +221,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 106 formatters:
+`treefmt-nix` currently supports 107 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [alejandra](programs/alejandra.nix)
@@ -283,6 +283,7 @@ functions.
 * [mypy](programs/mypy.nix)
 * [nickel](programs/nickel.nix)
 * [nimpretty](programs/nimpretty.nix)
+* [nixf-diagnose](programs/nixf-diagnose.nix)
 * [nixfmt-classic](programs/nixfmt-classic.nix)
 * [nixfmt-rfc-style](programs/nixfmt-rfc-style.nix)
 * [nixfmt](programs/nixfmt.nix)

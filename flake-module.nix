@@ -62,6 +62,8 @@ in
                     Path to the root of the project on which treefmt operates
                   '';
                 };
+
+                config.projectRootFile = lib.mkDefault "flake.nix";
               }
             ];
           };

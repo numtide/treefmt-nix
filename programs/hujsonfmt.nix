@@ -5,7 +5,7 @@
   imports = [
     (mkFormatterModule {
       name = "hujsonfmt";
-      options = [ "-w" ];
+      args = [ "-w" ];
       includes = [ "*.hujson" ];
     })
   ];

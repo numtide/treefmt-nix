@@ -1,6 +1,6 @@
 { mkFormatterModule, ... }:
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "fjij" ];
 
   imports = [
     (mkFormatterModule {

@@ -266,6 +266,7 @@ functions.
 * [google-java-format](programs/google-java-format.nix)
 * [hclfmt](programs/hclfmt.nix)
 * [hlint](programs/hlint.nix)
+* [hujsonfmt](programs/hujsonfmt.nix)
 * [isort](programs/isort.nix)
 * [jsonfmt](programs/jsonfmt.nix)
 * [jsonnet-lint](programs/jsonnet-lint.nix)

@@ -1,0 +1,5 @@
+[formatter.qmlformat]
+command = "qmlformat"
+excludes = []
+includes = ["*.qml"]
+options = []

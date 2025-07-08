@@ -138,6 +138,13 @@ in
             example = true;
             default = false;
           };
+
+          useEditorconfig = l.mkOption {
+            description = "Whether Biome should use the .editorconfig file to determine the formatting options";
+            type = t.bool;
+            example = true;
+            default = false;
+          };
         } // shared;
 
         organizeImports = {

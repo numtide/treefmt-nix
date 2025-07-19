@@ -43,7 +43,7 @@ in
     (mkFormatterModule {
       name = "biome";
       args = [
-        "format"
+        "check"
         "--write"
         "--no-errors-on-unmatched"
       ];
@@ -140,15 +140,14 @@ in
           };
         } // shared;
 
-        organizeImports = {
-          enabled = l.mkOption {
-            description = "Enables Biome’s sort imports.";
-            type = t.bool;
-            example = false;
-            default = true;
-          };
-
-          inherit (common) ignore include;
+        assist.actions.source.organizeImports = l.mkOption {
+          description = "Enables Biome’s sort imports.";
+          type = t.enum [
+            "on"
+            "off"
+          ];
+          example = "on";
+          default = "on";
         };
 
         javascript = {

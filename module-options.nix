@@ -238,6 +238,7 @@ in
             {
               buildInputs = [
                 pkgs.git
+                pkgs.git-lfs
                 config.build.wrapper
               ];
               meta.description = "Check that the project tree is formatted";

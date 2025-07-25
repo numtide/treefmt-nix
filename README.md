@@ -221,11 +221,12 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 109 formatters:
+`treefmt-nix` currently supports 111 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [alejandra](programs/alejandra.nix)
 * [asmfmt](programs/asmfmt.nix)
+* [autocorrect](programs/autocorrect.nix)
 * [beautysh](programs/beautysh.nix)
 * [biome](programs/biome.nix)
 * [black](programs/black.nix)
@@ -244,6 +245,7 @@ functions.
 * [deno](programs/deno.nix)
 * [dhall](programs/dhall.nix)
 * [dnscontrol](programs/dnscontrol.nix)
+* [dockfmt](programs/dockfmt.nix)
 * [dos2unix](programs/dos2unix.nix)
 * [dprint](programs/dprint.nix)
 * [efmt](programs/efmt.nix)
@@ -290,7 +292,6 @@ functions.
 * [nixfmt-rfc-style](programs/nixfmt-rfc-style.nix)
 * [nixfmt](programs/nixfmt.nix)
 * [nixpkgs-fmt](programs/nixpkgs-fmt.nix)
-* [nufmt](programs/nufmt.nix)
 * [ocamlformat](programs/ocamlformat.nix)
 * [odinfmt](programs/odinfmt.nix)
 * [opa](programs/opa.nix)
@@ -328,6 +329,7 @@ functions.
 * [typos](programs/typos.nix)
 * [typstfmt](programs/typstfmt.nix)
 * [typstyle](programs/typstyle.nix)
+* [xmllint](programs/xmllint.nix)
 * [yamlfmt](programs/yamlfmt.nix)
 * [zig](programs/zig.nix)
 * [zizmor](programs/zizmor.nix)

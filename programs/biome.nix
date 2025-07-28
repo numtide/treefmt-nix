@@ -13,6 +13,11 @@ let
   cfg = config.programs.biome;
   biomeVersion = if builtins.match "^1\\." pkgs.biome.version != null then "1.9.4" else "2.1.2";
   schemaUrl = "https://biomejs.dev/schemas/${biomeVersion}/schema.json";
+  schemaSha256s = {
+    "1.9.4" = "sha256:0yzw4vymwpa7akyq45v7kkb9gp0szs6zfm525zx2vh1d80568dlz";
+    "2.1.2" = "sha256:07qlk53lja9rsa46b8nv3hqgdzc9mif5r1nwh7i8mrxcqmfp99s2";
+  };
+  schemaSha256 = schemaSha256s.${biomeVersion};
 
   ext.js = [
     "*.js"
@@ -70,7 +75,7 @@ in
       default = false;
     };
     settings = l.mkOption {
-      type = t.attrs;
+      type = t.attrsOf t.anything;
       description = "Raw Biome configuration (must conform to Biome JSON schema)";
       default = { };
       example = {
@@ -100,12 +105,7 @@ in
         jsonFile = p.writeText "biome.json" json;
         biomeSchema = builtins.fetchurl {
           url = schemaUrl;
-          sha256 =
-            # Support both nixpkgs and nixpkgs-unstable
-            if biomeVersion == "1.9.4" then
-              "sha256:0yzw4vymwpa7akyq45v7kkb9gp0szs6zfm525zx2vh1d80568dlz"
-            else
-              "sha256:07qlk53lja9rsa46b8nv3hqgdzc9mif5r1nwh7i8mrxcqmfp99s2";
+          sha256 = schemaSha256;
         };
 
         validatedConfig =

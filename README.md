@@ -101,6 +101,7 @@ attribute:
 # flake.nix
 {
   inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+  inputs.systems.url = "github:nix-systems/default";
 
   outputs = { self, nixpkgs, systems, treefmt-nix }:
     let

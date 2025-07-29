@@ -109,7 +109,7 @@ in
         };
 
         validatedConfig =
-          p.runCommand "validated-biome-config"
+          p.runCommand "validated-biome-config.json"
             {
               buildInputs = [
                 p.check-jsonschema

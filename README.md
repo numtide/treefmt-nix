@@ -222,7 +222,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 111 formatters:
+`treefmt-nix` currently supports 112 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [alejandra](programs/alejandra.nix)
@@ -246,6 +246,7 @@ functions.
 * [deno](programs/deno.nix)
 * [dhall](programs/dhall.nix)
 * [dnscontrol](programs/dnscontrol.nix)
+* [dockerfmt](programs/dockerfmt.nix)
 * [dockfmt](programs/dockfmt.nix)
 * [dos2unix](programs/dos2unix.nix)
 * [dprint](programs/dprint.nix)

@@ -1,39 +1,20 @@
+{ mkFormatterModule, ... }:
 {
-  lib,
-  pkgs,
-  config,
-  mkFormatterModule,
-  ...
-}:
-let
-  cfg = config.programs.csharpier;
-in
-{
-  meta.maintainers = [ ];
+  meta.maintainers = [
+    "thomaslaich"
+  ];
 
   imports = [
     (mkFormatterModule {
       name = "csharpier";
-      includes = [ "*.cs" ];
+      package = "csharpier";
+      mainProgram = "csharpier";
+      args = [ "format" ];
+      includes = [
+        "*.cs"
+        "*.csproj"
+        # "*.slnx" # add this with 1.0.3 release
+      ];
     })
   ];
-
-  options.programs.csharpier = {
-    dotnet-sdk = lib.mkPackageOption pkgs "dotnet-sdk" { };
-  };
-
-  config = lib.mkIf cfg.enable {
-    settings.formatter.csharpier = {
-      command = pkgs.writeShellApplication {
-        name = "dotnet-csharpier";
-        runtimeInputs = with cfg; [
-          dotnet-sdk
-          package
-        ];
-        text = ''
-          dotnet-csharpier "$@"
-        '';
-      };
-    };
-  };
 }

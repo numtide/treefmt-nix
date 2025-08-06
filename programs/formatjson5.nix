@@ -9,6 +9,8 @@ let
 in
 {
   meta.maintainers = [ "katexochen" ];
+  # See https://github.com/NixOS/nixpkgs/pull/370124
+  meta.broken = true;
 
   imports = [
     (mkFormatterModule {

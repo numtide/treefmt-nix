@@ -1,6 +1,7 @@
 { mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
+  meta.brokenPlatforms = [ "riscv64-linux" ];
 
   imports = [
     (mkFormatterModule {

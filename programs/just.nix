@@ -12,6 +12,8 @@ let
 in
 {
   meta.maintainers = [ "katexochen" ];
+  # Example contains store paths
+  meta.skipExample = true;
 
   imports = [
     (mkFormatterModule {

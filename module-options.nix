@@ -150,6 +150,47 @@ in
           This option should be defined at most once per module.
         '';
       };
+
+      broken = lib.mkOption {
+        type = lib.types.bool;
+        internal = true;
+        default = false;
+        description = ''
+          Whether this formatter module is broken.
+        '';
+      };
+
+      platforms = lib.mkOption {
+        type = lib.types.nullOr (lib.types.listOf lib.types.str);
+        internal = true;
+        default = null;
+        example = lib.literalExpression ''[ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ]'';
+        description = ''
+          List of supported platforms for this formatter.
+          Null means all platforms are supported.
+        '';
+      };
+
+      skipExample = lib.mkOption {
+        type = lib.types.bool;
+        internal = true;
+        default = false;
+        description = ''
+          Whether to skip this formatter in example generation (e.g., due to store paths in output).
+          When true, the formatter will be excluded from example generation.
+        '';
+      };
+
+      brokenPlatforms = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        internal = true;
+        default = [ ];
+        example = lib.literalExpression ''[ "x86_64-darwin" ]'';
+        description = ''
+          List of platforms where this formatter is broken.
+          These platforms will be excluded even if they appear in the platforms list.
+        '';
+      };
     };
 
     # Outputs

@@ -12,6 +12,7 @@ in
     "zimbatm"
     "katexochen"
   ];
+  meta.brokenPlatforms = [ "riscv64-linux" ];
 
   imports = [
     (mkFormatterModule {

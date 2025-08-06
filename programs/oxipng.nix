@@ -36,21 +36,20 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.oxipng = {
-      options =
-        [
-          "--opt"
-          cfg.opt
-        ]
-        ++ lib.optionals cfg.alpha [
-          "--alpha"
-        ]
-        ++ lib.optionals cfg.scale16 [
-          "--scale16"
-        ]
-        ++ lib.optionals (cfg.strip != null) [
-          "--strip"
-          cfg.strip
-        ];
+      options = [
+        "--opt"
+        cfg.opt
+      ]
+      ++ lib.optionals cfg.alpha [
+        "--alpha"
+      ]
+      ++ lib.optionals cfg.scale16 [
+        "--scale16"
+      ]
+      ++ lib.optionals (cfg.strip != null) [
+        "--strip"
+        cfg.strip
+      ];
     };
   };
 }

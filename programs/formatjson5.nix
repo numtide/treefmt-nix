@@ -45,13 +45,12 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.formatjson5 = {
-      options =
-        [
-          "--indent=${toString cfg.indent}"
-        ]
-        ++ lib.optional cfg.noTrailingCommas "--no_trailing_commas"
-        ++ lib.optional cfg.oneElementLines "--one_element_lines"
-        ++ lib.optional cfg.sortArrays "--sort_arrays";
+      options = [
+        "--indent=${toString cfg.indent}"
+      ]
+      ++ lib.optional cfg.noTrailingCommas "--no_trailing_commas"
+      ++ lib.optional cfg.oneElementLines "--one_element_lines"
+      ++ lib.optional cfg.sortArrays "--sort_arrays";
     };
   };
 }

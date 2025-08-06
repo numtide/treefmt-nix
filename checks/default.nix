@@ -148,6 +148,7 @@ let
 
     # Check that the docs render properly
     module-docs = (pkgs.nixosOptionsDoc { options = treefmtDocEval.options; }).optionsCommonMark;
-  } // programConfigs;
+  }
+  // programConfigs;
 in
 self

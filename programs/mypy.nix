@@ -9,6 +9,8 @@ let
 in
 {
   meta.maintainers = [ ];
+  # Example contains store paths
+  meta.skipExample = true;
 
   options.programs.mypy = {
     enable = lib.mkEnableOption "mypy";

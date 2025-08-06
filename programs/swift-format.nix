@@ -1,6 +1,8 @@
 { mkFormatterModule, ... }:
 {
   meta.maintainers = [ ];
+  # See https://github.com/numtide/treefmt-nix/pull/201
+  meta.broken = true;
 
   imports = [
     (mkFormatterModule {

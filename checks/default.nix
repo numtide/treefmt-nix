@@ -10,33 +10,73 @@ let
       programs.${name}.enable = true;
     };
 
-  # Add formatters that don't work fully here.
-  broken-formatters =
-    [
-      # See https://github.com/numtide/treefmt-nix/pull/201
-      "swift-format"
-      # See https://github.com/NixOS/nixpkgs/pull/370124
-      "formatjson5"
-    ]
-    # Broken on macOS
-    ++ (lib.optionals pkgs.stdenv.isDarwin [
-      "fantomas"
-      "gdformat"
-      "muon"
-      # See https://github.com/NixOS/nixpkgs/issues/370084
-      "elm-format"
-    ]);
-
-  programConfigs =
+  # Helper to get meta attributes for a specific formatter
+  getFormatterMeta =
+    name:
     let
-      attrs = lib.listToAttrs (
-        map (name: {
-          name = "formatter-${name}";
-          value = toConfig name;
-        }) treefmt-nix.programs.names
-      );
+      # Find the module file for this formatter
+      moduleFile = ../programs + "/${name}.nix";
+      # Import it with minimal context to extract meta
+      moduleImport = import moduleFile {
+        inherit (pkgs) lib;
+        inherit (treefmt-nix) mkFormatterModule;
+        # Provide dummy values for modules that need them
+        config = { };
+        options = { };
+        pkgs = pkgs;
+      };
     in
-    builtins.removeAttrs attrs (map (f: "formatter-${f}") broken-formatters);
+    moduleImport.meta or { };
+
+  # Check if a platform is supported by a formatter
+  isPlatformSupported =
+    platform: meta:
+    let
+      supportedPlatforms = meta.platforms or null;
+      brokenPlatforms = meta.brokenPlatforms or [ ];
+    in
+    (supportedPlatforms == null || lib.elem platform supportedPlatforms)
+    && !(lib.elem platform brokenPlatforms);
+
+  # Check if a formatter should be included based on its meta attributes
+  isFormatterUsable =
+    name:
+    let
+      meta = getFormatterMeta name;
+      isBroken = meta.broken or false;
+      currentPlatform = pkgs.stdenv.hostPlatform.system;
+    in
+    !isBroken && isPlatformSupported currentPlatform meta;
+
+  # Standard platforms that examples should work on
+  standardPlatforms = [
+    "x86_64-linux"
+    "aarch64-linux"
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
+
+  # Check if a formatter should skip example generation
+  shouldSkipExample =
+    name:
+    let
+      meta = getFormatterMeta name;
+      explicitSkip = meta.skipExample or false;
+      availableOnAllStandardPlatforms = lib.all (
+        platform: isPlatformSupported platform meta
+      ) standardPlatforms;
+    in
+    explicitSkip || !availableOnAllStandardPlatforms;
+
+  # Filter formatters for program configs
+  usableFormatterNames = lib.filter isFormatterUsable treefmt-nix.programs.names;
+
+  programConfigs = lib.listToAttrs (
+    map (name: {
+      name = "formatter-${name}";
+      value = toConfig name;
+    }) usableFormatterNames
+  );
 
   examples =
     let
@@ -51,23 +91,8 @@ let
           (
             lib.filterAttrs (
               n: _:
-              # just example contains store paths
-              n != "formatter-just"
-              &&
-                # mypy example contains store paths
-                n != "formatter-mypy"
-              &&
-                # muon is broken on macOS
-                n != "formatter-muon"
-              &&
-                # fantomas is broken on macOS
-                n != "formatter-fantomas"
-              &&
-                # gdformat is bloken on macOS
-                n != "formatter-gdformat"
-              &&
-                # elm-format is bloken on macOS
-                n != "formatter-elm-format"
+              # Filter out formatters to skip in example generation
+              !shouldSkipExample (lib.removePrefix "formatter-" n)
             ) programConfigs
           );
     in

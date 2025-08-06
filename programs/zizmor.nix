@@ -1,6 +1,6 @@
 { mkFormatterModule, ... }:
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "katexochen" ];
 
   imports = [
     (mkFormatterModule {

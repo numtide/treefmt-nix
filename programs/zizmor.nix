@@ -1,6 +1,6 @@
 { mkFormatterModule, ... }:
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "katexochen" ];
 
   imports = [
     (mkFormatterModule {
@@ -8,6 +8,8 @@
       includes = [
         ".github/workflows/*.yml"
         ".github/workflows/*.yaml"
+        ".github/actions/**/*.yml"
+        ".github/actions/**/*.yaml"
       ];
     })
   ];

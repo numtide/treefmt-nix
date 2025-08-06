@@ -11,21 +11,20 @@ let
     };
 
   # Add formatters that don't work fully here.
-  broken-formatters =
-    [
-      # See https://github.com/numtide/treefmt-nix/pull/201
-      "swift-format"
-      # See https://github.com/NixOS/nixpkgs/pull/370124
-      "formatjson5"
-    ]
-    # Broken on macOS
-    ++ (lib.optionals pkgs.stdenv.isDarwin [
-      "fantomas"
-      "gdformat"
-      "muon"
-      # See https://github.com/NixOS/nixpkgs/issues/370084
-      "elm-format"
-    ]);
+  broken-formatters = [
+    # See https://github.com/numtide/treefmt-nix/pull/201
+    "swift-format"
+    # See https://github.com/NixOS/nixpkgs/pull/370124
+    "formatjson5"
+  ]
+  # Broken on macOS
+  ++ (lib.optionals pkgs.stdenv.isDarwin [
+    "fantomas"
+    "gdformat"
+    "muon"
+    # See https://github.com/NixOS/nixpkgs/issues/370084
+    "elm-format"
+  ]);
 
   programConfigs =
     let
@@ -123,6 +122,7 @@ let
 
     # Check that the docs render properly
     module-docs = (pkgs.nixosOptionsDoc { options = treefmtDocEval.options; }).optionsCommonMark;
-  } // programConfigs;
+  }
+  // programConfigs;
 in
 self

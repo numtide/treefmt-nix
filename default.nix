@@ -51,24 +51,23 @@ let
       };
 
       config = lib.mkIf cfg.enable {
-        settings.formatter.${name} =
-          {
-            command = lib.mkDefault (
-              if mainProgram == null then cfg.package else "${cfg.package}/bin/${mainProgram}"
-            );
-          }
-          // (lib.optionalAttrs (args != [ ]) {
-            options = if args._type or null == "order" then args else lib.mkBefore args;
-          })
-          // (lib.optionalAttrs (cfg.includes != [ ]) {
-            inherit (cfg) includes;
-          })
-          // (lib.optionalAttrs (cfg.excludes != [ ]) {
-            inherit (cfg) excludes;
-          })
-          // (lib.optionalAttrs (cfg.priority != null) {
-            inherit (cfg) priority;
-          });
+        settings.formatter.${name} = {
+          command = lib.mkDefault (
+            if mainProgram == null then cfg.package else "${cfg.package}/bin/${mainProgram}"
+          );
+        }
+        // (lib.optionalAttrs (args != [ ]) {
+          options = if args._type or null == "order" then args else lib.mkBefore args;
+        })
+        // (lib.optionalAttrs (cfg.includes != [ ]) {
+          inherit (cfg) includes;
+        })
+        // (lib.optionalAttrs (cfg.excludes != [ ]) {
+          inherit (cfg) excludes;
+        })
+        // (lib.optionalAttrs (cfg.priority != null) {
+          inherit (cfg) priority;
+        });
       };
     };
 
@@ -109,7 +108,8 @@ let
       }
     )
     module-options
-  ] ++ programs.modules;
+  ]
+  ++ programs.modules;
 
   # Use the Nix module system to validate the treefmt config file format.
   #

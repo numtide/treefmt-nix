@@ -19,7 +19,7 @@ let
     if cfg.settings != { } then configFormat.generate "sizelint.toml" (cfg.settings) else null;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [ "a-kenji" ];
 
   imports = [
     (mkFormatterModule {

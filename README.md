@@ -306,6 +306,7 @@ functions.
 * [prettier](programs/prettier.nix)
 * [protolint](programs/protolint.nix)
 * [purs-tidy](programs/purs-tidy.nix)
+* [qmlformat](programs/qmlformat.nix)
 * [rstfmt](programs/rstfmt.nix)
 * [rubocop](programs/rubocop.nix)
 * [ruff-check](programs/ruff-check.nix)

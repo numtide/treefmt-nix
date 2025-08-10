@@ -222,7 +222,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 112 formatters:
+`treefmt-nix` currently supports 113 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [alejandra](programs/alejandra.nix)
@@ -315,6 +315,7 @@ functions.
 * [scalafmt](programs/scalafmt.nix)
 * [shellcheck](programs/shellcheck.nix)
 * [shfmt](programs/shfmt.nix)
+* [sizelint](programs/sizelint.nix)
 * [sql-formatter](programs/sql-formatter.nix)
 * [sqlfluff-lint](programs/sqlfluff-lint.nix)
 * [sqlfluff](programs/sqlfluff.nix)

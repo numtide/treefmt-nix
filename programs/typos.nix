@@ -13,7 +13,13 @@ in
   imports = [
     (mkFormatterModule {
       name = "typos";
-      args = [ "--write-changes" ];
+      args = [
+        "--write-changes"
+
+        # Treefmt may pass files otherwise ignored by typos (e.g. files ignored in typos.toml).
+        # '--force-exclude' stops typos from acting on any ignored files passed
+        "--force-exclude"
+      ];
       includes = [ "*" ];
     })
   ];

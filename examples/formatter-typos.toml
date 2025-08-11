@@ -3,4 +3,4 @@
 command = "typos"
 excludes = []
 includes = ["*"]
-options = ["--write-changes"]
+options = ["--write-changes", "--force-exclude"]

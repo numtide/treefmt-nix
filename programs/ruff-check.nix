@@ -1,4 +1,12 @@
-{ lib, mkFormatterModule, ... }:
+{
+  config,
+  lib,
+  mkFormatterModule,
+  ...
+}:
+let
+  cfg = config.programs.ruff-check;
+in
 {
   meta.maintainers = [ ];
 
@@ -32,4 +40,24 @@
       ];
     })
   ];
+
+  options.programs.ruff-check = {
+    extendSelect = lib.mkOption {
+      description = ''
+        --extend-select options
+      '';
+      type = lib.types.listOf lib.types.str;
+      example = [ "I" ];
+      default = [ ];
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    settings.formatter.ruff-check = {
+      options = lib.optionals ((builtins.length cfg.extendSelect) != 0) [
+        "--extend-select"
+        (lib.concatStringsSep "," cfg.extendSelect)
+      ];
+    };
+  };
 }

@@ -2,5 +2,5 @@
 [formatter.csharpier]
 command = "csharpier"
 excludes = []
-includes = ["*.cs", "*.csproj"]
+includes = ["*.cs", "*.csproj", "*.slnx", "*.xaml"]
 options = ["format"]

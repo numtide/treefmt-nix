@@ -1,0 +1,34 @@
+name: Update Biome Schemas
+on:
+  schedule:
+    - cron: "0 12 * * *" # Runs at 12:00 UTC every day
+  workflow_dispatch: # allow manual triggering
+jobs:
+  update-biome:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository
+      - name: Checkout repo
+        uses: actions/checkout@v5
+      # Setup nix
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          install_url: https://nixos.org/nix/install
+      # Run the update script
+      - name: Update Biome Schemas
+        run: |
+          chmod +x ./update-biome-versions.sh
+          ./update-biome-versions.sh
+      # Create PR (handles everything automatically)
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update Biome schema hashes
+          branch: update/biome-schemas
+          base: main
+          title: "Update Biome schema hashes"
+          body: "Automatically updated Biome schema hashes via scheduled workflow."
+          add-paths: |
+            programs/biome.nix

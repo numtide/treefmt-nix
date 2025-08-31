@@ -13,7 +13,8 @@
       includes = [
         "*.cs"
         "*.csproj"
-        # "*.slnx" # add this with 1.0.3 release
+        "*.slnx" # support added in 1.1.0
+        "*.xaml" # support added in 1.1.0
       ];
     })
   ];

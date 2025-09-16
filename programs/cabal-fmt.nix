@@ -18,7 +18,6 @@ in
         "haskellPackages"
         "cabal-fmt"
       ];
-      args = [ "--inplace" ];
       includes = [
         "*.cabal"
         # Include Haskell source files to detect changes

@@ -46,19 +46,11 @@ in
       # https://github.com/tfausak/cabal-gild/issues/35
       command = pkgs.writeShellApplication {
         name = "cabal-gild-wrapper";
-        text = ''
-          for file in "$@"; do
-            # Only process .cabal files and cabal.project files
-            case "$file" in
-              *.cabal|cabal.project|cabal.project.local)
-                ${lib.getExe cfg.package} --io="$file"
-                ;;
-              *)
-                # Skip non-cabal files (e.g., .hs files)
-                ;;
-            esac
-          done
-        '';
+        # The cabal file needs to be formatted by a formatter along with other Haskell source code.
+        # For example, module completion by `cabal-gild: discover`.
+        # It is difficult to determine this strictly.
+        # Since formatting with cabal-gild doesn't take much time, we execute it speculatively.
+        text = ''${pkgs.git}/bin/git ls-files -z "*.cabal"|${pkgs.parallel}/bin/parallel --null "${lib.getExe cfg.package} --io {}"'';
       };
     };
   };

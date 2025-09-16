@@ -42,24 +42,11 @@ in
       # Override command to filter out non-cabal files
       command = pkgs.writeShellApplication {
         name = "cabal-fmt-wrapper";
-        text = ''
-          cabal_files=()
-          for file in "$@"; do
-            # Only process .cabal files
-            case "$file" in
-              *.cabal)
-                cabal_files+=("$file")
-                ;;
-              *)
-                # Skip non-cabal files (e.g., .hs files)
-                ;;
-            esac
-          done
-
-          if [ ''${#cabal_files[@]} -gt 0 ]; then
-            ${lib.getExe cfg.package} --inplace "''${cabal_files[@]}"
-          fi
-        '';
+        # The cabal file needs to be formatted by a formatter along with other Haskell source code.
+        # For example, module completion by `cabal-fmt: discover`.
+        # It is difficult to determine this strictly.
+        # Since formatting with cabal-fmt doesn't take much time, we execute it speculatively.
+        text = ''${pkgs.git}/bin/git ls-files -z "*.cabal"|${pkgs.parallel}/bin/parallel --null "${lib.getExe cfg.package} --inplace {}"'';
       };
       # Clear args since we're handling them in the wrapper
       options = lib.mkForce [ ];

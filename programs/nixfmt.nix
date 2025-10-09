@@ -53,6 +53,10 @@ in
         "--width"
         (toString cfg.width)
       ]
+      ++ lib.optionals (!isNull cfg.indent) [
+        "--indent"
+        (toString cfg.indent)
+      ]
       ++ lib.optional cfg.strict "--strict";
   };
 }

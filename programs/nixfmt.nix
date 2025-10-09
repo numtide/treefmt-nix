@@ -36,6 +36,15 @@ in
         Maximum width in characters [default: 100]
       '';
     };
+
+    indent = lib.mkOption {
+      type = lib.types.nullOr lib.types.int;
+      default = null;
+      example = 4;
+      description = ''
+        Number of spaces to use for indentation [default: 2]
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {

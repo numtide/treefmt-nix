@@ -48,6 +48,15 @@ in
   config = lib.mkIf cfg.enable {
     settings.formatter.golines = {
       command = "${cfg.package}/bin/golines";
+      options =
+        (lib.optionals (cfg.maxLength != null) [
+          "--max-len"
+          (toString cfg.maxLength)
+        ])
+        ++ (lib.optionals (cfg.tabLength != null) [
+          "--tab-len"
+          (toString cfg.tabLength)
+        ]);
     };
   };
 }

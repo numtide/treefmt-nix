@@ -40,7 +40,7 @@ in
       default = null;
       example = 4;
       description = ''
-        Length of a tab (default: 4).
+        Length of a tab (default: 4)
       '';
     };
   };

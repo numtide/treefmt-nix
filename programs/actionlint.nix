@@ -1,6 +1,7 @@
-{ mkFormatterModule, ... }:
+{ lib, mkFormatterModule, ... }:
 {
   meta.maintainers = [ "katexochen" ];
+  meta.brokenPlatforms = lib.platforms.darwin;
 
   imports = [
     (mkFormatterModule {

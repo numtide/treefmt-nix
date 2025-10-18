@@ -268,6 +268,7 @@ functions.
 * [gofmt](programs/gofmt.nix)
 * [gofumpt](programs/gofumpt.nix)
 * [goimports](programs/goimports.nix)
+* [golangci-lint](programs/golangci-lint.nix)
 * [golines](programs/golines.nix)
 * [google-java-format](programs/google-java-format.nix)
 * [hclfmt](programs/hclfmt.nix)

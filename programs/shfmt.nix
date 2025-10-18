@@ -17,10 +17,7 @@ in
   imports = [
     (mkFormatterModule {
       name = "shfmt";
-      args = [
-        "-s"
-        "-w"
-      ];
+      args = [ "-w" ];
       includes = [
         "*.sh"
         "*.bash"
@@ -42,12 +39,22 @@ in
         shfmt](https://github.com/patrickvane/shfmt#description).
       '';
     };
+
+    simplify = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Enables the `-s` (`--simplify`) flag, which simplifies code where possible.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.shfmt.options = lib.optionals (!isNull cfg.indent_size) [
-      "-i"
-      (toString cfg.indent_size)
-    ];
+    settings.formatter.shfmt.options =
+      (lib.optionals (!isNull cfg.indent_size) [
+        "-i"
+        (toString cfg.indent_size)
+      ])
+      ++ (lib.optionals (cfg.simplify) [ "-s" ]);
   };
 }

@@ -13,10 +13,6 @@ in
   imports = [
     (mkFormatterModule {
       name = "mdformat";
-      package = [
-        "python3Packages"
-        "mdformat"
-      ];
       includes = [ "*.md" ];
     })
   ];
@@ -26,57 +22,84 @@ in
     on the project's GitHub page:
     <https://github.com/hukkin/mdformat>
   */
-  options.programs.mdformat.settings =
+  options.programs.mdformat =
     let
       inherit (lib.types)
         bool
         enum
+        functionTo
         int
+        listOf
         nullOr
         oneOf
+        package
         ;
     in
     {
-      end-of-line = lib.mkOption {
+      plugins = lib.mkOption {
         description = ''
-          Output file line ending mode.
+          Plugins for mdformat that extend its functionality (for Markdown
+          extensions, formatting code blocks, etc).
+
+          See [mdformat docs](https://mdformat.readthedocs.io/en/stable/users/plugins.html)
+          for a (non-exhaustive) list of plugins.
         '';
-        type = nullOr (enum [
-          "crlf"
-          "lf"
-          "keep"
-        ]);
-        example = "lf";
-        default = null;
+        type = functionTo (listOf package);
+        default = _: [ ];
+        defaultText = lib.literalExpression ''
+          ps: [ ];
+        '';
+        example = lib.literalExpression ''
+          ps: [
+            ps.mdformat-footnote
+            ps.mdformat-gfm
+          ];
+        '';
       };
 
-      number = lib.mkOption {
-        description = ''
-          Apply consecutive numbering to ordered lists.
-        '';
-        type = bool;
-        example = false;
-        default = false;
-      };
-
-      wrap = lib.mkOption {
-        description = ''
-          Paragraph word wrap mode.
-          Set to an INTEGER to wrap at that length.
-        '';
-        type = nullOr (oneOf [
-          int
-          (enum [
+      settings = {
+        end-of-line = lib.mkOption {
+          description = ''
+            Output file line ending mode.
+          '';
+          type = nullOr (enum [
+            "crlf"
+            "lf"
             "keep"
-            "no"
-          ])
-        ]);
-        example = "keep";
-        default = null;
+          ]);
+          example = "lf";
+          default = null;
+        };
+
+        number = lib.mkOption {
+          description = ''
+            Apply consecutive numbering to ordered lists.
+          '';
+          type = bool;
+          example = false;
+          default = false;
+        };
+
+        wrap = lib.mkOption {
+          description = ''
+            Paragraph word wrap mode.
+            Set to an INTEGER to wrap at that length.
+          '';
+          type = nullOr (oneOf [
+            int
+            (enum [
+              "keep"
+              "no"
+            ])
+          ]);
+          example = "keep";
+          default = null;
+        };
       };
     };
 
   config = lib.mkIf cfg.enable {
+    programs.mdformat.finalPackage = cfg.package.withPlugins cfg.plugins;
     settings.formatter.mdformat.options =
       let
         inherit (cfg.settings)

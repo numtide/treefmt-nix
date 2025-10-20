@@ -20,10 +20,12 @@ let
       pkgs,
       lib,
       config,
+      options,
       ...
     }:
     let
       cfg = config.programs.${name};
+      opt = options.programs.${name};
     in
     {
       options.programs.${name} = {
@@ -48,12 +50,21 @@ let
           type = lib.types.nullOr lib.types.int;
           default = null;
         };
+
+        finalPackage = lib.mkOption {
+          type = lib.types.package;
+          readOnly = true;
+          description = "Resulting `${name}` package bundled with plugins, if any.";
+        };
       };
 
       config = lib.mkIf cfg.enable {
         settings.formatter.${name} = {
           command = lib.mkDefault (
-            if mainProgram == null then cfg.package else "${cfg.package}/bin/${mainProgram}"
+            let
+              pkg = if opt.finalPackage.isDefined then cfg.finalPackage else cfg.package;
+            in
+            if mainProgram == null then pkg else "${pkg}/bin/${mainProgram}"
           );
         }
         // (lib.optionalAttrs (args != [ ]) {

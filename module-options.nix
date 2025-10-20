@@ -261,7 +261,12 @@ in
         defaultText = lib.literalMD "Programs used in configuration";
         default = pkgs.lib.concatMapAttrs (
           k: v:
-          if (options.programs.${k}.enable.visible or true) && v.enable then { "${k}" = v.package; } else { }
+          if (options.programs.${k}.enable.visible or true) && v.enable then
+            {
+              "${k}" = if options.programs.${k}.finalPackage.isDefined then v.finalPackage else v.package;
+            }
+          else
+            { }
         ) config.programs;
       };
       check = mkOption {

@@ -1,13 +1,27 @@
-{ mkFormatterModule, ... }:
+{
+  mkFormatterModule,
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.programs.clang-format;
+in
 {
   meta.maintainers = [ ];
+
+  options.programs.clang-format.configFile = {
+    type = lib.types.nullOr lib.types.path;
+    description = "Optional config file override";
+    default = null;
+    example = "/my/special/clang-format-file";
+  };
 
   imports = [
     (mkFormatterModule {
       name = "clang-format";
       package = "clang-tools";
       mainProgram = "clang-format";
-      args = [ "-i" ];
       includes = [
         "*.c"
         "*.cc"
@@ -25,4 +39,10 @@
       ];
     })
   ];
+
+  config = lib.mkIf cfg.enable {
+    settings.formatter.clang-format = {
+      options = [ "-i" ] ++ lib.optional (cfg.configFile != null) "--style=file:${cfg.configFile}";
+    };
+  };
 }

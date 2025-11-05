@@ -15,9 +15,9 @@ let
   cfg = config.programs.biome;
   opts = options.programs.biome;
   biomeVersion = if builtins.match "^1\\." pkgs.biome.version != null then "1.9.4" else "2.1.2";
-  schemaSha256s = {
-    "1.9.4" = "sha256:0xia00hbazxnddinwx5bcfy3mrm8q31qgx78jcrj9q34nhn18jaa";
-    "2.1.2" = "sha256:1d909q6abxc3kcaqx4b9ibkfgzpwds5l8cylans8gpz0kvl3b1lz";
+  schemaHashes = {
+    "1.9.4" = "sha256-SkkULLRk4CQzk+j0h8PAqOY6vGOrdG5ja7Z/tSAAKnY=";
+    "2.1.2" = "sha256-n4Y16J7g34e0VdQzRItu/P7n5oppkY4Vm4P1pQxOILU=";
   };
 
   ext.js = [
@@ -108,11 +108,11 @@ in
         type = t.path;
         description = "The biome schema file to validate against";
         defaultText = l.literalMD ''
-          Fetches `"https://biomejs.dev/schemas/''${biomeVersion}/schema.json"` using `fetchurl`.
+          Fetches `"https://biomejs.dev/schemas/''${biomeVersion}/schema.json"` using `pkgs.fetchurl`.
         '';
-        default = builtins.fetchurl {
+        default = p.fetchurl {
           url = "https://biomejs.dev/schemas/${biomeVersion}/schema.json";
-          sha256 = schemaSha256s.${biomeVersion};
+          hash = schemaHashes.${biomeVersion};
         };
         example = l.literalExpression ''
           pkgs.fetchurl {

@@ -9,6 +9,7 @@ let
   l = lib // builtins;
   t = l.types;
   p = pkgs;
+  json = p.formats.json { };
 
   cfg = config.programs.biome;
   biomeVersion = if builtins.match "^1\\." pkgs.biome.version != null then "1.9.4" else "2.1.2";
@@ -75,7 +76,7 @@ in
       default = false;
     };
     settings = l.mkOption {
-      type = t.attrsOf t.anything;
+      inherit (json) type;
       description = "Raw Biome configuration (must conform to Biome JSON schema)";
       default = { };
       example = {
@@ -101,8 +102,7 @@ in
   config = l.mkIf cfg.enable {
     settings.formatter.biome.options =
       let
-        json = l.toJSON cfg.settings;
-        jsonFile = p.writeText "biome.json" json;
+        jsonFile = json.generate "biome.json" cfg.settings;
         biomeSchema = builtins.fetchurl {
           url = schemaUrl;
           sha256 = schemaSha256;

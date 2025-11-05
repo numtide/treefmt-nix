@@ -1,6 +1,9 @@
 { mkFormatterModule, ... }:
 {
-  meta.maintainers = [ "katexochen" ];
+  meta.maintainers = [
+    "NixOS/nixpkgs-ci"
+    "katexochen"
+  ];
 
   imports = [
     (mkFormatterModule {

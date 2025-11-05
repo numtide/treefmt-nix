@@ -8,7 +8,9 @@ let
   cfg = config.programs.nixfmt;
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [
+    "NixOS/nixpkgs-ci"
+  ];
 
   imports = [
     (mkFormatterModule {

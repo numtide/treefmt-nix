@@ -1,6 +1,8 @@
 { mkFormatterModule, ... }:
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [
+    "NixOS/nixpkgs-ci"
+  ];
 
   imports = [
     (mkFormatterModule {

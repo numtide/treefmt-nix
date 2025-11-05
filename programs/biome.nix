@@ -45,7 +45,10 @@ let
 
 in
 {
-  meta.maintainers = [ "andrea11" ];
+  meta.maintainers = [
+    "NixOS/nixpkgs-ci"
+    "andrea11"
+  ];
 
   imports = [
     (mkFormatterModule {

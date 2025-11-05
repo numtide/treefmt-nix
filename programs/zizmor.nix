@@ -1,6 +1,9 @@
 { lib, mkFormatterModule, ... }:
 {
-  meta.maintainers = [ "katexochen" ];
+  meta.maintainers = [
+    "NixOS/nixpkgs-ci"
+    "katexochen"
+  ];
   meta.brokenPlatforms = lib.platforms.darwin;
 
   imports = [

@@ -124,7 +124,7 @@ in
       in
       [
         "--config-path"
-        (l.toString validatedConfig)
+        "${validatedConfig}"
       ]
       ++ l.optional cfg.formatUnsafe "--unsafe";
   };

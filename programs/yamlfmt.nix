@@ -11,7 +11,9 @@ let
   settingsFormat = pkgs.formats.yaml { };
 in
 {
-  meta.maintainers = [ ];
+  meta.maintainers = [
+    "NixOS/nixpkgs-ci"
+  ];
 
   imports = [
     (mkFormatterModule {

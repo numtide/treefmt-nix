@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  options,
   mkFormatterModule,
   ...
 }:
@@ -9,15 +10,15 @@ let
   l = lib // builtins;
   t = l.types;
   p = pkgs;
+  json = p.formats.json { };
 
   cfg = config.programs.biome;
+  opts = options.programs.biome;
   biomeVersion = if builtins.match "^1\\." pkgs.biome.version != null then "1.9.4" else "2.1.2";
-  schemaUrl = "https://biomejs.dev/schemas/${biomeVersion}/schema.json";
-  schemaSha256s = {
-    "1.9.4" = "sha256:0xia00hbazxnddinwx5bcfy3mrm8q31qgx78jcrj9q34nhn18jaa";
-    "2.1.2" = "sha256:1d909q6abxc3kcaqx4b9ibkfgzpwds5l8cylans8gpz0kvl3b1lz";
+  schemaHashes = {
+    "1.9.4" = "sha256-SkkULLRk4CQzk+j0h8PAqOY6vGOrdG5ja7Z/tSAAKnY=";
+    "2.1.2" = "sha256-n4Y16J7g34e0VdQzRItu/P7n5oppkY4Vm4P1pQxOILU=";
   };
-  schemaSha256 = schemaSha256s.${biomeVersion};
 
   ext.js = [
     "*.js"
@@ -75,7 +76,7 @@ in
       default = false;
     };
     settings = l.mkOption {
-      type = t.attrsOf t.anything;
+      inherit (json) type;
       description = "Raw Biome configuration (must conform to Biome JSON schema)";
       default = { };
       example = {
@@ -96,35 +97,60 @@ in
         };
       };
     };
+    validate = {
+      enable = l.mkOption {
+        type = t.bool;
+        description = "Whether to validate `${opts.settings}`.";
+        default = true;
+        example = false;
+      };
+      schema = l.mkOption {
+        type = t.path;
+        description = "The biome schema file to validate against";
+        defaultText = l.literalMD ''
+          Fetches `"https://biomejs.dev/schemas/''${biomeVersion}/schema.json"` using `pkgs.fetchurl`.
+        '';
+        default = p.fetchurl {
+          url = "https://biomejs.dev/schemas/${biomeVersion}/schema.json";
+          hash = schemaHashes.${biomeVersion};
+        };
+        example = l.literalExpression ''
+          pkgs.fetchurl {
+            url = "https://biomejs.dev/schemas/2.1.2/schema.json"
+            hash = "sha256-n4Y16J7g34e0VdQzRItu/P7n5oppkY4Vm4P1pQxOILU=";
+          }
+        '';
+      };
+    };
   };
 
   config = l.mkIf cfg.enable {
     settings.formatter.biome.options =
       let
-        json = l.toJSON cfg.settings;
-        jsonFile = p.writeText "biome.json" json;
-        biomeSchema = builtins.fetchurl {
-          url = schemaUrl;
-          sha256 = schemaSha256;
-        };
+        jsonFile = json.generate "biome.json" cfg.settings;
 
         validatedConfig =
           p.runCommand "validated-biome-config.json"
             {
-              buildInputs = [
+              nativeBuildInputs = [
                 p.check-jsonschema
               ];
+              env = {
+                json = jsonFile;
+                schema = cfg.validate.schema;
+                schemaPath = cfg.validate.schema.url or (toString cfg.validate.schema);
+              };
             }
             ''
-              echo "Validating biome.json against schema ${schemaUrl}..."
+              echo "Validating biome.json against schema $schemaPath..."
               export HOME=$TMPDIR
-              check-jsonschema --schemafile '${biomeSchema}' '${jsonFile}'
-              cp '${jsonFile}' $out
+              check-jsonschema --schemafile "$schema" "$json"
+              cp "$json" $out
             '';
       in
       [
         "--config-path"
-        (l.toString validatedConfig)
+        "${if cfg.validate.enable then validatedConfig else jsonFile}"
       ]
       ++ l.optional cfg.formatUnsafe "--unsafe";
   };

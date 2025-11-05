@@ -132,18 +132,20 @@ in
         validatedConfig =
           p.runCommand "validated-biome-config.json"
             {
-              buildInputs = [
+              nativeBuildInputs = [
                 p.check-jsonschema
               ];
               env = {
+                json = jsonFile;
+                schema = cfg.validate.schema;
                 schemaPath = cfg.validate.schema.url or (toString cfg.validate.schema);
               };
             }
             ''
               echo "Validating biome.json against schema $schemaPath..."
               export HOME=$TMPDIR
-              check-jsonschema --schemafile ${cfg.validate.schema} ${jsonFile}
-              cp ${jsonFile} $out
+              check-jsonschema --schemafile "$schema" "$json"
+              cp "$json" $out
             '';
       in
       [

@@ -5,10 +5,7 @@
   imports = [
     (mkFormatterModule {
       name = "sqruff";
-      args = [
-        "fix"
-        "--force"
-      ];
+      args = [ "fix" ];
       includes = [ "*.sql" ];
     })
   ];

@@ -3,4 +3,4 @@
 command = "sqruff"
 excludes = []
 includes = ["*.sql"]
-options = ["fix", "--force"]
+options = ["fix"]

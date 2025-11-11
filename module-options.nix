@@ -89,10 +89,14 @@ let
           "go.sum"
 
           # VCS
+          ".gitattributes"
           ".gitignore"
           ".gitmodules"
           ".hgignore"
           ".svnignore"
+
+          # License
+          "LICENSE"
         ];
       };
     };

@@ -20,14 +20,17 @@ let
     in
     if builtins.match "^1\\." v != null then
       "1.9.4"
-    else if builtins.match "^2\\.1\\." v != null then
-      "2.1.2"
+    else if builtins.match "^2\\.2\\." v != null then
+      "2.2.5"
+    else if builtins.match "^2\\.3\\." v != null then
+      "2.3.5"
     else
-      "2.2.5";
+      "2.1.2";
   schemaHashes = {
     "1.9.4" = "sha256-SkkULLRk4CQzk+j0h8PAqOY6vGOrdG5ja7Z/tSAAKnY=";
     "2.1.2" = "sha256-n4Y16J7g34e0VdQzRItu/P7n5oppkY4Vm4P1pQxOILU=";
     "2.2.5" = "sha256-no7jIazvyEp+hdwmuArQ/yRgnWrAw/NEM5qRInMRuaE=";
+    "2.3.5" = "sha256-8O59CmHaP7/XuGs9BteOTcltddYSTxEIM/64dLfbLk0=";
   };
 
   ext.js = [

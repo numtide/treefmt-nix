@@ -14,10 +14,20 @@ let
 
   cfg = config.programs.biome;
   opts = options.programs.biome;
-  biomeVersion = if builtins.match "^1\\." pkgs.biome.version != null then "1.9.4" else "2.1.2";
+  biomeVersion =
+    let
+      v = pkgs.biome.version;
+    in
+    if builtins.match "^1\\." v != null then
+      "1.9.4"
+    else if builtins.match "^2\\.1\\." v != null then
+      "2.1.2"
+    else
+      "2.2.5";
   schemaHashes = {
     "1.9.4" = "sha256-SkkULLRk4CQzk+j0h8PAqOY6vGOrdG5ja7Z/tSAAKnY=";
     "2.1.2" = "sha256-n4Y16J7g34e0VdQzRItu/P7n5oppkY4Vm4P1pQxOILU=";
+    "2.2.5" = "sha256-no7jIazvyEp+hdwmuArQ/yRgnWrAw/NEM5qRInMRuaE=";
   };
 
   ext.js = [

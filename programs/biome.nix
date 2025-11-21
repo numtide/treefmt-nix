@@ -151,7 +151,7 @@ in
               cp "$json" $out
             '';
       in
-      [
+      l.optionals (cfg.settings != { }) [
         "--config-path"
         "${if cfg.validate.enable then validatedConfig else jsonFile}"
       ]

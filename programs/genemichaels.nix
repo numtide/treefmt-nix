@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.programs.genemichaels;
+  opt = options.programs.genemichaels;
   configFormat = pkgs.formats.json { };
 
   inherit (lib)
@@ -123,10 +124,14 @@ in
 
     settingsFile = mkOption {
       description = "The configuration file used by `genemichaels`.";
-      type = types.path;
+      type = types.nullOr types.path;
       example = lib.literalExpression ''./.genemichaels.json'';
-      default = configFormat.generate ".genemichaels.json" cfg.settings;
-      defaultText = lib.literalMD "Generated JSON file from `${showOptionParent options.programs.genemichaels.settings.max_width 1}`";
+      default =
+        let
+          settings = lib.filterAttrs (key: value: value != opt.settings.${key}.default) cfg.settings;
+        in
+        if settings != { } then configFormat.generate ".genemichaels.json" settings else null;
+      defaultText = lib.literalMD "Generated JSON file from `${showOptionParent opt.settings.max_width 1}`";
     };
 
     threadCount = mkOption {
@@ -166,10 +171,10 @@ in
           "--thread-count"
           (toString cfg.threadCount)
         ])
-        ++ [
+        ++ (optionals (cfg.settingsFile != null) [
           "--config"
           (toString cfg.settingsFile)
-        ];
+        ]);
       includes = cfg.includes;
       excludes = cfg.excludes;
     };

@@ -91,6 +91,12 @@ in
       description = "Allows to format a document that has unsafe fixes.";
       default = false;
     };
+    configPath = l.mkOption {
+      type = t.stringOrNull;
+      description = "Path to a Biome configuration file.";
+      default = null;
+      example = "/path/to/biome.json";
+    };
     settings = l.mkOption {
       inherit (json) type;
       description = "Raw Biome configuration (must conform to Biome JSON schema)";
@@ -164,7 +170,12 @@ in
               cp "$json" $out
             '';
       in
-      [
+      [ ]
+      ++ l.optional (cfg.configPath != null) [
+        "--config-path"
+        "${cfg.configPath}"
+      ]
+      ++ l.optional (cfg.configPath == null) [
         "--config-path"
         "${if cfg.validate.enable then validatedConfig else jsonFile}"
       ]

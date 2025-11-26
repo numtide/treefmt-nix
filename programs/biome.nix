@@ -171,11 +171,11 @@ in
             '';
       in
       [ ]
-      ++ l.optional (cfg.configPath != null) [
+      ++ l.optionals (cfg.configPath != null) [
         "--config-path"
         "${cfg.configPath}"
       ]
-      ++ l.optional (cfg.configPath == null) [
+      ++ l.optionals (cfg.configPath == null) [
         "--config-path"
         "${if cfg.validate.enable then validatedConfig else jsonFile}"
       ]

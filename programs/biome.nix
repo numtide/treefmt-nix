@@ -92,7 +92,7 @@ in
       default = false;
     };
     configPath = l.mkOption {
-      type = t.stringOrNull;
+      type = t.nullOr t.str;
       description = "Path to a Biome configuration file.";
       default = null;
       example = "/path/to/biome.json";

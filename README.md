@@ -222,7 +222,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 120 formatters:
+`treefmt-nix` currently supports 119 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [aiken](programs/aiken.nix)
@@ -336,7 +336,6 @@ functions.
 * [texfmt](programs/texfmt.nix)
 * [toml-sort](programs/toml-sort.nix)
 * [typos](programs/typos.nix)
-* [typstfmt](programs/typstfmt.nix)
 * [typstyle](programs/typstyle.nix)
 * [xmllint](programs/xmllint.nix)
 * [yamlfmt](programs/yamlfmt.nix)

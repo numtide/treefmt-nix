@@ -13,7 +13,13 @@ in
   imports = [
     (mkFormatterModule {
       name = "beautysh";
-      includes = [ "*.sh" ];
+      includes = [
+        "*.sh"
+        "*.bash"
+        # direnv
+        "*.envrc"
+        "*.envrc.*"
+      ];
     })
   ];
 

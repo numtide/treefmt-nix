@@ -7,6 +7,7 @@
   meta = {
     maintainers = [ "rotmh" ];
     platforms = pkgs.lib.platforms.linux;
+    skipExample = true;
   };
 
   imports = [

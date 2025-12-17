@@ -6,7 +6,7 @@
 {
   meta = {
     maintainers = [ "rotmh" ];
-    platforms = pkgs.kdePackages.qtdeclarative.meta.platforms;
+    platforms = pkgs.lib.platforms.linux;
   };
 
   imports = [

@@ -140,7 +140,7 @@ in
     (mkFormatterModule {
       name = "dprint";
       args = [ "fmt" ];
-      includes = [ ".*" ];
+      includes = [ "*" ];
     })
   ];
 

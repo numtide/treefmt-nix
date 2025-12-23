@@ -11,8 +11,13 @@
       ];
       includes = [
         "Dockerfile"
+        "*/Dockerfile"
         "*.Dockerfile"
         "Dockerfile.*"
+        "*/Dockerfile.*"
+        "*.dockerfile"
+        "dockerfile.*"
+        "*/dockerfile.*"
       ];
     })
   ];

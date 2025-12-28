@@ -299,7 +299,6 @@ functions.
 * [nimpretty](programs/nimpretty.nix)
 * [nixf-diagnose](programs/nixf-diagnose.nix)
 * [nixfmt-classic](programs/nixfmt-classic.nix)
-* [nixfmt-rfc-style](programs/nixfmt-rfc-style.nix)
 * [nixfmt](programs/nixfmt.nix)
 * [nixpkgs-fmt](programs/nixpkgs-fmt.nix)
 * [ocamlformat](programs/ocamlformat.nix)

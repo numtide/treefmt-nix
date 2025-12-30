@@ -287,6 +287,7 @@ functions.
 * [ktlint](programs/ktlint.nix)
 * [latexindent](programs/latexindent.nix)
 * [leptosfmt](programs/leptosfmt.nix)
+* [mbake](programs/mbake.nix)
 * [mdformat](programs/mdformat.nix)
 * [mdsh](programs/mdsh.nix)
 * [meson](programs/meson.nix)

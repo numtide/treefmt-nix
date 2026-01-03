@@ -15,7 +15,7 @@ in
   imports = [
     (mkFormatterModule {
       name = "nixfmt";
-      package = "nixfmt-rfc-style";
+      package = "nixfmt";
       includes = [ "*.nix" ];
     })
   ];

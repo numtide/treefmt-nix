@@ -222,7 +222,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 122 formatters:
+`treefmt-nix` currently supports 121 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [aiken](programs/aiken.nix)
@@ -304,6 +304,7 @@ functions.
 * [odinfmt](programs/odinfmt.nix)
 * [opa](programs/opa.nix)
 * [ormolu](programs/ormolu.nix)
+* [oxfmt](programs/oxfmt.nix)
 * [oxipng](programs/oxipng.nix)
 * [packer](programs/packer.nix)
 * [perltidy](programs/perltidy.nix)
@@ -389,7 +390,6 @@ In order to add a new formatter do the following things:
 2. Consider adding yourself as the `meta.maintainer` (see below).
 3. Run `./examples.sh` to update the `./examples` folder.
 4. To test the program:
-
    1. Extend the project's `./treefmt.nix` file (temporarily) to enable the new
       formatter and configure it in whatever manner is appropriate.
    2. Add a bunch of pertinent sources in this repo -- for instance, if the new

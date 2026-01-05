@@ -34,13 +34,13 @@ in
         name = "xmllint-wrapper";
         text = ''
           temp=$(mktemp)
+          trap 'rm "$temp"' EXIT
           for file in "$@"; do
             ${lib.getExe' cfg.package "xmllint"} --format "$file" --output "$temp"
             if ! cmp -s "$file" "$temp"; then
               cp "$temp" "$file"
             fi
           done
-          rm temp
         '';
       };
     };

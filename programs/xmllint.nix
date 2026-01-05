@@ -40,6 +40,7 @@ in
               cp "$temp" "$file"
             fi
           done
+          rm temp
         '';
       };
     };

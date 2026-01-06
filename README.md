@@ -341,6 +341,7 @@ functions.
 * [wgslfmt](programs/wgslfmt.nix)
 * [xmllint](programs/xmllint.nix)
 * [yamlfmt](programs/yamlfmt.nix)
+* [yamllint](programs/yamllint.nix)
 * [yapf](programs/yapf.nix)
 * [zig](programs/zig.nix)
 * [zizmor](programs/zizmor.nix)

@@ -21,7 +21,6 @@
         "*.mjs"
         "*.mustache"
         "*.scss"
-        "*.toml"
         "*.ts"
         "*.tsx"
         "*.vue"

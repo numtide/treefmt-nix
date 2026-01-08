@@ -3,4 +3,4 @@
 command = "genemichaels"
 excludes = []
 includes = ["*.rs"]
-options = ["--config", "genemichaels.json"]
+options = []

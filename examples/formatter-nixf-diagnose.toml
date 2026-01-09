@@ -3,4 +3,4 @@
 command = "nixf-diagnose"
 excludes = []
 includes = ["*.nix"]
-options = []
+options = ["--auto-fix"]

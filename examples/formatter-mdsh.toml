@@ -2,5 +2,5 @@
 [formatter.mdsh]
 command = "mdsh"
 excludes = []
-includes = ["README.md"]
+includes = ["*.md"]
 options = ["--inputs"]

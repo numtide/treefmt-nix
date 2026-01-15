@@ -41,7 +41,7 @@ in
       example = "/some/path/myTidyConfigFile";
     };
     compileCommandsPath = lib.mkOption {
-      type = lib.types.nullOr lib.types.path;
+      type = with lib.types; nullOr (either path str);
       description = "used to read a compile command database";
       default = null;
       example = "/my/cmake/build/directory";

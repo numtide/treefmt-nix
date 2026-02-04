@@ -222,7 +222,7 @@ functions.
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-`treefmt-nix` currently supports 125 formatters:
+`treefmt-nix` currently supports 126 formatters:
 
 * [actionlint](programs/actionlint.nix)
 * [aiken](programs/aiken.nix)
@@ -312,6 +312,7 @@ functions.
 * [php-cs-fixer](programs/php-cs-fixer.nix)
 * [pinact](programs/pinact.nix)
 * [prettier](programs/prettier.nix)
+* [prolog-lsp-server](programs/prolog-lsp-server.nix)
 * [protolint](programs/protolint.nix)
 * [qmlformat](programs/qmlformat.nix)
 * [rstfmt](programs/rstfmt.nix)

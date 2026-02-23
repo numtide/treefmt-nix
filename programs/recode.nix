@@ -10,5 +10,5 @@
       args = [ "--struct" ];
       includes = [ "*" ];
     })
-  ]:
+  ];
 }

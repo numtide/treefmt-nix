@@ -7,7 +7,7 @@
     (mkFormatterModule {
       name = "recode";
       mainProgram = "recode";
-      args = [ "--struct" ];
+      args = [ "--strict" ];
       includes = [ "*" ];
     })
   ];

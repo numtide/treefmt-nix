@@ -14,19 +14,6 @@ let
 
   cfg = config.programs.biome;
   opts = options.programs.biome;
-  biomeVersion =
-    if builtins.match "^1\\." pkgs.biome.version != null then
-      "1.9.4"
-    else if builtins.match "^2\\.3\\." pkgs.biome.version != null then
-      "2.3.6"
-    else
-      "2.1.2";
-
-  schemaHashes = {
-    "1.9.4" = "sha256-SkkULLRk4CQzk+j0h8PAqOY6vGOrdG5ja7Z/tSAAKnY=";
-    "2.1.2" = "sha256-n4Y16J7g34e0VdQzRItu/P7n5oppkY4Vm4P1pQxOILU=";
-    "2.3.6" = "sha256-eBBUomh9qBkl47tp73vsgWeOPZdVVGR3CAQ5eBs8eNw=";
-  };
 
   ext.js = [
     "*.js"
@@ -119,17 +106,11 @@ in
         type = t.path;
         description = "The biome schema file to validate against";
         defaultText = l.literalMD ''
-          Fetches `"https://biomejs.dev/schemas/''${biomeVersion}/schema.json"` using `pkgs.fetchurl`.
+          Uses `${cfg.package}/share/schema.json` from the `programs.biome.package` output.
         '';
-        default = p.fetchurl {
-          url = "https://biomejs.dev/schemas/${biomeVersion}/schema.json";
-          hash = schemaHashes.${biomeVersion};
-        };
+        default = "${cfg.package}/share/schema.json";
         example = l.literalExpression ''
-          pkgs.fetchurl {
-            url = "https://biomejs.dev/schemas/2.1.2/schema.json"
-            hash = "sha256-n4Y16J7g34e0VdQzRItu/P7n5oppkY4Vm4P1pQxOILU=";
-          }
+          ${pkgs.biome}/share/schema.json
         '';
       };
     };
@@ -149,7 +130,7 @@ in
               env = {
                 json = jsonFile;
                 schema = cfg.validate.schema;
-                schemaPath = cfg.validate.schema.url or (toString cfg.validate.schema);
+                schemaPath = toString cfg.validate.schema;
               };
             }
             ''

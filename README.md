@@ -290,6 +290,7 @@ functions.
 * [ktlint](programs/ktlint.nix)
 * [latexindent](programs/latexindent.nix)
 * [leptosfmt](programs/leptosfmt.nix)
+* [logql](programs/logql.nix)
 * [mbake](programs/mbake.nix)
 * [mdformat](programs/mdformat.nix)
 * [mdsh](programs/mdsh.nix)

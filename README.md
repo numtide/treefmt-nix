@@ -279,6 +279,7 @@ functions.
 * [hlint](programs/hlint.nix)
 * [hujsonfmt](programs/hujsonfmt.nix)
 * [isort](programs/isort.nix)
+* [json-sort-cli](programs/json-sort-cli.nix)
 * [jsonfmt](programs/jsonfmt.nix)
 * [jsonnet-lint](programs/jsonnet-lint.nix)
 * [jsonnetfmt](programs/jsonnetfmt.nix)

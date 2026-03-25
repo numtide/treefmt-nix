@@ -9,9 +9,6 @@ cd "$(dirname "$0")"
 
 programs=(programs/*.nix)
 
-echo "\`treefmt-nix\` currently supports ${#programs[@]} formatters:"
-echo
-
 for program in "${programs[@]}"; do
   name=$(basename "$program" .nix)
   echo "* [$name]($program)"

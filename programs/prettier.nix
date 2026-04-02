@@ -305,10 +305,7 @@ in
   imports = [
     (mkFormatterModule {
       name = "prettier";
-      package = [
-        "nodePackages"
-        "prettier"
-      ];
+      package = "prettier";
       args = [ "--write" ];
       includes = [
         "*.cjs"

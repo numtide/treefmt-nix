@@ -303,6 +303,7 @@ functions.
 * [nixf-diagnose](programs/nixf-diagnose.nix)
 * [nixfmt](programs/nixfmt.nix)
 * [nixpkgs-fmt](programs/nixpkgs-fmt.nix)
+* [nufmt](programs/nufmt.nix)
 * [ocamlformat](programs/ocamlformat.nix)
 * [odinfmt](programs/odinfmt.nix)
 * [opa](programs/opa.nix)

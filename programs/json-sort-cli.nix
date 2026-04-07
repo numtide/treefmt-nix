@@ -93,15 +93,15 @@ in
         (
           ''
             for f in "$@"; do
-              ${lib.getExe cfg.package} $file \
+              ${lib.getExe cfg.package} $f \
                 --autofix ${if cfg.autofix == true then "true" else "false"} \
                 --insert-final-newline ${if cfg.insert-final-newline == true then "true" else "false"} \
           ''
-          + (lib.optionalString (cfg.end-of-line != null) cfg.end-of-line)
+          + (lib.optionalString (cfg.end-of-line != null) "--end-of-line ${cfg.end-of-line}")
           + ''
             \
               --indent-style ${cfg.indent-style} \
-              --indent-size ${builtins.toString cfg.indent-size} || true
+              --indent-size ${toString cfg.indent-size} || true
             done
           ''
         )

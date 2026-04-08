@@ -292,7 +292,11 @@ in
           k: v:
           if (options.programs.${k}.enable.visible or true) && v.enable then
             {
-              "${k}" = if options.programs.${k}.finalPackage.isDefined then v.finalPackage else v.package;
+              "${k}" =
+                if options.programs.${k} ? finalPackage && options.programs.${k}.finalPackage.isDefined then
+                  v.finalPackage
+                else
+                  v.package;
             }
           else
             { }

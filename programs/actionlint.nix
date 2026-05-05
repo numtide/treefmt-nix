@@ -9,6 +9,10 @@
       includes = [
         ".github/workflows/*.yml"
         ".github/workflows/*.yaml"
+        ".gitea/workflows/*.yml"
+        ".gitea/workflows/*.yaml"
+        ".forgejo/workflows/*.yml"
+        ".forgejo/workflows/*.yaml"
       ];
     })
   ];

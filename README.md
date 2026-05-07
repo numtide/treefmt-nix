@@ -310,6 +310,7 @@ functions.
 * [oxfmt](programs/oxfmt.nix)
 * [oxipng](programs/oxipng.nix)
 * [packer](programs/packer.nix)
+* [panache-format](programs/panache-format.nix)
 * [perltidy](programs/perltidy.nix)
 * [php-cs-fixer](programs/php-cs-fixer.nix)
 * [pinact](programs/pinact.nix)

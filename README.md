@@ -315,6 +315,7 @@ functions.
 * [pinact](programs/pinact.nix)
 * [prettier](programs/prettier.nix)
 * [protolint](programs/protolint.nix)
+* [pyright](programs/pyright.nix)
 * [qmlformat](programs/qmlformat.nix)
 * [rstfmt](programs/rstfmt.nix)
 * [rubocop](programs/rubocop.nix)

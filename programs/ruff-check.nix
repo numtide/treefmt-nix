@@ -50,14 +50,28 @@ in
       example = [ "I" ];
       default = [ ];
     };
+    extendIgnore = lib.mkOption {
+      description = ''
+        --extend-ignore options
+      '';
+      type = lib.types.listOf lib.types.str;
+      example = [ "F811" ];
+      default = [ ];
+    };
   };
 
   config = lib.mkIf cfg.enable {
     settings.formatter.ruff-check = {
-      options = lib.optionals ((builtins.length cfg.extendSelect) != 0) [
-        "--extend-select"
-        (lib.concatStringsSep "," cfg.extendSelect)
-      ];
+      options =
+        [ ]
+        ++ (lib.optionals ((builtins.length cfg.extendSelect) != 0) [
+          "--extend-select"
+          (lib.concatStringsSep "," cfg.extendSelect)
+        ])
+        ++ (lib.optionals ((builtins.length cfg.extendIgnore) != 0) [
+          "--extend-ignore"
+          (lib.concatStringsSep "," cfg.extendIgnore)
+        ]);
     };
   };
 }

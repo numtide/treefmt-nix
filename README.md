@@ -256,6 +256,7 @@ functions.
 * [dos2unix](programs/dos2unix.nix)
 * [dprint](programs/dprint.nix)
 * [dscanner](programs/dscanner.nix)
+* [dtsfmt](programs/dtsfmt.nix)
 * [efmt](programs/efmt.nix)
 * [elm-format](programs/elm-format.nix)
 * [erlfmt](programs/erlfmt.nix)

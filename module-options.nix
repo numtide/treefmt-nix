@@ -145,7 +145,7 @@ in
         build.wrapper.
         Set to null to let treefmt use its native detection.
       '';
-      default = ".git/config";
+      default = null;
       type = types.nullOr types.str;
     };
 

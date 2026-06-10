@@ -283,6 +283,7 @@ functions.
 * [jsonfmt](programs/jsonfmt.nix)
 * [jsonnet-lint](programs/jsonnet-lint.nix)
 * [jsonnetfmt](programs/jsonnetfmt.nix)
+* [juliaformatter](programs/juliaformatter.nix)
 * [just](programs/just.nix)
 * [kdlfmt](programs/kdlfmt.nix)
 * [keep-sorted](programs/keep-sorted.nix)

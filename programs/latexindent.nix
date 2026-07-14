@@ -8,8 +8,10 @@
   imports = [
     (mkFormatterModule {
       name = "latexindent";
-      package = "texliveMedium";
-      mainProgram = "latexindent";
+      package = [
+        "texlivePackages"
+        "latexindent"
+      ];
       args = [ "-wd" ];
       includes = [
         "*.tex"

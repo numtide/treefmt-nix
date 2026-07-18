@@ -226,6 +226,7 @@ functions.
 <!-- BEGIN mdsh -->
 * [actionlint](programs/actionlint.nix)
 * [aiken](programs/aiken.nix)
+* [air](programs/air.nix)
 * [alejandra](programs/alejandra.nix)
 * [asmfmt](programs/asmfmt.nix)
 * [autocorrect](programs/autocorrect.nix)

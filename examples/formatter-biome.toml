@@ -18,4 +18,4 @@ includes = [
     "*.jsonc",
     "*.css",
 ]
-options = ["check", "--write", "--no-errors-on-unmatched", "--config-path", "config.json"]
+options = ["check", "--write", "--no-errors-on-unmatched"]

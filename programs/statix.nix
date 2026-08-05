@@ -43,7 +43,9 @@ in
       # statix doesn't support multiple file targets
       command = pkgs.writeShellScriptBin "statix-fix" ''
         for file in "$@"; do
-          ${lib.getExe cfg.package} fix --config '${toString settingsDir}/statix.toml' "$file"
+          ${lib.getExe cfg.package} fix ${
+            lib.optionalString (cfg.disabled-lints != [ ]) "--config '${settingsDir}/statix.toml'"
+          } "$file"
         done
       '';
     };

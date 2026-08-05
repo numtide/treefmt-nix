@@ -286,7 +286,7 @@ let
           "*.html"
           "legacy/**/*.js"
         ];
-        options.tabwidth = 4;
+        options.tabWidth = 4;
       };
       default = null;
     };

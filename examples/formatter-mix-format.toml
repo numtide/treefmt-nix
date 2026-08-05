@@ -2,5 +2,5 @@
 [formatter.mix-format]
 command = "mix"
 excludes = []
-includes = ["*.ex", "*.exs"]
+includes = ["*.ex", "*.exs", "*.heex"]
 options = ["format"]

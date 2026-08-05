@@ -268,6 +268,7 @@ functions.
 * [fprettify](programs/fprettify.nix)
 * [gdformat](programs/gdformat.nix)
 * [genemichaels](programs/genemichaels.nix)
+* [gersemi](programs/gersemi.nix)
 * [gleam](programs/gleam.nix)
 * [gofmt](programs/gofmt.nix)
 * [gofumpt](programs/gofumpt.nix)

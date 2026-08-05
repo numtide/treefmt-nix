@@ -238,6 +238,7 @@ functions.
 * [cabal-gild](programs/cabal-gild.nix)
 * [clang-format](programs/clang-format.nix)
 * [clang-tidy](programs/clang-tidy.nix)
+* [clippy](programs/clippy.nix)
 * [cljfmt](programs/cljfmt.nix)
 * [cmake-format](programs/cmake-format.nix)
 * [csharpier](programs/csharpier.nix)

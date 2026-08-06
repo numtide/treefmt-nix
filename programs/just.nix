@@ -30,6 +30,18 @@ in
     })
   ];
 
+  options.programs.just = {
+    indentation = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "  ";
+      description = ''
+        Indentation to use for recipe bodies.
+        Requires just >= 1.49.
+      '';
+    };
+  };
+
   config = lib.mkIf cfg.enable {
     settings.formatter.just = {
       # just itself doesn't comply with the treefmt spec, as the --justfile flags expects a single argument
@@ -37,11 +49,19 @@ in
       command = pkgs.bash;
       options = [
         "-euc"
-        ''
-          for f in "$@"; do
-            ${lib.getExe cfg.package} --fmt --unstable --justfile "$f"
-          done
-        ''
+        (
+          let
+            indentation = lib.optionals (cfg.indentation != null) [
+              "--indentation"
+              cfg.indentation
+            ];
+          in
+          ''
+            for f in "$@"; do
+              ${lib.getExe cfg.package} --fmt --unstable ${lib.escapeShellArgs indentation} --justfile "$f"
+            done
+          ''
+        )
         "--" # bash swallows the second argument when using -c
       ];
     };

@@ -246,6 +246,7 @@ functions.
 * [dart-format](programs/dart-format.nix)
 * [deadnix](programs/deadnix.nix)
 * [deno](programs/deno.nix)
+* [desktop-file-validate](programs/desktop-file-validate.nix)
 * [detekt](programs/detekt.nix)
 * [dfmt](programs/dfmt.nix)
 * [dhall](programs/dhall.nix)

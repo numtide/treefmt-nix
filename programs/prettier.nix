@@ -309,6 +309,10 @@ in
       name = "prettier";
       package = "prettier";
       args = [ "--write" ];
+      stdinArgs = [
+        "--stdin-filepath"
+        "$path"
+      ];
       includes = [
         "*.cjs"
         "*.css"

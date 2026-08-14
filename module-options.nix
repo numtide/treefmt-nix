@@ -32,7 +32,14 @@ let
 
   settingsData = builtins.removeAttrs config.settings emptySettingsKeys;
 
-  configFile = configFormat.generate "treefmt.toml" settingsData;
+  # It's not possible to represent omittable values with the Nix module system.
+  # The best we can do is allow for `null` values and strip them out before
+  # serializing a config file. For TOML, this is safe, as TOML doesn't support
+  # `null` values, so there's no ambiguity about what `null` means.
+  # See https://github.com/NixOS/nixpkgs/issues/563975
+  stripNulls = lib.filterAttrsRecursive (_: value: value != null);
+
+  configFile = configFormat.generate "treefmt.toml" (stripNulls settingsData);
 
   # The schema of the treefmt.toml data structure.
   configSchema = mkOption {
@@ -81,6 +88,26 @@ let
                     description = "List of arguments to pass to the command";
                     type = types.listOf types.str;
                     default = [ ];
+                  };
+
+                  stdin-options = mkOption {
+                    description = ''
+                      An optional list of args used to invoke the formatter in
+                      [Stdin Mode] (where it reads the buffer to format from
+                      stdin rather than a file). Any occurrences of $path will
+                      be replaced with the "advisory path" of the "virtual
+                      file" being formatted.
+
+                      This is useful for formatters whose behavior depend on
+                      the path of the file being formatted.
+
+                      See the [Stdin Spec] for more details.
+
+                      [Stdin Mode]: https://treefmt.com/latest/reference/stdin-spec/#2-stdin-mode
+                      [Stdin Spec]: https://treefmt.com/latest/reference/stdin-spec/
+                    '';
+                    type = types.nullOr (types.listOf types.str);
+                    default = null;
                   };
 
                   includes = mkOption {

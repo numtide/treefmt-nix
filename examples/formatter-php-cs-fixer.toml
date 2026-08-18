@@ -3,4 +3,4 @@
 command = "php-cs-fixer"
 excludes = []
 includes = ["*.php"]
-options = ["fix", "--config", "./.php-cs-fixer.php"]
+options = ["fix"]

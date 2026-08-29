@@ -2,5 +2,20 @@
 [formatter.cabal-gild]
 command = "cabal-gild-wrapper"
 excludes = []
-includes = ["*.cabal", "cabal.project", "cabal.project.local"]
+includes = [
+    "*.cabal",
+    "cabal.project",
+    "cabal.project.local",
+    "*.chs",
+    "*.cpphs",
+    "*.gc",
+    "*.hs",
+    "*.hsc",
+    "*.hsig",
+    "*.lhs",
+    "*.lhsig",
+    "*.ly",
+    "*.x",
+    "*.y",
+]
 options = []

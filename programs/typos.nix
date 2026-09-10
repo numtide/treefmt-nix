@@ -14,8 +14,6 @@ in
     (mkFormatterModule {
       name = "typos";
       args = [
-        "--write-changes"
-
         # Treefmt may pass files otherwise ignored by typos (e.g. files ignored in typos.toml).
         # '--force-exclude' stops typos from acting on any ignored files passed
         "--force-exclude"
@@ -25,6 +23,17 @@ in
   ];
 
   options.programs.typos = {
+    autoFix = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Write fixes out
+
+        Set to falkse to run typos in check-only mode; useful if you find that
+        automatic corrections are often destructive or incorrect.
+      '';
+    };
+
     threads = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
       default = null;
@@ -142,6 +151,7 @@ in
           "--config"
           cfg.configFile
         ])
+        ++ lib.optional cfg.autoFix "--write-changes"
         ++ lib.optional cfg.sort "--sort"
         ++ lib.optional cfg.isolated "--isolated"
         ++ lib.optional cfg.hidden "--hidden"

@@ -29,7 +29,7 @@ in
       description = ''
         Write fixes out
 
-        Set to falkse to run typos in check-only mode; useful if you find that
+        Set to false to run typos in check-only mode; useful if you find that
         automatic corrections are often destructive or incorrect.
       '';
     };

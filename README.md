@@ -258,6 +258,7 @@ functions.
 * [dscanner](programs/dscanner.nix)
 * [efmt](programs/efmt.nix)
 * [elm-format](programs/elm-format.nix)
+* [emacs-lisp-indent](programs/emacs-lisp-indent.nix)
 * [erlfmt](programs/erlfmt.nix)
 * [fantomas](programs/fantomas.nix)
 * [fish_indent](programs/fish_indent.nix)

@@ -1,0 +1,4 @@
+build:
+        echo hi
+test:   build
+  echo test

@@ -420,7 +420,12 @@ In order to add a new formatter do the following things:
 
    5. Once this is good, revert those changes.
 
-5. Submit the PR!
+5. Add spec fixtures in `./checks/spec/<formatter>/`: an `unformatted/` folder
+   with files the formatter must change, and optionally an `invalid/` folder
+   with files it must reject. This generates a `spec-<formatter>` check
+   verifying the formatter follows the specification. Run it with
+   `nix build .#checks.x86_64-linux.spec-<formatter>`.
+6. Submit the PR!
 
 ### Definition of a `meta.maintainer`
 

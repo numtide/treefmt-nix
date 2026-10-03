@@ -1,7 +1,10 @@
 { pkgs, ... }:
 {
   projectRootFile = "treefmt.nix";
-  settings.excludes = [ "*.toml" ];
+  settings.excludes = [
+    "*.toml"
+    "checks/spec/*"
+  ];
 
   programs.deadnix.enable = true;
   programs.deno.enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";

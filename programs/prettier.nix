@@ -281,13 +281,15 @@ let
         Provide a list of patterns to override prettier configuration.
       '';
       type = types.nullOr (types.listOf types.attrs);
-      example = {
-        files = [
-          "*.html"
-          "legacy/**/*.js"
-        ];
-        options.tabwidth = 4;
-      };
+      example = [
+        {
+          files = [
+            "*.html"
+            "legacy/**/*.js"
+          ];
+          options.tabwidth = 4;
+        }
+      ];
       default = null;
     };
   };

@@ -3,13 +3,4 @@
 command = "fourmolu"
 excludes = []
 includes = ["*.hs"]
-options = [
-    "-i",
-    "-c",
-    "--ghc-opt",
-    "-XBangPatterns",
-    "--ghc-opt",
-    "-XPatternSynonyms",
-    "--ghc-opt",
-    "-XTypeApplications",
-]
+options = ["-i", "-c", "--ghc-opt", "-XBangPatterns", "--ghc-opt", "-XPatternSynonyms", "--ghc-opt", "-XTypeApplications"]

@@ -2,26 +2,5 @@
 [formatter.oxfmt]
 command = "oxfmt"
 excludes = []
-includes = [
-    "*.cjs",
-    "*.css",
-    "*.graphql",
-    "*.hbs",
-    "*.html",
-    "*.js",
-    "*.json",
-    "*.json5",
-    "*.jsonc",
-    "*.jsx",
-    "*.md",
-    "*.mdx",
-    "*.mjs",
-    "*.mustache",
-    "*.scss",
-    "*.ts",
-    "*.tsx",
-    "*.vue",
-    "*.yaml",
-    "*.yml",
-]
+includes = ["*.cjs", "*.css", "*.graphql", "*.hbs", "*.html", "*.js", "*.json", "*.json5", "*.jsonc", "*.jsx", "*.md", "*.mdx", "*.mjs", "*.mustache", "*.scss", "*.ts", "*.tsx", "*.vue", "*.yaml", "*.yml"]
 options = []

@@ -11,6 +11,7 @@
       includes = [
         "*.ex"
         "*.exs"
+        "*.heex"
       ];
     })
   ];

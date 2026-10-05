@@ -2,13 +2,5 @@
 [formatter.xmllint]
 command = "xmllint-wrapper"
 excludes = []
-includes = [
-    "*.xml",
-    "*.svg",
-    "*.xhtml",
-    "*.xsl",
-    "*.xslt",
-    "*.dtd",
-    "*.xsd",
-]
+includes = ["*.xml", "*.svg", "*.xhtml", "*.xsl", "*.xslt", "*.dtd", "*.xsd"]
 options = []

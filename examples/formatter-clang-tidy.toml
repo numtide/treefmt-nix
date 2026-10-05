@@ -2,19 +2,5 @@
 [formatter.clang-tidy]
 command = "clang-tidy"
 excludes = []
-includes = [
-    "*.c",
-    "*.cc",
-    "*.cpp",
-    "*.h",
-    "*.hh",
-    "*.hpp",
-    "*.glsl",
-    "*.vert",
-    ".tesc",
-    ".tese",
-    ".geom",
-    ".frag",
-    ".comp",
-]
+includes = ["*.c", "*.cc", "*.cpp", "*.h", "*.hh", "*.hpp", "*.glsl", "*.vert", ".tesc", ".tese", ".geom", ".frag", ".comp"]
 options = ["--fix", "--quiet"]

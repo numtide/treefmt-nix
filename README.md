@@ -282,6 +282,7 @@ functions.
 * [isort](programs/isort.nix)
 * [jq](programs/jq.nix)
 * [json-sort-cli](programs/json-sort-cli.nix)
+* [json-sort](programs/json-sort.nix)
 * [jsonfmt](programs/jsonfmt.nix)
 * [jsonnet-lint](programs/jsonnet-lint.nix)
 * [jsonnetfmt](programs/jsonnetfmt.nix)

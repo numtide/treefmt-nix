@@ -1,0 +1,6 @@
+cabal-version: 2.4
+name: a
+version: 0.1
+library
+  build-depends: base,   containers
+  exposed-modules: B, A

@@ -5,7 +5,10 @@
   imports = [
     (mkFormatterModule {
       name = "mix-format";
-      package = "elixir";
+      package = [
+        "beamPackages"
+        "elixir"
+      ];
       mainProgram = "mix";
       args = [ "format" ];
       includes = [

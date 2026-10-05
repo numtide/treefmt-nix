@@ -336,6 +336,7 @@ functions.
 * [sqlfluff-lint](programs/sqlfluff-lint.nix)
 * [sqlfluff](programs/sqlfluff.nix)
 * [sqruff](programs/sqruff.nix)
+* [starlark_fmt](programs/starlark_fmt.nix)
 * [statix](programs/statix.nix)
 * [stylish-haskell](programs/stylish-haskell.nix)
 * [stylua](programs/stylua.nix)

@@ -1,14 +1,9 @@
 {
-  pkgs,
   mkFormatterModule,
   ...
 }:
 {
-  meta = {
-    maintainers = [ "rotmh" ];
-    platforms = pkgs.lib.platforms.linux;
-    skipExample = true;
-  };
+  meta.maintainers = [ "rotmh" ];
 
   imports = [
     (mkFormatterModule {

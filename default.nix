@@ -13,6 +13,7 @@ let
       package ? name,
       mainProgram ? null,
       args ? [ ],
+      stdinArgs ? null,
       includes ? [ ],
       excludes ? [ ],
     }:
@@ -69,6 +70,9 @@ let
         }
         // (lib.optionalAttrs (args != [ ]) {
           options = if args._type or null == "order" then args else lib.mkBefore args;
+        })
+        // (lib.optionalAttrs (stdinArgs != null) {
+          stdin-options = if stdinArgs._type or null == "order" then stdinArgs else lib.mkBefore stdinArgs;
         })
         // (lib.optionalAttrs (cfg.includes != [ ]) {
           inherit (cfg) includes;

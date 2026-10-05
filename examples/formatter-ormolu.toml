@@ -3,14 +3,4 @@
 command = "ormolu"
 excludes = []
 includes = ["*.hs"]
-options = [
-    "--mode",
-    "inplace",
-    "--check-idempotence",
-    "--ghc-opt",
-    "-XBangPatterns",
-    "--ghc-opt",
-    "-XPatternSynonyms",
-    "--ghc-opt",
-    "-XTypeApplications",
-]
+options = ["--mode", "inplace", "--check-idempotence", "--ghc-opt", "-XBangPatterns", "--ghc-opt", "-XPatternSynonyms", "--ghc-opt", "-XTypeApplications"]

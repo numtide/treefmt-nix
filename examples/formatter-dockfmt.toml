@@ -2,14 +2,5 @@
 [formatter.dockfmt]
 command = "dockfmt"
 excludes = []
-includes = [
-    "Dockerfile",
-    "*/Dockerfile",
-    "*.Dockerfile",
-    "Dockerfile.*",
-    "*/Dockerfile.*",
-    "*.dockerfile",
-    "dockerfile.*",
-    "*/dockerfile.*",
-]
+includes = ["Dockerfile", "*/Dockerfile", "*.Dockerfile", "Dockerfile.*", "*/Dockerfile.*", "*.dockerfile", "dockerfile.*", "*/dockerfile.*"]
 options = ["fmt", "-w"]

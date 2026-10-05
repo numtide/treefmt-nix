@@ -86,6 +86,45 @@ let
     }) usableFormatterNames
   );
 
+  formattersOf =
+    names:
+    lib.foldl' (
+      acc: name:
+      acc // (treefmt-nix.evalModule pkgs { programs.${name}.enable = true; }).config.settings.formatter
+    ) { } names;
+
+  usableFormatters = formattersOf usableFormatterNames;
+
+  specChecks = lib.concatMapAttrs (
+    name: type:
+    if type != "directory" then
+      { }
+    else if !(formattersOf treefmt-nix.programs.names) ? ${name} then
+      throw "checks/spec/${name} does not match any formatter"
+    else
+      lib.optionalAttrs (usableFormatters ? ${name}) {
+        "spec-${name}" =
+          let
+            fmt = usableFormatters.${name};
+          in
+          pkgs.runCommand "spec-${name}"
+            {
+              nativeBuildInputs = with pkgs; [
+                coreutils
+                diffutils
+                writableTmpDirAsHomeHook
+              ];
+            }
+            ''
+              bash ${./formatter-spec.sh} \
+                ${./spec + "/${name}"} \
+                ${lib.escapeShellArgs ([ fmt.command ] ++ fmt.options)}
+
+              touch $out
+            '';
+      }
+  ) (builtins.readDir ./spec);
+
   # Example configs without default excludes
   exampleConfigs = lib.listToAttrs (
     map (name: {
@@ -157,6 +196,7 @@ let
     # Check that the docs render properly
     module-docs = (pkgs.nixosOptionsDoc { options = treefmtDocEval.options; }).optionsCommonMark;
   }
-  // programConfigs;
+  // programConfigs
+  // specChecks;
 in
 self

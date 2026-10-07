@@ -86,20 +86,20 @@ let
     }) usableFormatterNames
   );
 
-  formattersOf =
-    names:
-    lib.foldl' (
-      acc: name:
-      acc // (treefmt-nix.evalModule pkgs { programs.${name}.enable = true; }).config.settings.formatter
-    ) { } names;
+  formattersByProgram = lib.genAttrs treefmt-nix.programs.names (
+    name: (treefmt-nix.evalModule pkgs { programs.${name}.enable = true; }).config.settings.formatter
+  );
 
+  formattersOf = names: lib.mergeAttrsList (map (name: formattersByProgram.${name}) names);
+
+  allFormatters = formattersOf treefmt-nix.programs.names;
   usableFormatters = formattersOf usableFormatterNames;
 
   specChecks = lib.concatMapAttrs (
     name: type:
     if type != "directory" then
       { }
-    else if !(formattersOf treefmt-nix.programs.names) ? ${name} then
+    else if !allFormatters ? ${name} then
       throw "checks/spec/${name} does not match any formatter"
     else
       lib.optionalAttrs (usableFormatters ? ${name}) {

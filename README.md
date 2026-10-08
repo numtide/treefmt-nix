@@ -267,6 +267,7 @@ functions.
 * [formatjson5](programs/formatjson5.nix)
 * [fourmolu](programs/fourmolu.nix)
 * [fprettify](programs/fprettify.nix)
+* [fracjson](programs/fracjson.nix)
 * [gdformat](programs/gdformat.nix)
 * [genemichaels](programs/genemichaels.nix)
 * [gleam](programs/gleam.nix)

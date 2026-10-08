@@ -343,7 +343,7 @@ in
           pkgs.runCommandLocal "treefmt-check"
             {
               buildInputs = [
-                pkgs.git
+                pkgs.gitMinimal
                 pkgs.git-lfs
                 config.build.wrapper
               ];

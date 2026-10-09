@@ -3,4 +3,5 @@
 command = "nu"
 excludes = []
 includes = ["*.nu"]
+no-positional-arg-support = true
 options = ["--no-config-file", "nu_check.nu"]

@@ -317,6 +317,7 @@ functions.
 * [perltidy](programs/perltidy.nix)
 * [php-cs-fixer](programs/php-cs-fixer.nix)
 * [pinact](programs/pinact.nix)
+* [pkl](programs/pkl.nix)
 * [prettier](programs/prettier.nix)
 * [protolint](programs/protolint.nix)
 * [pyright](programs/pyright.nix)

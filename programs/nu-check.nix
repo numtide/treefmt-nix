@@ -8,30 +8,14 @@
 let
   cfg = config.programs.nu-check;
 
-  # `nu-check` is a Nushell builtin, not a binary, so it runs inside a one-file `nu`
-  # script; treefmt calls it once per file (no-positional-arg-support below).
-  #
-  # Inside a script, `nu-check` resolves a relative path against the script's own
-  # directory (here, the store), not the working directory treefmt runs from, so the
-  # path is made absolute against $env.PWD first.
-  check = "nu-check ${lib.optionalString cfg.as-module "--as-module "}";
+  # `nu-check` is a Nushell builtin, not a binary, so it runs inside a script.
   script = pkgs.writeText "nu_check.nu" ''
-    # Parse-check the file treefmt passes; exit 1 if it does not parse.
+    # Fail if the file is not valid Nushell: with --debug, nu-check prints the
+    # parse error and raises instead of returning false.
     def main [file: string] {
-      let absolute = $env.PWD | path join $file
-      if not ($absolute | path exists) {
-        print --stderr $"($file): no such file"
-        exit 1
-      }
-      if not (${check}$absolute) {
-        # Report it with nu's own diagnostic. A child process gets the path as a
-        # literal, so the diagnostic names the file rather than the expression
-        # that computed it.
-        do --ignore-errors {
-          ^$nu.current-exe --no-config-file --commands $"${check}--debug ($absolute | to nuon) | ignore"
-        }
-        exit 1
-      }
+      # nu-check resolves a relative path against the running script's directory
+      # ($env.FILE_PWD, here the store), not the directory treefmt runs in.
+      nu-check ${lib.optionalString cfg.as-module "--as-module "}--debug ($file | path expand)
     }
   '';
 in
@@ -42,23 +26,18 @@ in
     (mkFormatterModule {
       name = "nu-check";
       package = "nushell";
+      args = [
+        "--no-config-file"
+        "${script}"
+      ];
       includes = [ "*.nu" ];
     })
   ];
 
-  options.programs.nu-check = {
-    as-module = lib.mkEnableOption "parsing every file as a module (`nu-check --as-module`)";
-  };
+  options.programs.nu-check.as-module = lib.mkEnableOption "parsing every file as a module (`nu-check --as-module`)";
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.nu-check = {
-      command = lib.getExe cfg.package;
-      options = [
-        "--no-config-file"
-        "${script}"
-      ];
-      # `nu-check` takes a single path.
-      no-positional-arg-support = true;
-    };
+    # The script checks one file per run.
+    settings.formatter.nu-check.no-positional-arg-support = true;
   };
 }

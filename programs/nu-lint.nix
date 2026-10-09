@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.programs.nu-lint;
-  settingsFormat = pkgs.formats.toml { };
+  configFormat = pkgs.formats.toml { };
 in
 {
   meta.maintainers = [ "aldoborrero" ];
@@ -19,34 +19,26 @@ in
     })
   ];
 
-  options.programs.nu-lint = {
-    fix = lib.mkEnableOption ''
-      applying nu-lint's automatic fixes (`--fix`). Without it, nu-lint only
-      reports, and fails on violations at `error` level
+  options.programs.nu-lint.settings = lib.mkOption {
+    description = ''
+      nu-lint configuration, written to a TOML file and passed with `--config`.
+      See <https://codeberg.org/wvhulle/nu-lint#configuration>.
     '';
-
-    settings = lib.mkOption {
-      description = ''
-        nu-lint configuration, written to a TOML file passed with `--config`.
-        When empty, nu-lint reads `.nu-lint.toml` from the project root.
-        See <https://codeberg.org/wvhulle/nu-lint#configuration>.
-      '';
-      type = settingsFormat.type;
-      default = { };
-      example = {
-        max_pipeline_length = 80;
-        groups.performance = "warning";
-        rules.dispatch_with_subcommands = "hint";
-      };
+    type = lib.types.submodule { freeformType = configFormat.type; };
+    default = { };
+    example = {
+      max_pipeline_length = 80;
+      groups.performance = "warning";
+      rules.dispatch_with_subcommands = "hint";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.nu-lint.options =
-      (lib.optional cfg.fix "--fix")
-      ++ (lib.optionals (cfg.settings != { }) [
-        "--config"
-        "${settingsFormat.generate "nu-lint.toml" cfg.settings}"
-      ]);
+    # Always pass a config file, even an empty one: without `--config`, nu-lint
+    # reads the user's ~/.config/nu-lint.toml, so results would vary by machine.
+    settings.formatter.nu-lint.options = [
+      "--config"
+      "${configFormat.generate "nu_lint.toml" cfg.settings}"
+    ];
   };
 }

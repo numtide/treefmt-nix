@@ -3,4 +3,4 @@
 command = "nu-lint"
 excludes = []
 includes = ["*.nu"]
-options = []
+options = ["--config", "nu_lint.toml"]

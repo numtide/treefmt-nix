@@ -336,7 +336,14 @@ in
 
   options.programs.prettier = {
     # Represents the prettierrc.json config schema
-    settings = settingsSchema;
+    settings = mkOption {
+      default = { };
+      type = types.submodule {
+        # Allow freeform values to allow for plugin settings.
+        freeformType = configFormat.type;
+        options = settingsSchema;
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {

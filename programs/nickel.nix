@@ -6,6 +6,7 @@
     (mkFormatterModule {
       name = "nickel";
       args = [ "format" ];
+      printsResult = "fromStdin";
       includes = [
         "*.ncl"
         "*.nickel"

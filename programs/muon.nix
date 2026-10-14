@@ -15,10 +15,8 @@ in
   imports = [
     (mkFormatterModule {
       name = "muon";
-      args = [
-        "fmt"
-        "-i"
-      ];
+      args = [ "fmt" ];
+      printsResult = "fromArgument";
       includes = [
         "meson.build"
         "meson.options"

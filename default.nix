@@ -7,6 +7,37 @@ let
   # Program to formatter mapping
   programs = import ./programs.nix;
 
+  writeIfChanged =
+    pkgs: name: exe: printsResult:
+    let
+      input = if printsResult == "fromStdin" then ''< "$file"'' else ''"$file"'';
+    in
+    assert builtins.elem printsResult [
+      "fromArgument"
+      "fromStdin"
+    ];
+    pkgs.writeShellApplication {
+      name = "${name}-wrapper";
+      runtimeInputs = [ pkgs.diffutils ];
+      text = ''
+        options=()
+        while [[ $# -gt 0 && $1 != -- ]]; do
+          options+=("$1")
+          shift
+        done
+        shift
+        temp=$(mktemp)
+        trap 'rm "$temp"' EXIT
+        for file in "$@"; do
+          ${if pkgs.lib.isString exe then exe else pkgs.lib.getExe exe} "''${options[@]}" ${input} > "$temp"
+          # cp keeps the file's mode and follows symlinks, unlike mv
+          if ! cmp -s "$file" "$temp"; then
+            cp "$temp" "$file"
+          fi
+        done
+      '';
+    };
+
   mkFormatterModule =
     {
       name,
@@ -14,6 +45,10 @@ let
       mainProgram ? null,
       args ? [ ],
       stdinArgs ? null,
+      # null (default): the formatter edits the file in place
+      # "fromArgument": it prints the result of the file passed as last argument
+      # "fromStdin": it prints the result of the file piped to stdin
+      printsResult ? null,
       includes ? [ ],
       excludes ? [ ],
     }:
@@ -64,12 +99,17 @@ let
           command = lib.mkDefault (
             let
               pkg = if opt.finalPackage.isDefined then cfg.finalPackage else cfg.package;
+              exe = if mainProgram == null then pkg else "${pkg}/bin/${mainProgram}";
             in
-            if mainProgram == null then pkg else "${pkg}/bin/${mainProgram}"
+            if printsResult == null then exe else writeIfChanged pkgs name exe printsResult
           );
         }
-        // (lib.optionalAttrs (args != [ ]) {
-          options = if args._type or null == "order" then args else lib.mkBefore args;
+        // (lib.optionalAttrs (args != [ ] || printsResult != null) {
+          options = lib.mkMerge (
+            lib.optional (args != [ ]) (if args._type or null == "order" then args else lib.mkBefore args)
+            # Separates options from files for the wrapper
+            ++ lib.optional (printsResult != null) (lib.mkAfter [ "--" ])
+          );
         })
         // (lib.optionalAttrs (stdinArgs != null) {
           stdin-options = if stdinArgs._type or null == "order" then stdinArgs else lib.mkBefore stdinArgs;

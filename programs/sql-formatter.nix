@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   mkFormatterModule,
@@ -36,6 +35,9 @@ in
       name = "sql-formatter";
       package = "sql-formatter";
       includes = [ "*.sql" ];
+      # sql-formatter doesn't support multiple file targets
+      # see https://github.com/sql-formatter-org/sql-formatter/issues/552
+      printsResult = "fromArgument";
     })
   ];
 
@@ -49,16 +51,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.sql-formatter = {
-      # sql-formatter doesn't support multiple file targets
-      # see https://github.com/sql-formatter-org/sql-formatter/issues/552
-      command = pkgs.writeShellScriptBin "sql-formatter-fix" ''
-        for file in "$@"; do
-          ${cfg.package}/bin/sql-formatter --fix ${
-            lib.optionalString (cfg.dialect != null) "-l ${cfg.dialect}"
-          } $file
-        done
-      '';
-    };
+    settings.formatter.sql-formatter.options = lib.optionals (cfg.dialect != null) [
+      "-l"
+      cfg.dialect
+    ];
   };
 }

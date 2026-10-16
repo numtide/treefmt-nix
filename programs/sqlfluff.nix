@@ -46,6 +46,10 @@ in
         "--disable-progress-bar"
         "--processes"
         "0"
+      ]
+      ++ lib.optionals (cfg.configFile != null) [
+        "--config"
+        "${cfg.configFile}"
       ];
       includes = [ "*.sql" ];
     })
@@ -57,6 +61,12 @@ in
       type = with lib.types; nullOr (enum dialects);
       default = null;
       example = "sqlite";
+    };
+
+    configFile = lib.mkOption {
+      description = "The config file to pass when formatting";
+      type = lib.types.path;
+      default = null;
     };
   };
 

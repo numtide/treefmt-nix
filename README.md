@@ -307,6 +307,8 @@ functions.
 * [nixf-diagnose](programs/nixf-diagnose.nix)
 * [nixfmt](programs/nixfmt.nix)
 * [nixpkgs-fmt](programs/nixpkgs-fmt.nix)
+* [nu-check](programs/nu-check.nix)
+* [nu-lint](programs/nu-lint.nix)
 * [ocamlformat](programs/ocamlformat.nix)
 * [odinfmt](programs/odinfmt.nix)
 * [opa](programs/opa.nix)

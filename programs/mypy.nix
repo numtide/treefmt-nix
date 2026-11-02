@@ -79,7 +79,7 @@ in
   config = lib.mkIf config.programs.mypy.enable {
     settings.formatter = lib.mapAttrs' (
       name: cfg:
-      lib.nameValuePair "mypy-${escapePath name}" {
+      lib.nameValuePair ("mypy" + lib.optionalString (name != "") "-${escapePath name}") {
         command = pkgs.bash;
         options = [
           "-eucx"

@@ -13,4 +13,9 @@
   programs.shellcheck.enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";
   programs.shfmt.enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";
   programs.yamlfmt.enable = true;
+
+  programs.shfmt = {
+    indent_size = 2;
+    simplify = true;
+  };
 }

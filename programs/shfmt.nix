@@ -47,11 +47,13 @@ in
       '';
     };
 
-    useEditorConfig = lib.mkEnableOption ''
-      Use .editorconfig file for
-      formatting. This is mutually exlusive with all other settings. See [shfmt
-      docs](https://github.com/mvdan/sh/blob/v3.12.0/cmd/shfmt/shfmt.1.scd?plain=1#L20-L21).
-    '';
+    useEditorConfig = lib.mkEnableOption "" // {
+      description = ''
+        Whether to use {file}`.editorconfig` for
+        formatting. This is mutually exlusive with all other settings. See [shfmt
+        docs](https://github.com/mvdan/sh/blob/v3.12.0/cmd/shfmt/shfmt.1.scd?plain=1#L20-L21).
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {

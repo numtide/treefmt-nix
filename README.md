@@ -228,6 +228,7 @@ functions.
 * [aiken](programs/aiken.nix)
 * [air](programs/air.nix)
 * [alejandra](programs/alejandra.nix)
+* [asciidoctor](programs/asciidoctor.nix)
 * [asmfmt](programs/asmfmt.nix)
 * [autocorrect](programs/autocorrect.nix)
 * [beautysh](programs/beautysh.nix)

@@ -58,15 +58,11 @@ in
 
   config = lib.mkIf cfg.enable {
     settings.formatter.shfmt.options =
-      let
-        options =
-          (lib.optionals (!isNull cfg.indent_size) [
-            "-i"
-            (toString cfg.indent_size)
-          ])
-          ++ (lib.optionals (cfg.simplify) [ "-s" ]);
-      in
-      assert cfg.useEditorConfig -> builtins.length options == 0;
-      options;
+      assert cfg.useEditorConfig -> builtins.length config.settings.formatter.shfmt.options == 0;
+      lib.optionals (cfg.indent_size != null) [
+        "-i"
+        (toString cfg.indent_size)
+      ]
+      ++ lib.optional (cfg.simplify) "-s";
   };
 }

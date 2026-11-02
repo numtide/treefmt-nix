@@ -31,7 +31,7 @@ in
   options.programs.shfmt = {
     indent_size = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
-      default = if cfg.useEditorConfig then null else 2;
+      default = null;
       example = 4;
       description = ''
         Sets the number of spaces to be used in indentation. Uses tabs if set to
@@ -39,13 +39,7 @@ in
       '';
     };
 
-    simplify = lib.mkOption {
-      type = lib.types.bool;
-      default = !cfg.useEditorConfig;
-      description = ''
-        Enables the `-s` (`--simplify`) flag, which simplifies code where possible.
-      '';
-    };
+    simplify = lib.mkEnableOption "the `-s` (`--simplify`) flag, which simplifies code where possible";
 
     useEditorConfig = lib.mkEnableOption "" // {
       description = ''

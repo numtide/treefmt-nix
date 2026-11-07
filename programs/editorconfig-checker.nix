@@ -58,6 +58,11 @@ in
     disable-trim-trailing-whitespace = lib.mkEnableOption "disabling the trailing whitespace check";
   };
 
+  # editorconfig-checker only reports violations and does not modify files.
+  # Since v4.0.0 it supports `-fix`, which automatically fixes
+  # `trim_trailing_whitespace`, `end_of_line` and `insert_final_newline` violations.
+  # We do not pass it by default because the nixpkgs we follow still ships v3,
+  # where the flag does not exist.
   config = lib.mkIf cfg.enable {
     settings.formatter.editorconfig-checker.options =
       (lib.optionals (cfg.configFile != null) [

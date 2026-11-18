@@ -31,7 +31,7 @@ in
   options.programs.shfmt = {
     indent_size = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
-      default = if cfg.useEditorConfig then null else 2;
+      default = null;
       example = 4;
       description = ''
         Sets the number of spaces to be used in indentation. Uses tabs if set to
@@ -39,32 +39,24 @@ in
       '';
     };
 
-    simplify = lib.mkOption {
-      type = lib.types.bool;
-      default = !cfg.useEditorConfig;
+    simplify = lib.mkEnableOption "the `-s` (`--simplify`) flag, which simplifies code where possible";
+
+    useEditorConfig = lib.mkEnableOption "" // {
       description = ''
-        Enables the `-s` (`--simplify`) flag, which simplifies code where possible.
+        Whether to use {file}`.editorconfig` for
+        formatting. This is mutually exlusive with all other settings. See [shfmt
+        docs](https://github.com/mvdan/sh/blob/v3.12.0/cmd/shfmt/shfmt.1.scd?plain=1#L20-L21).
       '';
     };
-
-    useEditorConfig = lib.mkEnableOption ''
-      Use .editorconfig file for
-      formatting. This is mutually exlusive with all other settings. See [shfmt
-      docs](https://github.com/mvdan/sh/blob/v3.12.0/cmd/shfmt/shfmt.1.scd?plain=1#L20-L21).
-    '';
   };
 
   config = lib.mkIf cfg.enable {
     settings.formatter.shfmt.options =
-      let
-        options =
-          (lib.optionals (!isNull cfg.indent_size) [
-            "-i"
-            (toString cfg.indent_size)
-          ])
-          ++ (lib.optionals (cfg.simplify) [ "-s" ]);
-      in
-      assert cfg.useEditorConfig -> builtins.length options == 0;
-      options;
+      assert cfg.useEditorConfig -> builtins.length config.settings.formatter.shfmt.options == 0;
+      lib.optionals (cfg.indent_size != null) [
+        "-i"
+        (toString cfg.indent_size)
+      ]
+      ++ lib.optional (cfg.simplify) "-s";
   };
 }

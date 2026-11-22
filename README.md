@@ -221,6 +221,9 @@ functions.
 
 `treefmt-nix` currently supports 100+ formatters:
 
+<details>
+  <summary>Expand to see all formatters</summary>
+
 <!-- deno-fmt-ignore-start -->
 <!-- `> bash ./supported-programs.sh` -->
 
@@ -361,6 +364,8 @@ functions.
 - [zprint](programs/zprint.nix)
 <!-- END mdsh -->
 <!-- deno-fmt-ignore-end -->
+
+</details>
 
 For non-Nix users, you can also find the generated examples in the
 [./examples](./examples) folder.

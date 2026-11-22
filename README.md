@@ -38,15 +38,15 @@ Python, Rust, Go, Haskell and more.
 To run `treefmt-nix` with nix-classic, import the repo using
 [`niv`](https://github.com/nmattia/niv):
 
-```
-$ niv add numtide/treefmt-nix
+```sh
+niv add numtide/treefmt-nix
 ```
 
 Alternatively, you can download the source and run `nix-build` in the project
 root directory:
 
-```
-$ nix-build
+```sh
+nix-build
 ```
 
 The command will return the helper functions which will be later used to produce
@@ -81,8 +81,8 @@ directory.
 
 Next, execute this command:
 
-```
-$ nix-build myfile.nix
+```sh
+nix-build myfile.nix
 ```
 
 This command returns a derivation that contains a `treefmt` binary at
@@ -145,8 +145,8 @@ excludes and formatter options.
 After specifying the flake, run
 [`nix fmt`](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-fmt.html):
 
-```
-$ nix fmt
+```sh
+nix fmt
 ```
 
 Nix-fmt is a tool to format all nix files in the project, but with the specified
@@ -192,7 +192,7 @@ settings.formatter.terraform.excludes = [ "hello.tf" ];
 - The option `programs.terraform.enable` enables the needed formatter. You can
   specify as many formatter as you want. For instance:
 
-```
+```nix
 programs.terraform.enable = true;
 programs.gofmt.enable = true;
 ```
@@ -414,13 +414,13 @@ In order to add a new formatter do the following things:
       that no additional changes were made.
    4. Add the formatter to this file [here](#supported-programs) by running:
 
-      ```bash
+      ```sh
       mdsh -i README.md -o README.md
       ```
 
       or with Nix
 
-      ```bash
+      ```sh
       nix run github:zimbatm/mdsh -- -i README.md -o README.md
       ```
 

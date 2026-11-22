@@ -2,16 +2,16 @@
 
 # treefmt-nix
 
-<img src="https://avatars.githubusercontent.com/u/20373834" height="150"/>
+<img alt="Numtide logo" height="150" src="https://avatars.githubusercontent.com/u/20373834">
 
 **Fast and convenient multi-file formatting with Nix**
 
-_A <a href="https://numtide.com/">numtide</a> project._
+_A [numtide](https://numtide.com/) project._
 
-<p>
-<img alt="Static Badge" src="https://img.shields.io/badge/Status-stable-green">
-<a href="https://app.element.io/#/room/#home:numtide.com"><img src="https://img.shields.io/badge/Support-%23numtide-blue"/></a>
-</p>
+<!-- deno-fmt-ignore-start -->
+![Project status][status-img]
+[![Project support][support-img]][support-url]
+<!-- deno-fmt-ignore-end -->
 
 </div>
 
@@ -221,6 +221,7 @@ functions.
 
 `treefmt-nix` currently supports 100+ formatters:
 
+<!-- deno-fmt-ignore-start -->
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
@@ -359,6 +360,7 @@ functions.
 - [zizmor](programs/zizmor.nix)
 - [zprint](programs/zprint.nix)
 <!-- END mdsh -->
+<!-- deno-fmt-ignore-end -->
 
 For non-Nix users, you can also find the generated examples in the
 [./examples](./examples) folder.
@@ -412,7 +414,8 @@ In order to add a new formatter do the following things:
    3. Run `nix fmt`. Confirm that well-formatted files are unchanged and that
       badly-formatted files are flagged as such. Re-run `nix fmt` and confirm
       that no additional changes were made.
-   4. Add the formatter to this file [here](#supported-programs) by running:
+   4. Add the formatter to the [supported programs](#supported-programs) list in
+      this file by running:
 
       ```sh
       mdsh -i README.md -o README.md
@@ -448,7 +451,7 @@ That mostly means, for the given formatter:
 treefmt-nix works with all known Nix version.
 
 If you rely on flakes and `nix fmt`, we recommend running Nix 2.25 or Lix 2.92
-or later. See https://github.com/NixOS/nix/pull/11438
+or later. See <https://github.com/NixOS/nix/pull/11438>
 
 ## Commercial support
 
@@ -460,3 +463,7 @@ with Open Source projects: <https://numtide.com/contact>
 ## License
 
 All the code and documentation is licensed with the MIT license.
+
+[status-img]: https://img.shields.io/badge/Status-stable-green
+[support-img]: https://img.shields.io/badge/Support-%23numtide-blue
+[support-url]: https://app.element.io/#/room/#home:numtide.com

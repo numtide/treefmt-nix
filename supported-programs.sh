@@ -11,5 +11,5 @@ programs=(programs/*.nix)
 
 for program in "${programs[@]}"; do
   name=$(basename "$program" .nix)
-  echo "* [$name]($program)"
+  echo "- [$name]($program)"
 done

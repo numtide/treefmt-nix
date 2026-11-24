@@ -6,7 +6,7 @@
     (mkFormatterModule {
       name = "mdsh";
       args = [ "--inputs" ];
-      includes = [ "README.md" ];
+      includes = [ "*.md" ];
     })
   ];
 }

@@ -12,7 +12,8 @@
         "texlivePackages"
         "latexindent"
       ];
-      args = [ "-wd" ];
+      args = [ "--logfile=/dev/null" ];
+      printsResult = "fromArgument";
       includes = [
         "*.tex"
         "*.sty"

@@ -5,10 +5,8 @@
   imports = [
     (mkFormatterModule {
       name = "dockfmt";
-      args = [
-        "fmt"
-        "-w"
-      ];
+      args = [ "fmt" ];
+      printsResult = "fromArgument";
       includes = [
         "Dockerfile"
         "*/Dockerfile"

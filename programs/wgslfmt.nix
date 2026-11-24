@@ -15,6 +15,8 @@ in
       name = "wgslfmt";
       package = "wgsl-analyzer";
       mainProgram = "wgslfmt";
+      args = [ "-" ];
+      printsResult = "fromStdin";
       includes = [ "*.wgsl" ];
     })
   ];

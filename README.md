@@ -2,16 +2,16 @@
 
 # treefmt-nix
 
-<img src="https://avatars.githubusercontent.com/u/20373834" height="150"/>
+<img alt="Numtide logo" height="150" src="https://avatars.githubusercontent.com/u/20373834">
 
 **Fast and convenient multi-file formatting with Nix**
 
-_A <a href="https://numtide.com/">numtide</a> project._
+_A [numtide](https://numtide.com/) project._
 
-<p>
-<img alt="Static Badge" src="https://img.shields.io/badge/Status-stable-green">
-<a href="https://app.element.io/#/room/#home:numtide.com"><img src="https://img.shields.io/badge/Support-%23numtide-blue"/></a>
-</p>
+<!-- deno-fmt-ignore-start -->
+![Project status][status-img]
+[![Project support][support-img]][support-url]
+<!-- deno-fmt-ignore-end -->
 
 </div>
 
@@ -38,15 +38,15 @@ Python, Rust, Go, Haskell and more.
 To run `treefmt-nix` with nix-classic, import the repo using
 [`niv`](https://github.com/nmattia/niv):
 
-```
-$ niv add numtide/treefmt-nix
+```sh
+niv add numtide/treefmt-nix
 ```
 
 Alternatively, you can download the source and run `nix-build` in the project
 root directory:
 
-```
-$ nix-build
+```sh
+nix-build
 ```
 
 The command will return the helper functions which will be later used to produce
@@ -81,8 +81,8 @@ directory.
 
 Next, execute this command:
 
-```
-$ nix-build myfile.nix
+```sh
+nix-build myfile.nix
 ```
 
 This command returns a derivation that contains a `treefmt` binary at
@@ -145,8 +145,8 @@ excludes and formatter options.
 After specifying the flake, run
 [`nix fmt`](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-fmt.html):
 
-```
-$ nix fmt
+```sh
+nix fmt
 ```
 
 Nix-fmt is a tool to format all nix files in the project, but with the specified
@@ -192,7 +192,7 @@ settings.formatter.terraform.excludes = [ "hello.tf" ];
 - The option `programs.terraform.enable` enables the needed formatter. You can
   specify as many formatter as you want. For instance:
 
-```
+```nix
 programs.terraform.enable = true;
 programs.gofmt.enable = true;
 ```
@@ -221,144 +221,151 @@ functions.
 
 `treefmt-nix` currently supports 100+ formatters:
 
+<details>
+  <summary>Expand to see all formatters</summary>
+
+<!-- deno-fmt-ignore-start -->
 <!-- `> bash ./supported-programs.sh` -->
 
 <!-- BEGIN mdsh -->
-* [actionlint](programs/actionlint.nix)
-* [aiken](programs/aiken.nix)
-* [air](programs/air.nix)
-* [alejandra](programs/alejandra.nix)
-* [asmfmt](programs/asmfmt.nix)
-* [autocorrect](programs/autocorrect.nix)
-* [beautysh](programs/beautysh.nix)
-* [biome](programs/biome.nix)
-* [black](programs/black.nix)
-* [buf](programs/buf.nix)
-* [buildifier](programs/buildifier.nix)
-* [cabal-fmt](programs/cabal-fmt.nix)
-* [cabal-gild](programs/cabal-gild.nix)
-* [clang-format](programs/clang-format.nix)
-* [clang-tidy](programs/clang-tidy.nix)
-* [cljfmt](programs/cljfmt.nix)
-* [cmake-format](programs/cmake-format.nix)
-* [csharpier](programs/csharpier.nix)
-* [cue](programs/cue.nix)
-* [d2](programs/d2.nix)
-* [dart-format](programs/dart-format.nix)
-* [deadnix](programs/deadnix.nix)
-* [deno](programs/deno.nix)
-* [detekt](programs/detekt.nix)
-* [dfmt](programs/dfmt.nix)
-* [dhall](programs/dhall.nix)
-* [djlint](programs/djlint.nix)
-* [dnscontrol](programs/dnscontrol.nix)
-* [dockerfmt](programs/dockerfmt.nix)
-* [dockfmt](programs/dockfmt.nix)
-* [dos2unix](programs/dos2unix.nix)
-* [dprint](programs/dprint.nix)
-* [dscanner](programs/dscanner.nix)
-* [efmt](programs/efmt.nix)
-* [elm-format](programs/elm-format.nix)
-* [erlfmt](programs/erlfmt.nix)
-* [fantomas](programs/fantomas.nix)
-* [fish_indent](programs/fish_indent.nix)
-* [flake-edit](programs/flake-edit.nix)
-* [fnlfmt](programs/fnlfmt.nix)
-* [formatjson5](programs/formatjson5.nix)
-* [fourmolu](programs/fourmolu.nix)
-* [fprettify](programs/fprettify.nix)
-* [gdformat](programs/gdformat.nix)
-* [genemichaels](programs/genemichaels.nix)
-* [gleam](programs/gleam.nix)
-* [gofmt](programs/gofmt.nix)
-* [gofumpt](programs/gofumpt.nix)
-* [goimports](programs/goimports.nix)
-* [golangci-lint](programs/golangci-lint.nix)
-* [golines](programs/golines.nix)
-* [google-java-format](programs/google-java-format.nix)
-* [hclfmt](programs/hclfmt.nix)
-* [hlint](programs/hlint.nix)
-* [hujsonfmt](programs/hujsonfmt.nix)
-* [isort](programs/isort.nix)
-* [jq](programs/jq.nix)
-* [json-sort-cli](programs/json-sort-cli.nix)
-* [json-sort](programs/json-sort.nix)
-* [jsonfmt](programs/jsonfmt.nix)
-* [jsonnet-lint](programs/jsonnet-lint.nix)
-* [jsonnetfmt](programs/jsonnetfmt.nix)
-* [just](programs/just.nix)
-* [kdlfmt](programs/kdlfmt.nix)
-* [keep-sorted](programs/keep-sorted.nix)
-* [ktfmt](programs/ktfmt.nix)
-* [ktlint](programs/ktlint.nix)
-* [latexindent](programs/latexindent.nix)
-* [leptosfmt](programs/leptosfmt.nix)
-* [mandoc](programs/mandoc.nix)
-* [mbake](programs/mbake.nix)
-* [mdformat](programs/mdformat.nix)
-* [mdsh](programs/mdsh.nix)
-* [meson](programs/meson.nix)
-* [mix-format](programs/mix-format.nix)
-* [muon](programs/muon.nix)
-* [mypy](programs/mypy.nix)
-* [nbstripout](programs/nbstripout.nix)
-* [nickel](programs/nickel.nix)
-* [nimpretty](programs/nimpretty.nix)
-* [nixf-diagnose](programs/nixf-diagnose.nix)
-* [nixfmt](programs/nixfmt.nix)
-* [nixpkgs-fmt](programs/nixpkgs-fmt.nix)
-* [ocamlformat](programs/ocamlformat.nix)
-* [odinfmt](programs/odinfmt.nix)
-* [opa](programs/opa.nix)
-* [ormolu](programs/ormolu.nix)
-* [oxfmt](programs/oxfmt.nix)
-* [oxipng](programs/oxipng.nix)
-* [packer](programs/packer.nix)
-* [perltidy](programs/perltidy.nix)
-* [php-cs-fixer](programs/php-cs-fixer.nix)
-* [pinact](programs/pinact.nix)
-* [prettier](programs/prettier.nix)
-* [protolint](programs/protolint.nix)
-* [pyright](programs/pyright.nix)
-* [qmlformat](programs/qmlformat.nix)
-* [rstfmt](programs/rstfmt.nix)
-* [rubocop](programs/rubocop.nix)
-* [ruff-check](programs/ruff-check.nix)
-* [ruff-format](programs/ruff-format.nix)
-* [rufo](programs/rufo.nix)
-* [rumdl-check](programs/rumdl-check.nix)
-* [rumdl-format](programs/rumdl-format.nix)
-* [rustfmt](programs/rustfmt.nix)
-* [scalafmt](programs/scalafmt.nix)
-* [shellcheck](programs/shellcheck.nix)
-* [shfmt](programs/shfmt.nix)
-* [sizelint](programs/sizelint.nix)
-* [sql-formatter](programs/sql-formatter.nix)
-* [sqlfluff-lint](programs/sqlfluff-lint.nix)
-* [sqlfluff](programs/sqlfluff.nix)
-* [sqruff](programs/sqruff.nix)
-* [starlark_fmt](programs/starlark_fmt.nix)
-* [statix](programs/statix.nix)
-* [stylish-haskell](programs/stylish-haskell.nix)
-* [stylua](programs/stylua.nix)
-* [swift-format](programs/swift-format.nix)
-* [taplo](programs/taplo.nix)
-* [templ](programs/templ.nix)
-* [terraform](programs/terraform.nix)
-* [texfmt](programs/texfmt.nix)
-* [tilt](programs/tilt.nix)
-* [toml-sort](programs/toml-sort.nix)
-* [typos](programs/typos.nix)
-* [typstyle](programs/typstyle.nix)
-* [wgslfmt](programs/wgslfmt.nix)
-* [xmllint](programs/xmllint.nix)
-* [yamlfmt](programs/yamlfmt.nix)
-* [yamllint](programs/yamllint.nix)
-* [yapf](programs/yapf.nix)
-* [zig](programs/zig.nix)
-* [zizmor](programs/zizmor.nix)
-* [zprint](programs/zprint.nix)
+- [actionlint](programs/actionlint.nix)
+- [aiken](programs/aiken.nix)
+- [air](programs/air.nix)
+- [alejandra](programs/alejandra.nix)
+- [asmfmt](programs/asmfmt.nix)
+- [autocorrect](programs/autocorrect.nix)
+- [beautysh](programs/beautysh.nix)
+- [biome](programs/biome.nix)
+- [black](programs/black.nix)
+- [buf](programs/buf.nix)
+- [buildifier](programs/buildifier.nix)
+- [cabal-fmt](programs/cabal-fmt.nix)
+- [cabal-gild](programs/cabal-gild.nix)
+- [clang-format](programs/clang-format.nix)
+- [clang-tidy](programs/clang-tidy.nix)
+- [cljfmt](programs/cljfmt.nix)
+- [cmake-format](programs/cmake-format.nix)
+- [csharpier](programs/csharpier.nix)
+- [cue](programs/cue.nix)
+- [d2](programs/d2.nix)
+- [dart-format](programs/dart-format.nix)
+- [deadnix](programs/deadnix.nix)
+- [deno](programs/deno.nix)
+- [detekt](programs/detekt.nix)
+- [dfmt](programs/dfmt.nix)
+- [dhall](programs/dhall.nix)
+- [djlint](programs/djlint.nix)
+- [dnscontrol](programs/dnscontrol.nix)
+- [dockerfmt](programs/dockerfmt.nix)
+- [dockfmt](programs/dockfmt.nix)
+- [dos2unix](programs/dos2unix.nix)
+- [dprint](programs/dprint.nix)
+- [dscanner](programs/dscanner.nix)
+- [efmt](programs/efmt.nix)
+- [elm-format](programs/elm-format.nix)
+- [erlfmt](programs/erlfmt.nix)
+- [fantomas](programs/fantomas.nix)
+- [fish_indent](programs/fish_indent.nix)
+- [flake-edit](programs/flake-edit.nix)
+- [fnlfmt](programs/fnlfmt.nix)
+- [formatjson5](programs/formatjson5.nix)
+- [fourmolu](programs/fourmolu.nix)
+- [fprettify](programs/fprettify.nix)
+- [gdformat](programs/gdformat.nix)
+- [genemichaels](programs/genemichaels.nix)
+- [gleam](programs/gleam.nix)
+- [gofmt](programs/gofmt.nix)
+- [gofumpt](programs/gofumpt.nix)
+- [goimports](programs/goimports.nix)
+- [golangci-lint](programs/golangci-lint.nix)
+- [golines](programs/golines.nix)
+- [google-java-format](programs/google-java-format.nix)
+- [hclfmt](programs/hclfmt.nix)
+- [hlint](programs/hlint.nix)
+- [hujsonfmt](programs/hujsonfmt.nix)
+- [isort](programs/isort.nix)
+- [jq](programs/jq.nix)
+- [json-sort-cli](programs/json-sort-cli.nix)
+- [json-sort](programs/json-sort.nix)
+- [jsonfmt](programs/jsonfmt.nix)
+- [jsonnet-lint](programs/jsonnet-lint.nix)
+- [jsonnetfmt](programs/jsonnetfmt.nix)
+- [just](programs/just.nix)
+- [kdlfmt](programs/kdlfmt.nix)
+- [keep-sorted](programs/keep-sorted.nix)
+- [ktfmt](programs/ktfmt.nix)
+- [ktlint](programs/ktlint.nix)
+- [latexindent](programs/latexindent.nix)
+- [leptosfmt](programs/leptosfmt.nix)
+- [mandoc](programs/mandoc.nix)
+- [mbake](programs/mbake.nix)
+- [mdformat](programs/mdformat.nix)
+- [mdsh](programs/mdsh.nix)
+- [meson](programs/meson.nix)
+- [mix-format](programs/mix-format.nix)
+- [muon](programs/muon.nix)
+- [mypy](programs/mypy.nix)
+- [nbstripout](programs/nbstripout.nix)
+- [nickel](programs/nickel.nix)
+- [nimpretty](programs/nimpretty.nix)
+- [nixf-diagnose](programs/nixf-diagnose.nix)
+- [nixfmt](programs/nixfmt.nix)
+- [nixpkgs-fmt](programs/nixpkgs-fmt.nix)
+- [ocamlformat](programs/ocamlformat.nix)
+- [odinfmt](programs/odinfmt.nix)
+- [opa](programs/opa.nix)
+- [ormolu](programs/ormolu.nix)
+- [oxfmt](programs/oxfmt.nix)
+- [oxipng](programs/oxipng.nix)
+- [packer](programs/packer.nix)
+- [perltidy](programs/perltidy.nix)
+- [php-cs-fixer](programs/php-cs-fixer.nix)
+- [pinact](programs/pinact.nix)
+- [prettier](programs/prettier.nix)
+- [protolint](programs/protolint.nix)
+- [pyright](programs/pyright.nix)
+- [qmlformat](programs/qmlformat.nix)
+- [rstfmt](programs/rstfmt.nix)
+- [rubocop](programs/rubocop.nix)
+- [ruff-check](programs/ruff-check.nix)
+- [ruff-format](programs/ruff-format.nix)
+- [rufo](programs/rufo.nix)
+- [rumdl-check](programs/rumdl-check.nix)
+- [rumdl-format](programs/rumdl-format.nix)
+- [rustfmt](programs/rustfmt.nix)
+- [scalafmt](programs/scalafmt.nix)
+- [shellcheck](programs/shellcheck.nix)
+- [shfmt](programs/shfmt.nix)
+- [sizelint](programs/sizelint.nix)
+- [sql-formatter](programs/sql-formatter.nix)
+- [sqlfluff-lint](programs/sqlfluff-lint.nix)
+- [sqlfluff](programs/sqlfluff.nix)
+- [sqruff](programs/sqruff.nix)
+- [starlark_fmt](programs/starlark_fmt.nix)
+- [statix](programs/statix.nix)
+- [stylish-haskell](programs/stylish-haskell.nix)
+- [stylua](programs/stylua.nix)
+- [swift-format](programs/swift-format.nix)
+- [taplo](programs/taplo.nix)
+- [templ](programs/templ.nix)
+- [terraform](programs/terraform.nix)
+- [texfmt](programs/texfmt.nix)
+- [tilt](programs/tilt.nix)
+- [toml-sort](programs/toml-sort.nix)
+- [typos](programs/typos.nix)
+- [typstyle](programs/typstyle.nix)
+- [wgslfmt](programs/wgslfmt.nix)
+- [xmllint](programs/xmllint.nix)
+- [yamlfmt](programs/yamlfmt.nix)
+- [yamllint](programs/yamllint.nix)
+- [yapf](programs/yapf.nix)
+- [zig](programs/zig.nix)
+- [zizmor](programs/zizmor.nix)
+- [zprint](programs/zprint.nix)
 <!-- END mdsh -->
+<!-- deno-fmt-ignore-end -->
+
+</details>
 
 For non-Nix users, you can also find the generated examples in the
 [./examples](./examples) folder.
@@ -412,15 +419,16 @@ In order to add a new formatter do the following things:
    3. Run `nix fmt`. Confirm that well-formatted files are unchanged and that
       badly-formatted files are flagged as such. Re-run `nix fmt` and confirm
       that no additional changes were made.
-   4. Add the formatter to this file [here](#supported-programs) by running:
+   4. Add the formatter to the [supported programs](#supported-programs) list in
+      this file by running:
 
-      ```bash
+      ```sh
       mdsh -i README.md -o README.md
       ```
 
       or with Nix
 
-      ```bash
+      ```sh
       nix run github:zimbatm/mdsh -- -i README.md -o README.md
       ```
 
@@ -448,7 +456,7 @@ That mostly means, for the given formatter:
 treefmt-nix works with all known Nix version.
 
 If you rely on flakes and `nix fmt`, we recommend running Nix 2.25 or Lix 2.92
-or later. See https://github.com/NixOS/nix/pull/11438
+or later. See <https://github.com/NixOS/nix/pull/11438>
 
 ## Commercial support
 
@@ -460,3 +468,7 @@ with Open Source projects: <https://numtide.com/contact>
 ## License
 
 All the code and documentation is licensed with the MIT license.
+
+[status-img]: https://img.shields.io/badge/Status-stable-green
+[support-img]: https://img.shields.io/badge/Support-%23numtide-blue
+[support-url]: https://app.element.io/#/room/#home:numtide.com

@@ -170,9 +170,12 @@ in
       description = ''
         File to look for to determine the root of the project in the
         build.wrapper.
-        Set to null to let treefmt use its native detection.
+        Leave set to null to let treefmt use its native detection.
+        This detection needs a version control tool that treefmt supports
+        (such as `git` or `jj`) on the `PATH`. If that tool is not
+        available, set this option.
       '';
-      default = ".git/config";
+      default = null;
       type = types.nullOr types.str;
     };
 

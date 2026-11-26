@@ -65,8 +65,6 @@ let
   treefmt-nix = import treefmt-nixSrc;
 in
 treefmt-nix.mkWrapper nixpkgs {
-  # Used to find the project root
-  projectRootFile = ".git/config";
   # Enable the terraform formatter
   programs.terraform.enable = true;
   # Override the default package
@@ -176,8 +174,6 @@ specified in a `toml` format. On the contrary, with `nix`, you write in with a
 nix syntax like this:
 
 ```nix
-# Used to find the project root
-projectRootFile = ".git/config";
 # Enable the terraform formatter
 programs.terraform.enable = true;
 # Override the default package

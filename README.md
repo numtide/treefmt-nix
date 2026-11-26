@@ -333,6 +333,7 @@ functions.
 - [rumdl-check](programs/rumdl-check.nix)
 - [rumdl-format](programs/rumdl-format.nix)
 - [rustfmt](programs/rustfmt.nix)
+- [rustywind](programs/rustywind.nix)
 - [scalafmt](programs/scalafmt.nix)
 - [shellcheck](programs/shellcheck.nix)
 - [shfmt](programs/shfmt.nix)

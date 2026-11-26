@@ -157,6 +157,9 @@ let
     };
 
   };
+
+  # `treefmt` and its underlying programs for the devShells
+  devShellPackages = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);
 in
 {
   # Schema
@@ -244,6 +247,11 @@ in
     build = {
       devShell = mkOption {
         description = "The development shell with treefmt and its underlying programs";
+        type = types.package;
+        readOnly = true;
+      };
+      devShellNoCC = mkOption {
+        description = "The development shell with treefmt and its underlying programs (without a C compiler)";
         type = types.package;
         readOnly = true;
       };
@@ -384,8 +392,7 @@ in
   # Config
   config.build = {
     inherit configFile;
-    devShell = pkgs.mkShell {
-      nativeBuildInputs = [ config.build.wrapper ] ++ (lib.attrValues config.build.programs);
-    };
+    devShell = pkgs.mkShell { nativeBuildInputs = devShellPackages; };
+    devShellNoCC = pkgs.mkShellNoCC { nativeBuildInputs = devShellPackages; };
   };
 }

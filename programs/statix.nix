@@ -14,8 +14,13 @@ let
   # See: https://github.com/nerdypepper/statix/pull/54
   settingsDir = pkgs.runCommandLocal "statix-config" { } ''
     mkdir "$out"
-    cp ${settingsFile} "''${out}/statix.toml"
+    cp ${settingsFile} "$out/statix.toml"
   '';
+
+  options = lib.optionals (cfg.disabled-lints != [ ]) [
+    "--config"
+    "${settingsDir}/statix.toml"
+  ];
 in
 {
   meta.maintainers = [ ];
@@ -43,7 +48,7 @@ in
       # statix doesn't support multiple file targets
       command = pkgs.writeShellScriptBin "statix-fix" ''
         for file in "$@"; do
-          ${lib.getExe cfg.package} fix --config '${toString settingsDir}/statix.toml' "$file"
+          ${lib.getExe cfg.package} fix ${lib.concatStringsSep " " options} "$file"
         done
       '';
     };

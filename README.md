@@ -297,6 +297,7 @@ functions.
 - [ktlint](programs/ktlint.nix)
 - [latexindent](programs/latexindent.nix)
 - [leptosfmt](programs/leptosfmt.nix)
+- [luafmt](programs/luafmt.nix)
 - [mandoc](programs/mandoc.nix)
 - [mbake](programs/mbake.nix)
 - [mdformat](programs/mdformat.nix)
